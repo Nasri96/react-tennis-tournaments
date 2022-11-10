@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Header.module.css";
-import Container from "./Container";
+import Container from "./UI/Container";
 
 const Header = props => {
     const switchPageHandler = e => {
