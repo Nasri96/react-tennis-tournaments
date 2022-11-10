@@ -29,10 +29,6 @@ header {
     transition: border-bottom 0.2s;
 }
 
-.navMenu h3:hover {
-    border-bottom: 2px solid #303030;
-}
-
 @media screen and (max-width: 768px) {
     .nav {
         display: flex;
@@ -60,4 +56,8 @@ header {
         padding: 20px;
         cursor: pointer;
     }
+}
+
+.navMenu .active {
+    border-bottom: 2px solid #303030;
 }

@@ -1,7 +1,27 @@
+import { useState } from "react";
 import styles from "./Header.module.css";
 import Container from "./Container";
 
-const Header = () => {
+const Header = props => {
+    const switchPageHandler = e => {
+        props.onSwitchPage(e.target.textContent.toLowerCase());
+    }
+
+    const isActivePage = page => {
+        if(props.active === page) {
+            return true;
+        }
+
+        if(props.active === page) {
+            return true;
+        }
+
+        if(props.active === page) {
+            return true;
+        }
+        return false;
+    }
+
     return (
         <header>
             <Container>
@@ -10,9 +30,9 @@ const Header = () => {
                         <h1>Tennis Tournaments</h1>
                     </div>
                     <div className={styles.navMenu}>
-                        <h3>Players</h3>
-                        <h3>Tournaments</h3>
-                        <h3>Matches</h3>
+                        <h3 className={isActivePage("players") ? styles.active : ""} onClick={switchPageHandler}>Players</h3>
+                        <h3 className={isActivePage("tournaments") ? styles.active : ""} onClick={switchPageHandler}>Tournaments</h3>
+                        <h3 className={isActivePage("matches") ? styles.active : ""} onClick={switchPageHandler}>Matches</h3>
                     </div>
                 </nav>
             </Container>
