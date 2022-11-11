@@ -1,7 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { ReactDOM } from "react-dom";
 
 import './App.css';
 import Header from './components/Header';
+import Players from "./components/Players/Players";
+import Container from "./components/UI/Container";
 
 // tournament simulation files
 import { Match as MatchConstructor } from "./simulation/match";
@@ -16,8 +19,21 @@ function App() {
     setActivePage(page);
   }
 
+  let content;
+  if(activePage === "players") {
+    content = <Players />
+  }
+
+  
+
   return (
-    <Header onSwitchPage={switchPageHandler} active={activePage} />
+    <React.Fragment>
+      <Header onSwitchPage={switchPageHandler} active={activePage} />
+      <Container>
+        {content}
+      </Container>
+    </React.Fragment>
+    
   );
 }
 

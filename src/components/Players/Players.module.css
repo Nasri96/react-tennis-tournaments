@@ -1,0 +1,49 @@
+.tabs {
+    display: flex;
+    justify-content: center;
+    height: 60px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #303030;
+}
+
+.tabs .tab {
+    height: 100%;
+    transition: background-color 0.3s;
+    background-color: #428bff;
+    color: #F7F7F7;
+    padding: 15px;
+    flex-basis: 200px;
+    margin: 0 0.5px;
+    font-size: 1.25rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.tabs .activeTab {
+    background-color:#0062FF;
+}
+
+@media screen and (max-width: 768px) {
+    .tabs {
+        height: 40px;
+    }
+
+    .tabs .tab {
+      font-size: 0.9rem;
+      flex-basis: 130px;
+      padding: 10px;
+    }
+  }
+  
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .tabs {
+        height: 45px;
+    }
+
+    .tabs .tab {
+        font-size: 1rem;
+        flex-basis: 150px;
+        padding: 12px;
+    }
+}

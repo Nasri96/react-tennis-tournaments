@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
 
 * {
   margin: 0;
@@ -13,14 +13,19 @@ body {
   color: #303030;
 }
 
+input, textarea, button {
+  font-size: inherit;
+  font-family: inherit;
+}
+
 @media screen and (max-width: 768px) {
   body {
     font-size: 0.9rem;
-  }   
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
   body {
     font-size: 1rem;
-  }   
+  }
 }
