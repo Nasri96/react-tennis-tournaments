@@ -5,6 +5,8 @@ import Card from "../UI/Card";
 import PlayersRanks from "./PlayersRanks/PlayersRanks";
 import PlayersInfo from "./PlayersInfo/PlayersInfo";
 
+import Tab from "../UI/Tab";
+
 import { players } from "../../simulation/player";
 
 const Players = () => {
@@ -33,8 +35,8 @@ const Players = () => {
     return (
         <Card>
             <div className={styles.tabs}>
-                <button onClick={switchTabHandler} className={`${styles.tab} ${isActiveTab("playersranks") ? styles.activeTab : ""}`} type="button">Players Ranks</button>
-                <button onClick={switchTabHandler} className={`${styles.tab} ${isActiveTab("playersinfo") ? styles.activeTab : ""}`} type="button">Players Info</button>
+                <Tab name="Players Ranks" onClickHandler={switchTabHandler} isSelected={isActiveTab("playersranks") ? true : false} type="menuTab" />
+                <Tab name="Players Info" onClickHandler={switchTabHandler} isSelected={isActiveTab("playersinfo") ? true : false} type="menuTab" />
             </div>
             {content}
         </Card>

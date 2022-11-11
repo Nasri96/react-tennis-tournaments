@@ -2,10 +2,13 @@ import { useState, useEffect, useRef } from "react";
 
 import styles from "./PlayerItem.module.css";
 
+import Tab from "../../UI/Tab";
+
 const PlayerItem = ({ name, rank, points }) => {
     const [playerDetailsIsShown, setPlayerDetailsIsShown] = useState(false);
     const playerNameRef = useRef();
 
+    // scroll effect
     useEffect(() => {
         if(playerDetailsIsShown) {
             window.scroll({
@@ -21,7 +24,7 @@ const PlayerItem = ({ name, rank, points }) => {
 
     return (
         <div className={styles.player}>
-            <h3 ref={playerNameRef} onClick={displayPlayerDetailsHandler} className={!playerDetailsIsShown ? styles.playerName : `${styles.playerName} ${styles.selected}`}>{name}</h3>
+            <Tab ref={playerNameRef} name={name} onClickHandler={displayPlayerDetailsHandler} isSelected={playerDetailsIsShown ? true : false} type="playerTab" />
             <div className={!playerDetailsIsShown ? `${styles.playerDetails} ${styles.hidden}` : styles.playerDetails}>
                 <h4>Rank: {rank}</h4>
                 <h4>Points: {points}</h4>

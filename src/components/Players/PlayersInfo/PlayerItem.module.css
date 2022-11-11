@@ -3,23 +3,6 @@
     text-align: center;
 }
 
-.playerName {
-    height: 11vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border: 2px solid transparent;
-    margin-bottom: 5px;
-}
-
-.playerName:hover {
-    background-color: #0062FF;
-    color: #F7F7F7;
-    border: 2px solid #303030;
-    border-radius: 2px;
-}
-
 .playerDetails {
     visibility: visible;
     height: 75vh;
@@ -28,23 +11,4 @@
 .playerDetails.hidden {
     visibility: hidden;
     height: 0px;
-}
-
-.playerName.selected {
-    background-color: #0062FF;
-    color: #F7F7F7;
-    border: 2px solid #303030;
-    border-radius: 2px;
-}
-
-@media screen and (max-width: 768px) {
-    .playerName {
-      height: 8vh;
-    }
-}
-  
-@media screen and (min-width: 768px) and (max-width: 1200px) {
-    .playerName {
-        height: 9vh;
-    }
 }
