@@ -11,14 +11,6 @@ const Header = props => {
         if(props.active === page) {
             return true;
         }
-
-        if(props.active === page) {
-            return true;
-        }
-
-        if(props.active === page) {
-            return true;
-        }
         return false;
     }
 

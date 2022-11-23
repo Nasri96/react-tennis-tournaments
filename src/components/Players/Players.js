@@ -5,24 +5,14 @@ import Card from "../UI/Card";
 import PlayersRanks from "./PlayersRanks/PlayersRanks";
 import PlayersInfo from "./PlayersInfo/PlayersInfo";
 
+import useActiveTab from "../../hooks/useActiveTab";
+
 import Tab from "../UI/Tab";
 
 import { players } from "../../simulation/player";
 
 const Players = () => {
-    const [activeTab, setActiveTab] = useState("playersranks");
-
-    const switchTabHandler = e => {
-        const newStr = e.target.textContent.split(" ").join("").toLowerCase();
-        setActiveTab(newStr);
-    }
-
-    const isActiveTab = tab => {
-        if(activeTab === tab) {
-            return true;
-        }
-        return false;
-    }
+    const { activeTab, switchTabHandler, isActiveTab } = useActiveTab("playersranks");
 
     let content;
     if(activeTab === "playersranks") {

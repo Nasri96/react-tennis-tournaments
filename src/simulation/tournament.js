@@ -142,20 +142,21 @@ Tournament.prototype.createInitialMatches = function(matchBrackets) {
     return matches;
 }
 
-Tournament.prototype.simulateMatches = function(round) {
+Tournament.prototype.simulateMatches = function(round, simulation) {
     // Check if tournament is finished
     if(!this.winner) {
             const matches = this.nextRoundMatches;
             // Start simulating matches
-            matches.forEach(match => {
-                while(!match.winner) {
-                    match.handlePoint();
-                }
-                // Update player match history
-                const [player1, player2] = this.findPlayersInMatch(match.p1.name, match.p2.name);
-                player1.updateMatches(match);
-                player2.updateMatches(match);
-            })
+            if(simulation === "instant") {
+                matches.forEach(match => {
+                    while(!match.winner) {
+                        match.handlePoint();
+                    }
+                    // Update player match history
+                    const [player1, player2] = this.findPlayersInMatch(match.p1.name, match.p2.name);
+                    player1.updateMatches(match);
+                    player2.updateMatches(match);
+            })  
             // Save finished matches to matches object
             this.matches[round].push(...matches);
             // Prepare next round
@@ -169,7 +170,45 @@ Tournament.prototype.simulateMatches = function(round) {
                 this.givePlayerPoints();
                 Player.updatePlayerRanks();
                 console.log(players);
-             }
+            }
+            }
+            if(simulation === "slow") {
+                matches.forEach(match => {
+                    match.timer = setInterval(() => {
+                        match.handlePoint();
+                    }, 200);
+            
+                if(match.winner) {
+                    // Update player match history
+                    const [player1, player2] = this.findPlayersInMatch(match.p1.name, match.p2.name);
+                    player1.updateMatches(match);
+                    player2.updateMatches(match);
+                }
+            })
+            // Check if matches are finished
+            const timer = setInterval(() => {
+                const matchesAreDone = matches.every(match => match.winner);
+                console.log(matchesAreDone);
+                if(matchesAreDone) {
+                    // Save finished matches to matches object
+                    this.matches[round].push(...matches);
+                    // Prepare next round
+                    this.currentRound++;
+                    console.log(this.currentRound);
+                    // If finals didn't play, create matches for next round, else finish tournament
+                    if(!this.matches.finals.length) { 
+                        this.nextRoundMatches = this.createNextRoundMatches(matches);
+                    } 
+                    else {
+                        this.winner = this.matches.finals[0].winner;
+                        this.givePlayerPoints();
+                        Player.updatePlayerRanks();
+                        console.log(players);
+                    }
+                    clearInterval(timer);
+                }
+            }, 1000)
+            } 
     } 
     else {
         return "Tournament is finished.";

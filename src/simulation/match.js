@@ -1,6 +1,6 @@
 /* eslint-disable */
 export function Match(p1, p2, rules) {
-    this.p1 = {
+    this.p1 = { 
         name: p1.name,
         points: [],
         currentPoints: 0,

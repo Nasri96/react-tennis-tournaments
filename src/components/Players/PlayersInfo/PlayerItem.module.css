@@ -1,14 +1,7 @@
 .player {
     width: 100%;
-    text-align: center;
 }
 
 .playerDetails {
-    visibility: visible;
-    height: 75vh;
-}
-
-.playerDetails.hidden {
-    visibility: hidden;
-    height: 0px;
+    height: 80vh;
 }

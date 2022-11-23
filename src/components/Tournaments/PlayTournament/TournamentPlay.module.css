@@ -1,0 +1,9 @@
+.playContainer {
+    padding: 25px;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #303030;
+    color: #F7F7F7;
+}
+
