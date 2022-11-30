@@ -20,6 +20,8 @@ export function Match(p1, p2, rules) {
         gems: 0,
         sets: 0
     },
+
+    
     // Object => { setsWin: num, gemsWin: num, tiebreak: null }
     this.rules = rules;
     this.winner = null;
@@ -30,6 +32,7 @@ export function Match(p1, p2, rules) {
             {
                 name: this.p1.name,
                 point: 0,
+                tiebreakPoint: 0,
                 gems: 0,
                 sets: 0,
                 setGemsWon: []
@@ -37,6 +40,7 @@ export function Match(p1, p2, rules) {
             {
                 name: this.p2.name,
                 point: 0,
+                tiebreakPoint: 0,
                 gems: 0,
                 sets: 0,
                 setGemsWon: []
@@ -181,9 +185,11 @@ Match.prototype.updateOverview = function(players, setGemsWon) {
         player1.point = players[0].points[players[0].currentPoints - 1] || 0;
         player1.gems = players[0].gems;
         player1.sets = players[0].sets;
+        player1.tiebreakPoint = players[0].tiebreakPoints;
         player2.point = players[1].points[players[1].currentPoints - 1] || 0;
         player2.gems = players[1].gems;
         player2.sets = players[1].sets;
+        player2.tiebreakPoint = players[1].tiebreakPoints;
     }
     else if(setGemsWon === "UpdateSetGemsWon") {
         player1.setGemsWon.push(players[0].gems);

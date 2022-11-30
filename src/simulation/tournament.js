@@ -23,6 +23,7 @@ export function Tournament(name, participants, series) {
     this.winner = null;
     this.rounds = ["round1", "round2", "quarterFinals", "semiFinals", "finals"];
     this.currentRound = 0;
+    this.roundIsDone = undefined;
     this.matches = {
         round1: [],
         round2: [],
@@ -156,7 +157,7 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                     const [player1, player2] = this.findPlayersInMatch(match.p1.name, match.p2.name);
                     player1.updateMatches(match);
                     player2.updateMatches(match);
-            })  
+            })   
             // Save finished matches to matches object
             this.matches[round].push(...matches);
             // Prepare next round
@@ -187,9 +188,9 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
             })
             // Check if matches are finished
             const timer = setInterval(() => {
-                const matchesAreDone = matches.every(match => match.winner);
-                console.log(matchesAreDone);
-                if(matchesAreDone) {
+                this.roundIsDone = matches.every(match => match.winner);
+                console.log(this.roundIsDone);
+                if(this.roundIsDone) {
                     // Save finished matches to matches object
                     this.matches[round].push(...matches);
                     // Prepare next round

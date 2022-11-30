@@ -28,7 +28,6 @@ const Header = props => {
                     </div>
                 </nav>
             </Container>
-            
         </header>
     )
 }

@@ -1,0 +1,46 @@
+.match {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #F7F7F7;
+    border: 1px solid #303030;
+    color: #303030;
+}
+
+.match .matchPlayer {
+    display: flex;
+}
+
+.match .matchPlayer span {
+    text-align: left;
+}
+
+.match .matchPlayer .playerName {
+    flex-basis: 150px;
+}
+
+.match .matchPlayer .playerSetsWon {
+    flex-basis: 50px;
+}
+
+.match .matchPlayer .playerGemsWon {
+    flex-basis: 100px;
+    text-align: right;
+    color: #919191;
+}
+
+.match .matchPlayer .playerGemsWon span {
+    margin: 0 6px;
+}
+
+.match .matchPlayer .playerPoints {
+    flex-basis: 50px;
+}
+
+.match .matchPlayer .playerCurrentGems {
+    flex-basis: 50px;
+}
+
+.match .matchPlayer.loser {
+    color: #919191;
+}

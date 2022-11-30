@@ -1,9 +1,12 @@
 .playContainer {
-    padding: 25px;
+    padding: 50px;
     min-height: 80vh;
-    display: flex;
-    flex-direction: column;
     background-color: #303030;
     color: #F7F7F7;
 }
 
+@media screen and (max-width: 1200px) {
+    .playContainer {
+        padding: 25px;
+    }
+}

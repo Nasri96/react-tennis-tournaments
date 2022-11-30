@@ -1,0 +1,18 @@
+.nextRoundMatch {
+    display: flex;
+    width: 65%;
+    margin: 12px auto;
+    justify-content: space-evenly;
+    padding: 12px;
+    border: 2px solid #F7F7F7;
+}
+
+.nextRoundMatch span {
+    flex-basis: 200px;
+}
+
+@media screen and (max-width: 768px) {
+    .nextRoundMatch {
+      width: 100%;
+    }
+}

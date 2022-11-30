@@ -1,0 +1,31 @@
+.tournamentInfo {
+    display: flex;
+    font-size: 1.4rem;
+    margin-bottom: 50px;
+}
+
+.tournamentInfo .tournamentName {
+    text-align: center;
+    font-weight: normal;
+    padding: 25px 12px;
+    border-left: 1px solid #F7F7F7;
+}
+
+.tournamentInfo .tournamentSeries {
+    text-align: center;
+    font-weight: normal;
+    padding: 25px 12px;
+    border-left: 1px solid #F7F7F7;
+}
+
+@media screen and (max-width: 768px) {
+    .tournamentInfo {
+      font-size: 1.1rem;
+    }
+}
+  
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .tournamentInfo {
+        font-size: 1.2rem;
+    }
+}

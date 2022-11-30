@@ -1,0 +1,24 @@
+.nextRoundContainer {
+    text-align: center;
+}
+
+.nextRoundContainer .textHeadings {
+    font-size: 1.25rem;
+    padding: 20px;
+}
+
+.nextRoundContainer .nextRoundHeading {
+    font-size: 1.15rem;
+    padding: 15px;
+    font-weight: normal;
+}
+
+@media screen and (max-width: 768px) {
+    .nextRoundContainer .textHeadings {
+      font-size: 1.05rem;
+    }
+
+    .nextRoundContainer .nextRoundHeading {
+        font-size: 1rem;
+    }
+}
