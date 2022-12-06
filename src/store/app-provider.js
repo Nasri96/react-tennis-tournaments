@@ -8,7 +8,23 @@ import { Tournament as TournamentConstructor } from "../simulation/tournament";
 
 const AppProvider = props => {
     const [tournaments, setTournaments] = useState([]); 
+    const [matches, setMatches] = useState([]);
     const [activeTournament, setActiveTournament] = useState(false);
+
+    // Save matches played at tournament
+    const saveTournamentMatches = tournament => {
+        for(let round in tournament.matches) {
+            tournament.matches[round].forEach(match => {
+                setMatches(matches => {
+                    return [...matches, {
+                        match: match,
+                        tournamentName: tournament.name,
+                        round: round
+                    }];
+                })
+            })
+        }
+    }
 
     // After tournament is finished, save finished tournament
     useEffect(() => {
@@ -21,6 +37,7 @@ const AppProvider = props => {
                     setTournaments(tournaments => {
                         return [...tournaments, activeTournament];
                     })
+                    saveTournamentMatches(activeTournament);
                 }
             }, 500)
         }
@@ -37,7 +54,8 @@ const AppProvider = props => {
         activeTournament,
         setActiveTournament,
         players,
-        TournamentConstructor
+        TournamentConstructor,
+        matches
     }
 
     return (

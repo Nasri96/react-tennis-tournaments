@@ -1,0 +1,74 @@
+.matchesList {
+    background-color: #303030;
+    color: #F7F7F7;
+    min-height: 90vh;
+    padding: 80px 100px;
+}
+
+.heading {
+    text-align: center;
+    padding: 25px;
+}
+
+.matchContainer {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.match {
+    flex-basis: 66%;
+    flex-grow: 1;
+}
+
+.round {
+    flex-basis: 16%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #303030;
+    color: #303030;
+    background-color: #F7F7F7;
+    display: flex;
+    align-items: center;
+}
+
+.tournamentName {
+    flex-basis: 16%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #303030;
+    color: #303030;
+    background-color: #F7F7F7;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .matchesList {
+        padding: 25px;
+    }
+
+    .matchContainer {
+        margin: 15px;
+        border: 1px solid #303030;
+    }
+
+    .match :first-child {
+        margin: 0;
+    }
+
+    .round {
+        margin: 0;
+    }
+
+    .tournamentName {
+        margin: 0;
+    }
+}
+  
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .matchesList {
+        padding: 50px;
+    }
+}

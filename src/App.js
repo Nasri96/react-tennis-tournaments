@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 import './App.css';
+import Container from "./components/UI/Container";
 import Header from './components/Header';
 import Players from "./components/Players/Players";
 import Tournaments from "./components/Tournaments/Tournaments";
-import Container from "./components/UI/Container";
+import MatchesList from "./components/Matches/MatchesList";
 
 import AppProvider from "./store/app-provider";
 
@@ -21,6 +22,9 @@ function App() {
   }
   if(activePage === "tournaments") {
     content = <Tournaments />
+  }
+  if(activePage === "matches") {
+    content = <MatchesList />
   }
 
   
