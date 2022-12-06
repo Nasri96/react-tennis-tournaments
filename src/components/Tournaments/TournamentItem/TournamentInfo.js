@@ -1,12 +1,12 @@
 import styles from "./TournamentInfo.module.css";
 
-const TournamentInfo = ({ tournament, tournamentIsFinished }) => {
+const TournamentInfo = ({ activeTournament, tournamentIsFinished }) => {
     return (
         <div className={styles.tournamentInfo}>
-            <p className={styles.tournamentName}>{tournament.name}</p>
-            <p className={styles.tournamentSeries}>Series: {tournament.series}</p>
+            <p className={styles.tournamentName}>{activeTournament.name}</p>
+            <p className={styles.tournamentSeries}>Series: {activeTournament.series}</p>
             {tournamentIsFinished && 
-                <p className={styles.tournamentSeries}>Winner: {tournament.winner}</p>
+                <p className={styles.tournamentSeries}>Winner: {activeTournament.winner}</p>
             }
         </div>
     )

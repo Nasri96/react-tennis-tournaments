@@ -24,6 +24,8 @@ export function Tournament(name, participants, series) {
     this.rounds = ["round1", "round2", "quarterFinals", "semiFinals", "finals"];
     this.currentRound = 0;
     this.roundIsDone = undefined;
+    this.matchesLiveUpdates = false;
+    this.simulationSpeed = "instant";
     this.matches = {
         round1: [],
         round2: [],
@@ -149,6 +151,8 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
             const matches = this.nextRoundMatches;
             // Start simulating matches
             if(simulation === "instant") {
+                this.matchesLiveUpdates = false;
+                this.simulationSpeed = simulation;
                 matches.forEach(match => {
                     while(!match.winner) {
                         match.handlePoint();
@@ -174,6 +178,8 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
             }
             }
             if(simulation === "slow") {
+                this.matchesLiveUpdates = true;
+                this.simulationSpeed = simulation;
                 matches.forEach(match => {
                     match.timer = setInterval(() => {
                         match.handlePoint();
@@ -186,10 +192,9 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                     player2.updateMatches(match);
                 }
             })
-            // Check if matches are finished
+            // Check if all matches are finished
             const timer = setInterval(() => {
                 this.roundIsDone = matches.every(match => match.winner);
-                console.log(this.roundIsDone);
                 if(this.roundIsDone) {
                     // Save finished matches to matches object
                     this.matches[round].push(...matches);
@@ -206,9 +211,10 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                         Player.updatePlayerRanks();
                         console.log(players);
                     }
+                    this.matchesLiveUpdates = false;
                     clearInterval(timer);
                 }
-            }, 1000)
+            }, 100)
             } 
     } 
     else {

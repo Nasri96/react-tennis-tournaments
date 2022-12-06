@@ -1,10 +1,11 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 import styles from "./TournamentMatch.module.css";
 
-const TournamentMatch = ({ match, matchesLiveUpdates }) => {
+const TournamentMatch = forwardRef(({ match, matchesLiveUpdates }, ref) => {
+
     return (
-        <div className={styles.match}>
+        <div className={styles.match} ref={ref}>
             <div className={match.loser === match.p1.name ? `${styles.matchPlayer} ${styles.loser}` : styles.matchPlayer}>
                 {matchesLiveUpdates &&  
                     <React.Fragment>
@@ -85,6 +86,6 @@ const TournamentMatch = ({ match, matchesLiveUpdates }) => {
             </div>
         </div>
     )
-}
+})
 
 export default TournamentMatch;

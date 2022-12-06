@@ -1,14 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 
 import styles from "./TournamentPlay.module.css";
 
 import TournamentItem from "../TournamentItem/TournamentItem";
+import AppContext from "../../../store/app-context";
 
-const TournamentPlay = ({ tournament, setTournament }) => {
-    const [currentRound, setCurrentRound] = useState(tournament ? tournament.rounds[tournament.currentRound] : null);
-    const [tournamentIsFinished, setTournamentIsFinished] = useState(tournament.winner ?  true : false);
-    const [tournamentSimulationSpeed, setTournamentSimulationSpeed] = useState("instant");
-    const [matchesLiveUpdates, setMatchesLiveUpdates] = useState(false);
+const TournamentPlay = () => {
+    const { activeTournament } = useContext(AppContext);
+    const [currentRound, setCurrentRound] = useState(activeTournament ? activeTournament.rounds[activeTournament.currentRound] : false);
+    const [tournamentIsFinished, setTournamentIsFinished] = useState(activeTournament ? activeTournament.winner ? true : false : false);
+    const [tournamentSimulationSpeed, setTournamentSimulationSpeed] = useState(activeTournament ? activeTournament.simulationSpeed : false);
+    const [matchesLiveUpdates, setMatchesLiveUpdates] = useState(activeTournament ? activeTournament.matchesLiveUpdates : false);
+    const firstLiveMatchRef = useRef();
+
+    const displayTournament = false;
+
+    // Make tournament disappear after it is finished, after 10 seconds
+    // useEffect(() => {
+    //     return () => {
+    //         if(tournamentIsFinished) {
+    //             console.log("UNMOUNTED!");
+    //             setActiveTournament(false);
+    //         }
+    //     }
+    // }, [tournamentIsFinished, setActiveTournament])
 
     // Live Matches Update
     useEffect(() => {
@@ -16,23 +31,22 @@ const TournamentPlay = ({ tournament, setTournament }) => {
         if(matchesLiveUpdates) {
             timer = setInterval(() => {
                 setMatchesLiveUpdates(Math.random());
-
-                if(tournament.roundIsDone) {
-                    tournament.roundIsDone = undefined;
+                console.log(activeTournament.roundIsDone);
+                if(activeTournament.roundIsDone) {
                     clearInterval(timer);
                     setMatchesLiveUpdates(false);
-                    setCurrentRound(tournament.rounds[tournament.currentRound]);
-                    if(tournament.winner) {
+                    setCurrentRound(activeTournament.rounds[activeTournament.currentRound]);
+                    if(activeTournament.winner) {
                         setTournamentIsFinished(true);
                     }
                 }
-            }, 150)
+            }, 200)
         }
 
         return () => {
             clearInterval(timer);
         }
-    }, [matchesLiveUpdates])
+    }, [matchesLiveUpdates, activeTournament.roundIsDone, activeTournament.currentRound, activeTournament.rounds, activeTournament.winner])
 
     const tournamentSimulationSpeedHandler = e => {
         setTournamentSimulationSpeed(e.target.value);
@@ -40,33 +54,42 @@ const TournamentPlay = ({ tournament, setTournament }) => {
 
     const simulateRoundHandler = e => {
         if(tournamentSimulationSpeed === "instant") {
-            tournament.simulateMatches(currentRound, "instant");
-            setCurrentRound(tournament.rounds[tournament.currentRound]);
-            if(tournament.winner) {
+            activeTournament.simulateMatches(currentRound, "instant");
+            setCurrentRound(activeTournament.rounds[activeTournament.currentRound]);
+            if(activeTournament.winner) {
                 setTournamentIsFinished(true);
             }
         }
         if(tournamentSimulationSpeed === "slow") {
-            tournament.simulateMatches(currentRound, "slow");
+            activeTournament.simulateMatches(currentRound, "slow");
             setMatchesLiveUpdates(true);
+            firstLiveMatchRef.current.scrollIntoView({
+                block: "center",
+                behavior: "smooth"
+            })
         }
-        
     }
 
     return (
             <div className={styles.playContainer}>
-                {tournament &&
-                    <TournamentItem onSimulateRoundHandler={simulateRoundHandler} 
-                        tournament={tournament} 
-                        setTournament={setTournament} 
-                        currentRound={currentRound} 
-                        tournamentIsFinished={tournamentIsFinished} 
-                        tournamentSimulationSpeed={tournamentSimulationSpeed} 
-                        onTournamentSimulationSpeedHandler={tournamentSimulationSpeedHandler} 
-                        matchesLiveUpdates={matchesLiveUpdates} 
+                {activeTournament && !displayTournament &&
+                    <TournamentItem 
+                        activeTournament={activeTournament}
+                        displayTournament={displayTournament}
+                        onSetDisplayTournament={null}
+                        currentRound={currentRound}
+                        tournamentIsFinished={tournamentIsFinished}
+                        matchesLiveUpdates={matchesLiveUpdates}
+                        onTournamentSimulateRound={simulateRoundHandler}
+                        tournamentSimulationSpeed={tournamentSimulationSpeed}
+                        onTournamentSimulationSpeed={tournamentSimulationSpeedHandler}
+                        ref={firstLiveMatchRef}
                     />
                 }
-                {!tournament &&
+                {!activeTournament &&
+                    <p>You need to create tournament in order to play tournament. Go to Create Tournament tab and create tournament.</p>
+                }
+                {activeTournament && displayTournament &&
                     <p>You need to create tournament in order to play tournament. Go to Create Tournament tab and create tournament.</p>
                 }
             </div> 

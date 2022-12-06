@@ -1,18 +1,17 @@
-import { useState } from "react";
+import { useContext } from "react";
 
 import styles from "./Players.module.css";
+
 import Card from "../UI/Card";
 import PlayersRanks from "./PlayersRanks/PlayersRanks";
 import PlayersInfo from "./PlayersInfo/PlayersInfo";
-
 import useActiveTab from "../../hooks/useActiveTab";
-
 import Tab from "../UI/Tab";
-
-import { players } from "../../simulation/player";
+import AppContext from "../../store/app-context";
 
 const Players = () => {
     const { activeTab, switchTabHandler, isActiveTab } = useActiveTab("playersranks");
+    const { players } = useContext(AppContext);
 
     let content;
     if(activeTab === "playersranks") {

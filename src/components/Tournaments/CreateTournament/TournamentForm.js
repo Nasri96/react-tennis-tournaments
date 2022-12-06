@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
-import { Tournament as TournamentConstructor } from "../../../simulation/tournament";
-import { players } from "../../../simulation/player";
+import AppContext from "../../../store/app-context";
 
 import styles from "./TournamentForm.module.css";
 
-const TournamentForm = ({ tournament, onCreateTournament, onSwitchTab}) => {
+const TournamentForm = ({ onSwitchTab }) => {
+    const { activeTournament, setActiveTournament, players, TournamentConstructor } = useContext(AppContext);
     const [tournamentName, setTournamentName] = useState("");
     const [tournamentNameError, setTournamentNameError] = useState(true);
     const [tournamentNameIsTouched, setTournamentNameIsTouched] = useState(false);
@@ -42,10 +42,11 @@ const TournamentForm = ({ tournament, onCreateTournament, onSwitchTab}) => {
             return;
         }
 
-        // handle success form
-        onSwitchTab(e, "playtournament");
+        // Setup new tournament
         const newTournament = new TournamentConstructor(tournamentName, players, tournamentSeries);
-        onCreateTournament(newTournament);
+        setActiveTournament(newTournament);
+        // Switch to playtournament Tab
+        onSwitchTab(e, "playtournament");
         resetInputs();
     }
 
@@ -77,11 +78,11 @@ const TournamentForm = ({ tournament, onCreateTournament, onSwitchTab}) => {
     
     // Render conditions
     let formJSX;
-    if(tournament && !tournament.winner) {
+    if(activeTournament && !activeTournament.winner) {
         formJSX =   <div className={styles.formContainer}>
                         <div>You already created tournament. Finish tournament before creating new one.</div>
                     </div>
-    } else if(!tournament || tournament.winner) {
+    } else if(!activeTournament || activeTournament.winner) {
         formJSX = <div className={styles.formContainer}>
                     <form onSubmit={submitFormHandler}>
                         <label>Tournament Name:</label>

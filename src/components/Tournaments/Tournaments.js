@@ -1,8 +1,6 @@
-import useActiveTab from "../../hooks/useActiveTab";
-import { useState } from "react";
-
 import styles from "./Tournament.module.css";
 
+import useActiveTab from "../../hooks/useActiveTab";
 import Card from "../UI/Card";
 import Tab from "../UI/Tab";
 import TournamentList from "./AllTournaments/TournamentList";
@@ -11,21 +9,16 @@ import TournamentPlay from "./PlayTournament/TournamentPlay";
 
 const Tournaments = () => {
     const { activeTab, isActiveTab, switchTabHandler } = useActiveTab("alltournaments");
-    const [tournament, setTournament] = useState(false);
-
-    const createTournamentHandler = tournament => {
-        setTournament(tournament);
-    }
 
     let content;
     if(activeTab === "alltournaments") {
         content = <TournamentList />;
     }
     if(activeTab === "createtournament") {
-        content = <TournamentForm tournament={tournament} onCreateTournament={createTournamentHandler} onSwitchTab={switchTabHandler} />;
+        content = <TournamentForm onSwitchTab={switchTabHandler} />;
     }
     if(activeTab === "playtournament") {
-        content = <TournamentPlay tournament={tournament} setTournament={setTournament} />
+        content = <TournamentPlay  />
     }
 
     return (

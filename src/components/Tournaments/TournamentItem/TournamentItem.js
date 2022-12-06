@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { forwardRef } from "react";
 
 import styles from "./TournamentItem.module.css";
 
@@ -6,16 +6,12 @@ import TournamentInfo from "./TournamentInfo";
 import TournamentNextRound from "./TournamentNextRound";
 import TournamentBrackets from "./TournamentBrackets";
 
-const TournamentItem = ({ onSimulateRoundHandler: simulateRoundHandler, tournament, setTournament, currentRound, tournamentIsFinished, tournamentSimulationSpeed, onTournamentSimulationSpeedHandler, matchesLiveUpdates }) => {
-    // Make tournament disappear after it is finished, after 10 seconds
-    useEffect(() => {
-        if(tournamentIsFinished) {
-            setTimeout(() => {
-                setTournament(false);
-            }, 100000);
-        }
-    }, [tournamentIsFinished, setTournament])
-
+const TournamentItem = forwardRef(({ 
+    activeTournament, displayTournament, onSetDisplayTournament, currentRound,
+    tournamentIsFinished, matchesLiveUpdates, onTournamentSimulateRound,
+    tournamentSimulationSpeed, onTournamentSimulationSpeed,
+    }, ref) => {
+        
     // transform text rounds => round1 to Round 1, quarterFinals to Quarter Finals
     const transformText = string => {
         if(string.indexOf("round") !== -1) {
@@ -47,29 +43,36 @@ const TournamentItem = ({ onSimulateRoundHandler: simulateRoundHandler, tourname
 
     return (
         <React.Fragment>
-                <TournamentInfo tournament={tournament} tournamentIsFinished={tournamentIsFinished} />
-                <TournamentNextRound 
-                    tournament={tournament} 
-                    tournamentIsFinished={tournamentIsFinished} 
-                    transformText={transformText} 
-                    currentRound={currentRound} 
-                    onTournamentSimulationSpeedHandler={onTournamentSimulationSpeedHandler} 
-                    tournamentSimulationSpeed={tournamentSimulationSpeed} 
-                    simulateRoundHandler={simulateRoundHandler}
-                />
+                {displayTournament &&
+                    <div className={styles.center}>
+                        <button onClick={onSetDisplayTournament}>Back to All Tournaments</button>
+                    </div>
+                }
+                <TournamentInfo activeTournament={activeTournament} tournamentIsFinished={tournamentIsFinished} />
                 {!matchesLiveUpdates && !tournamentIsFinished &&
                     <div className={styles.controls}>
                         <p>Simulation Speed</p>
-                        <select onChange={onTournamentSimulationSpeedHandler} value={tournamentSimulationSpeed}>
+                        <select onChange={onTournamentSimulationSpeed} value={tournamentSimulationSpeed}>
                             <option value="slow">Slow</option>
                             <option value="instant">Instant</option>
                         </select>
-                        <button onClick={simulateRoundHandler}>Play Next Round</button>
+                        <button onClick={onTournamentSimulateRound}>Play Next Round</button>
                     </div>
                 }
-                <TournamentBrackets tournament={tournament} tournamentIsFinished={tournamentIsFinished} matchesLiveUpdates={matchesLiveUpdates} transformText={transformText} />
+                <TournamentNextRound 
+                    activeTournament={activeTournament}
+                    tournamentIsFinished={tournamentIsFinished}
+                    currentRound={currentRound}
+                    transformText={transformText} 
+                />
+                <TournamentBrackets 
+                    activeTournament={activeTournament}
+                    tournamentIsFinished={tournamentIsFinished}
+                    matchesLiveUpdates={matchesLiveUpdates}
+                    ref={ref} 
+                    transformText={transformText} />
         </React.Fragment>
     )
-}
+})
 
 export default TournamentItem;
