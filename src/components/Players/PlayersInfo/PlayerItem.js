@@ -4,7 +4,7 @@ import styles from "./PlayerItem.module.css";
 
 import Tab from "../../UI/Tab";
 
-const PlayerItem = ({ name, rank, points }) => {
+const PlayerItem = ({ name, rank, points, wins, loses }) => {
     const [playerDetailsIsShown, setPlayerDetailsIsShown] = useState(false);
     const playerNameRef = useRef();
     // scroll effect
@@ -28,6 +28,8 @@ const PlayerItem = ({ name, rank, points }) => {
              <div className={styles.playerDetails}>
                 <h4>Rank: {rank}</h4>
                 <h4>Points: {points}</h4>
+                <h4>Wins: {wins}</h4>
+                <h4>Loses {loses}</h4>
              </div>
             }
         </div>

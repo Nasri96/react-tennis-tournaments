@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-form {
+.createTournamentForm {
     width: 55%;
     padding: 25px;
     display: flex;
@@ -16,13 +16,13 @@ form {
     border-radius: 2px;
 }
 
-form label {
+.createTournamentForm label {
     width: 100%;
     padding: 4px;
     margin-bottom: 5px;
 }
 
-form input {
+.createTournamentForm input {
     width: 100%;
     border: none;
     outline: none;
@@ -30,15 +30,15 @@ form input {
     margin-bottom: 15px;
 }
 
-.inputValid {
+.createTournamentForm input.inputValid {
     border: 2px solid #34eb5b;
 }
 
-.inputInvalid {
+.createTournamentForm input.inputInvalid {
     border: 2px solid #ed3a2d;
 }
 
-form select {
+.createTournamentForm select {
     width: 100%;
     border: none;
     outline: none;
@@ -51,7 +51,7 @@ form select {
     text-align: center;
 }
 
-form button {
+.createTournamentForm button {
     width: 120px;
     padding: 12px;
     cursor: pointer;
@@ -66,13 +66,13 @@ form button {
 }
 
 @media screen and (max-width: 768px) {
-    form {
+    .createTournamentForm {
         width: 90%;
     }
 }
   
 @media screen and (min-width: 768px) and (max-width: 1200px) {
-    form {
+    .createTournamentForm {
         width: 65%;
     }
 }

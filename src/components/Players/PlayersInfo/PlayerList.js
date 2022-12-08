@@ -5,7 +5,7 @@ import PlayerItem from "./PlayerItem";
 const PlayersList = ({ players }) => {
     const playersJSX = players.map(player => {
         return (
-            <PlayerItem name={player.name} rank={player.rank} points={player.points} />
+            <PlayerItem name={player.name} rank={player.rank} points={player.points} wins={player.wins} loses={player.loses} />
         )
     })
 

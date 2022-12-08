@@ -161,6 +161,19 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                     const [player1, player2] = this.findPlayersInMatch(match.p1.name, match.p2.name);
                     player1.updateMatches(match);
                     player2.updateMatches(match);
+                    // Update player wins/loses
+                    if(player1.name === match.winner) {
+                        player1.updateWins();
+                    }
+                    if(player1.name === match.loser) {
+                        player1.updateLoses();
+                    }
+                    if(player2.name === match.winner) {
+                        player2.updateWins();
+                    }
+                    if(player2.name === match.loser) {
+                        player2.updateLoses();
+                    }
             })   
             // Save finished matches to matches object
             this.matches[round].push(...matches);
@@ -174,7 +187,6 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                 this.winner = this.matches.finals[0].winner;
                 this.givePlayerPoints();
                 Player.updatePlayerRanks();
-                console.log(players);
             }
             }
             if(simulation === "slow") {
@@ -190,6 +202,19 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                     const [player1, player2] = this.findPlayersInMatch(match.p1.name, match.p2.name);
                     player1.updateMatches(match);
                     player2.updateMatches(match);
+                    // Update player wins/loses
+                    if(player1.name === match.winner) {
+                        player1.updateWins();
+                    }
+                    if(player1.name === match.loser) {
+                        player1.updateLoses();
+                    }
+                    if(player2.name === match.winner) {
+                        player2.updateWins();
+                    }
+                    if(player2.name === match.loser) {
+                        player2.updateLoses();
+                    }
                 }
             })
             // Check if all matches are finished
@@ -209,7 +234,6 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                         this.winner = this.matches.finals[0].winner;
                         this.givePlayerPoints();
                         Player.updatePlayerRanks();
-                        console.log(players);
                     }
                     this.matchesLiveUpdates = false;
                     clearInterval(timer);

@@ -3,6 +3,8 @@ export function Player(name) {
     this.rank = undefined;
     this.matches = [];
     this.points = 0;
+    this.wins = 0;
+    this.loses = 0;
 }
 
 Player.updatePlayerRanks = function() {
@@ -24,8 +26,19 @@ Player.updatePlayerRanks = function() {
     })
 }
 
+// Save match played
 Player.prototype.updateMatches = function(match) {
     this.matches.push(match);
+}
+
+// Update Wins
+Player.prototype.updateWins = function() {
+    this.wins++;
+}
+
+// Update Loses
+Player.prototype.updateLoses = function() {
+    this.loses++;
 }
 
 const playerA = new Player("Novak Djokovic");

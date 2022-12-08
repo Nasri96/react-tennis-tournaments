@@ -15,6 +15,7 @@ const AppProvider = props => {
     const saveTournamentMatches = tournament => {
         for(let round in tournament.matches) {
             tournament.matches[round].forEach(match => {
+                console.log("hi");
                 setMatches(matches => {
                     return [...matches, {
                         match: match,

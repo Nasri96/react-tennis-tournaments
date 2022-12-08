@@ -69,6 +69,7 @@ const TournamentForm = ({ onSwitchTab }) => {
     } 
     else {
         if(tournamentNameIsInvalid) {
+            console.log("invalid");
             inputNameClass = styles.inputInvalid;
         } 
         else {
@@ -84,7 +85,7 @@ const TournamentForm = ({ onSwitchTab }) => {
                     </div>
     } else if(!activeTournament || activeTournament.winner) {
         formJSX = <div className={styles.formContainer}>
-                    <form onSubmit={submitFormHandler}>
+                    <form className={styles.createTournamentForm} onSubmit={submitFormHandler}>
                         <label>Tournament Name:</label>
                         <input className={inputNameClass} onBlur={tournamentNameBlurHandler} onChange={tournamentNameChangeHandler} type="text" value={tournamentName} />
                         {tournamentNameIsInvalid &&
