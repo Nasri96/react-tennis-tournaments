@@ -125,7 +125,7 @@ Tournament.prototype.createInitialMatches = function(matchBrackets) {
     matchBrackets.forEach(bracket => {
         bracket.forEach((player, i) => {
             if(i % 2 === 0) {
-                bracket.push(new Match(player, bracket[i + 1], { setsWin: 2, gemsWin: 6, tiebreak: null}));
+                bracket.push(new Match(player, bracket[i + 1], { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound]));
             }
         })
     })
@@ -157,24 +157,9 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                     while(!match.winner) {
                         match.handlePoint();
                     }
-                    // Update player match history
-                    const [player1, player2] = this.findPlayersInMatch(match.p1.name, match.p2.name);
-                    player1.updateMatches(match);
-                    player2.updateMatches(match);
-                    // Update player wins/loses
-                    if(player1.name === match.winner) {
-                        player1.updateWins();
-                    }
-                    if(player1.name === match.loser) {
-                        player1.updateLoses();
-                    }
-                    if(player2.name === match.winner) {
-                        player2.updateWins();
-                    }
-                    if(player2.name === match.loser) {
-                        player2.updateLoses();
-                    }
-            })   
+                    // Update player stats after match is done
+                    match.updatePlayersStats(players);
+            })
             // Save finished matches to matches object
             this.matches[round].push(...matches);
             // Prepare next round
@@ -187,6 +172,7 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                 this.winner = this.matches.finals[0].winner;
                 this.givePlayerPoints();
                 Player.updatePlayerRanks();
+                this.updatePlayerStats(players);
             }
             }
             if(simulation === "slow") {
@@ -198,23 +184,8 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                     }, 200);
             
                 if(match.winner) {
-                    // Update player match history
-                    const [player1, player2] = this.findPlayersInMatch(match.p1.name, match.p2.name);
-                    player1.updateMatches(match);
-                    player2.updateMatches(match);
-                    // Update player wins/loses
-                    if(player1.name === match.winner) {
-                        player1.updateWins();
-                    }
-                    if(player1.name === match.loser) {
-                        player1.updateLoses();
-                    }
-                    if(player2.name === match.winner) {
-                        player2.updateWins();
-                    }
-                    if(player2.name === match.loser) {
-                        player2.updateLoses();
-                    }
+                    // Update player stats after match is done
+                    match.updatePlayersStats(players);
                 }
             })
             // Check if all matches are finished
@@ -234,6 +205,7 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
                         this.winner = this.matches.finals[0].winner;
                         this.givePlayerPoints();
                         Player.updatePlayerRanks();
+                        this.updatePlayerStats(players);
                     }
                     this.matchesLiveUpdates = false;
                     clearInterval(timer);
@@ -252,7 +224,6 @@ Tournament.prototype.createNextRoundMatches = function(matches) {
         return match.winner;
     })
     
-
     const newMatches = [];
     // Find players based on match winners, create new matches based on founded winners
     matchWinners.forEach((winner, i) => {
@@ -263,7 +234,7 @@ Tournament.prototype.createNextRoundMatches = function(matches) {
             const nextRoundPlayer1 = players.find(player => player.name === winner1);
             const nextRoundPlayer2 = players.find(player => player.name === winner2);
 
-            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: 2, gemsWin: 6, tiebreak: null}));
+            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound]));
         }
     })
 
@@ -281,18 +252,21 @@ Tournament.prototype.givePlayerPoints = function() {
         })
     }
     
-    // Find winner of tournament and give him points
+    // Find winner of tournament
     const winnerName = this.winner;
     const winner = players.find(player => player.name === winnerName);
+    // update winner points
     winner.points += this.rewardPoints.winner;
+    // update player tournaments won
+    winner.updateTournamentsWon();
 }
 
-// Find 2 players in match
-Tournament.prototype.findPlayersInMatch = function(player1Name, player2Name) {
-    const foundPlayer1 = players.find(player => player.name === player1Name);
-    const foundPlayer2 = players.find(player => player.name === player2Name);
-
-    return [foundPlayer1, foundPlayer2];
+// Update player statistic after tournament is done
+Tournament.prototype.updatePlayerStats = function(players) {
+    // update winrate
+    players.forEach(player => {
+        player.updateWinrate();
+    });
 }
 
 // Reward points for player placements in tournament

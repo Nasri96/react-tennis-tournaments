@@ -1,5 +1,6 @@
 .tabs {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 50px;
@@ -7,12 +8,12 @@
 
 @media screen and (max-width: 768px) {
     .tabs {
-        height: 40px;
+        margin: 20px;
     }
   }
   
 @media screen and (min-width: 768px) and (max-width: 1200px) {
     .tabs {
-        height: 45px;
+        margin: 30px;
     }
 }

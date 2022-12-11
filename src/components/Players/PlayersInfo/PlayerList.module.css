@@ -1,0 +1,69 @@
+.playersTable {
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    border-spacing: 1px;
+    border-radius: 3px;
+    background-color: #464646;
+}
+
+.playersTable thead {
+    text-align: center;
+}
+
+.playersTable th, .playersTable td {
+    padding: 6px;
+}
+
+.playersTable tbody tr td:last-child {
+    width: 140px;
+    padding: 0;
+}
+
+.playersTable tbody > :nth-child(even) {
+    background-color:#F7F7F7;
+    color: #303030;
+}
+
+.playersTable tbody > :nth-child(odd) {
+    background-color:#f7f7f7c0;
+    color: #303030;
+}
+
+@media screen and (max-width: 768px) {
+    .playersTable thead tr :nth-child(4) {
+        display: none;
+    }
+
+    .playersTable thead tr :nth-child(5) {
+        display: none;
+    }
+
+    .playersTable thead tr :nth-child(6) {
+        display: none;
+    }
+
+    .playersTable thead tr :nth-child(7) {
+        display: none;
+    }
+
+    .playersTable tbody tr :nth-child(4) {
+        display: none;
+    }
+
+    .playersTable tbody tr :nth-child(5) {
+        display: none;
+    }
+
+    .playersTable tbody tr :nth-child(6) {
+        display: none;
+    }
+
+    .playersTable tbody tr :nth-child(7) {
+        display: none;
+    }
+}
+  
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+
+}

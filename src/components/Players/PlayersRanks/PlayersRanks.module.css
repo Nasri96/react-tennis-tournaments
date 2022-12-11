@@ -1,6 +1,6 @@
 .playersRanks {
     padding: 25px;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     text-align: center;
 }
 
@@ -38,6 +38,6 @@
   
 @media screen and (min-width: 768px) and (max-width: 1200px) {
     .playersRanks {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 }

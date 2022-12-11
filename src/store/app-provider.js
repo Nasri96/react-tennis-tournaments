@@ -15,13 +15,8 @@ const AppProvider = props => {
     const saveTournamentMatches = tournament => {
         for(let round in tournament.matches) {
             tournament.matches[round].forEach(match => {
-                console.log("hi");
                 setMatches(matches => {
-                    return [...matches, {
-                        match: match,
-                        tournamentName: tournament.name,
-                        round: round
-                    }];
+                    return [match, ...matches];
                 })
             })
         }
@@ -36,7 +31,7 @@ const AppProvider = props => {
                 if(activeTournament.winner) {
                     setActiveTournament(false);
                     setTournaments(tournaments => {
-                        return [...tournaments, activeTournament];
+                        return [activeTournament, ...tournaments];
                     })
                     saveTournamentMatches(activeTournament);
                 }

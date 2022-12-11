@@ -5,6 +5,8 @@ export function Player(name) {
     this.points = 0;
     this.wins = 0;
     this.loses = 0;
+    this.winrate = 0;
+    this.tournamentsWon = 0;
 }
 
 Player.updatePlayerRanks = function() {
@@ -28,7 +30,7 @@ Player.updatePlayerRanks = function() {
 
 // Save match played
 Player.prototype.updateMatches = function(match) {
-    this.matches.push(match);
+    this.matches.unshift(match);
 }
 
 // Update Wins
@@ -39,6 +41,26 @@ Player.prototype.updateWins = function() {
 // Update Loses
 Player.prototype.updateLoses = function() {
     this.loses++;
+}
+
+// Update winrate
+Player.prototype.updateWinrate = function() {
+    // round winrate -> Example 55.55, 25.23 etc...
+    let winrate = this.wins / this.matches.length * 100;
+    winrate = winrate.toString();
+    if(winrate.length > 5) {
+        winrate = winrate.substring(0, 5);
+    }
+
+    winrate = parseFloat(winrate);
+
+    // update winrate
+    this.winrate = winrate;
+}
+
+// Update tournaments won
+Player.prototype.updateTournamentsWon = function() {
+    this.tournamentsWon++;
 }
 
 const playerA = new Player("Novak Djokovic");

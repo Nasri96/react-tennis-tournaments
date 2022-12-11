@@ -1,4 +1,5 @@
 .tab {
+    flex-grow: 1;
     transition: background-color 0.3s;
     background-color: #428bff;
     color: #F7F7F7;
@@ -14,30 +15,6 @@
     background-color:#0051d3;
 }
 
-.playerTab {
-    width: 100%;
-    height: 6vh;
-    cursor: pointer;
-    border: 2px solid transparent;
-    border-radius: 6px;
-    margin-bottom: 5px;
-    background-color: #303030;
-    color: #F7F7F7;
-}
-
-.playerTab:hover {
-    background-color: #0062FF;
-    color: #F7F7F7;
-    border: 2px solid #303030;
-}
-
-.playerTab.playerSelectedTab {
-    background-color: #0062FF;
-    color: #F7F7F7;
-    border: 2px solid #303030;
-    border-radius: 6px;
-}
-
 @media screen and (max-width: 768px) {
      .tab {
       font-size: 0.9rem;
@@ -51,6 +28,7 @@
   
 @media screen and (min-width: 768px) and (max-width: 1200px) {
     .tab {
+        font-size: 1rem;
         padding: 12px;
     }
 

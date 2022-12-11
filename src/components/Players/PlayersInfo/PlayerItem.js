@@ -1,38 +1,48 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 
 import styles from "./PlayerItem.module.css";
 
-import Tab from "../../UI/Tab";
+const PlayerItem = ({ player, onShowPlayerMatches, matchesAreShown, isMobile}) => {
+    const { name, rank, points, wins, loses, winrate, tournamentsWon } = player; 
+    const [matchesIcon, setMatchesIcon] = useState(false);
+    const showMatchesIconHandler = e => {
+        setMatchesIcon(true);
+    }
 
-const PlayerItem = ({ name, rank, points, wins, loses }) => {
-    const [playerDetailsIsShown, setPlayerDetailsIsShown] = useState(false);
-    const playerNameRef = useRef();
-    // scroll effect
-    useEffect(() => {
-        if(playerDetailsIsShown) {
-            window.scroll({
-                top: playerNameRef.current.offsetTop,
-                behavior: "smooth"
-            })
-        }
-    }, [playerDetailsIsShown])
-
-    const displayPlayerDetailsHandler = () => {
-        setPlayerDetailsIsShown(!playerDetailsIsShown);  
+    const hideMatchesIconHandler = e => {
+        setMatchesIcon(false);
     }
 
     return (
-        <div className={styles.player}>
-            <Tab ref={playerNameRef} name={name} onClickHandler={displayPlayerDetailsHandler} isSelected={playerDetailsIsShown ? true : false} type="playerTab" />
-            {playerDetailsIsShown && 
-             <div className={styles.playerDetails}>
-                <h4>Rank: {rank}</h4>
-                <h4>Points: {points}</h4>
-                <h4>Wins: {wins}</h4>
-                <h4>Loses {loses}</h4>
-             </div>
-            }
-        </div>
+            <React.Fragment>
+                <tr>
+                    <td>{name}</td>
+                    <td>{rank}</td>
+                    <td>{points}</td>
+                    <td>{wins}</td>
+                    <td>{loses}</td>
+                    <td>{winrate}%</td>
+                    <td>{tournamentsWon}</td>
+                    <td>
+                        <button 
+                            className={styles.matchesButton} 
+                            onClick={onShowPlayerMatches.bind(null, player)} 
+                            onMouseEnter={showMatchesIconHandler} 
+                            onMouseLeave={hideMatchesIconHandler}>
+                        {!isMobile &&
+                            <React.Fragment>
+                                {!matchesAreShown ? "Matches" : "Back"} {matchesIcon ? <span className={styles.icon}>{">"}</span> :  <span className={styles.icon}>{""}</span>}
+                            </React.Fragment>
+                        }
+                        {isMobile &&
+                            <React.Fragment>
+                                {!matchesAreShown ? "Details" : "Back"} {matchesIcon ? <span className={styles.icon}>{">"}</span> :  <span className={styles.icon}>{""}</span>}
+                            </React.Fragment>
+                        }
+                        </button>
+                    </td>
+                </tr>
+            </React.Fragment>
     )
             
 }

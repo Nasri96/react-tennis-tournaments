@@ -1,5 +1,5 @@
 /* eslint-disable */
-export function Match(p1, p2, rules) {
+export function Match(p1, p2, rules, tournamentName, round) {
     this.p1 = { 
         name: p1.name,
         points: [],
@@ -20,10 +20,10 @@ export function Match(p1, p2, rules) {
         gems: 0,
         sets: 0
     },
-
-    
     // Object => { setsWin: num, gemsWin: num, tiebreak: null }
     this.rules = rules;
+    this.tournamentName = tournamentName;
+    this.round = round;
     this.winner = null;
     this.loser = null;
     this.timer = undefined;
@@ -177,6 +177,7 @@ Match.prototype.resetTiebreak = function(players) {
     })
 }
 
+// Update match statistics
 Match.prototype.updateOverview = function(players, setGemsWon) {
     const player1 = this.matchStats.overview.find(player => players[0].name === player.name);
     const player2 = this.matchStats.overview.find(player => players[1].name === player.name);
@@ -195,4 +196,18 @@ Match.prototype.updateOverview = function(players, setGemsWon) {
         player1.setGemsWon.push(players[0].gems);
         player2.setGemsWon.push(players[1].gems);
     }
+}
+
+// Update player statistic after match is done
+Match.prototype.updatePlayersStats = function(players) {
+    const playerWinner = players.find(player => player.name === this.winner);
+    const playerLoser = players.find(player => player.name === this.loser);
+
+    // Update winner
+    playerWinner.updateMatches(this);
+    playerWinner.updateWins();
+
+    // Update loser
+    playerLoser.updateMatches(this);
+    playerLoser.updateLoses();
 }
