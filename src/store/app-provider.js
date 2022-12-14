@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 
 import AppContext from "./app-context";
 
-// tournament simulation files
-import { players } from "../simulation/player";
+// tournament simulation stuff
+import { Player } from "../simulation/player";
 import { Tournament as TournamentConstructor } from "../simulation/tournament";
+const { players } = Player;
 
 const AppProvider = props => {
     const [tournaments, setTournaments] = useState([]); 
@@ -22,7 +23,7 @@ const AppProvider = props => {
         }
     }
 
-    // After tournament is finished, save finished tournament
+    // Tournament finished stuff
     useEffect(() => {
         let timer;
         if(activeTournament) {

@@ -12,6 +12,7 @@
 
 .rankHeaders span {
     padding: 15px;
+    flex-basis: 250px;
 }
 
 .rankRanks {
@@ -19,9 +20,23 @@
     justify-content: space-around;
 }
 
-.rankRanks span {
+.rankRanks > * {
     padding: 15px;
     flex-basis: 250px;
+}
+
+.gainRank, .gainPoints {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(21, 255, 21);
+}
+
+.loseRank, .losePoints {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 43, 43);
 }
 
 .playersRanks:nth-child(2) > :nth-child(even) {

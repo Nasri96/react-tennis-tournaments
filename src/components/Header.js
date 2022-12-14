@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./Header.module.css";
 import Container from "./UI/Container";
 

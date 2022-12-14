@@ -7,11 +7,18 @@ export function Player(name) {
     this.loses = 0;
     this.winrate = 0;
     this.tournamentsWon = 0;
+    this.oldRankPoints = {
+        rank: undefined,
+        points: undefined,
+        rankDiff: undefined,
+        pointsDiff: undefined
+    }
 }
 
+// Sort player ranks
 Player.updatePlayerRanks = function() {
     // sort players based on points
-    players.sort((a, b) => {
+    Player.players.sort((a, b) => {
         if(a.points > b.points) {
             return -1;
         }
@@ -23,10 +30,13 @@ Player.updatePlayerRanks = function() {
         }
     })
     // update ranks based on points
-    players.forEach((player, i) => {
+    Player.players.forEach((player, i) => {
         player.rank = i + 1;
     })
 }
+
+// All players
+Player.players = [];
 
 // Save match played
 Player.prototype.updateMatches = function(match) {
@@ -63,6 +73,11 @@ Player.prototype.updateTournamentsWon = function() {
     this.tournamentsWon++;
 }
 
+// Update old ranks and points
+Player.prototype.updateOldRankPoints = function(fn) {
+    fn(this.oldRankPoints);
+}
+
 const playerA = new Player("Novak Djokovic");
 const playerB = new Player("Rafael Nadal");
 const playerC = new Player("Player C");
@@ -96,7 +111,7 @@ const playerAE = new Player("Player AE");
 const playerAF = new Player("PlayerAF");
 const playerAG = new Player("Player AG");
 
-export const players = [
+Player.players = [
         playerA, playerB, playerC, playerD, playerE, playerF, playerG, playerH, playerI, playerJ, playerK, playerL, playerM, playerN,
         playerO, playerP, playerQ, playerR, playerS, playerT, playerU, playerV, playerW, playerX, playerY, playerZ, playerAB, playerAC,
         playerAD, playerAE, playerAF, playerAG
@@ -104,3 +119,13 @@ export const players = [
 
 // add starting ranks of 0 to all players 
 Player.updatePlayerRanks();
+
+// add starting old ranks and points
+Player.players.forEach(player => {
+    player.updateOldRankPoints(oldRankPoints => {
+        oldRankPoints.rank = player.rank;
+        oldRankPoints.points = player.points;
+        oldRankPoints.rankDiff = oldRankPoints.rank  - player.rank;
+        oldRankPoints.pointsDiff = oldRankPoints.points + player.points;
+    })
+})

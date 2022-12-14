@@ -12,8 +12,10 @@ const round4 = [ [1,4, 2,3] ];
 const finalRound = [1, 2]; 
 */
 
-import { Player, players } from "./player";
+import { Player } from "./player";
 import { Match } from "./match";
+
+const { players } = Player;
 
 export function Tournament(name, participants, series) {
     this.name = name;
@@ -266,6 +268,13 @@ Tournament.prototype.updatePlayerStats = function(players) {
     // update winrate
     players.forEach(player => {
         player.updateWinrate();
+        player.updateOldRankPoints(oldRankPoints => {
+            oldRankPoints.rankDiff = oldRankPoints.rank  - player.rank;
+            oldRankPoints.pointsDiff = player.points - oldRankPoints.points;
+
+            oldRankPoints.rank = player.rank;
+            oldRankPoints.points = player.points;
+        })
     });
 }
 

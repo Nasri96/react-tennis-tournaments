@@ -27,8 +27,6 @@ function App() {
     content = <MatchesList />
   }
 
-  
-
   return (
     <AppProvider>
       <Header onSwitchPage={switchPageHandler} active={activePage} />
