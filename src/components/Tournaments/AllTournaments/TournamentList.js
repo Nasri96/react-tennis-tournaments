@@ -4,13 +4,22 @@ import TournamentItem from "../TournamentItem/TournamentItem";
 import TournamentCard from "./TournamentCard";
 import AppContext from "../../../store/app-context";
 import Sort from "../../UI/Sort";
+import { usePagination } from "../../../hooks/usePagination";
+import PaginationPageLinks from "../../../hooks/usePagination";
 
 import styles from "./TournamentList.module.css";
 
 const TournamentList = () => {
     const { tournaments } = useContext(AppContext);
     const [displayTournament, setDisplayTournament] = useState(false);
-    const [displayTournaments, setDisplayTournaments] = useState(tournaments);
+    const [sortSelected, setSortSelected] = useState("Default");
+    const { paginationData, paginationPage, setPaginationPage } = usePagination(tournaments, 5);
+    const [displayTournaments, setDisplayTournaments] = useState([...paginationPage]);
+
+    // Sort and display new paginationPage
+    useEffect(() => {
+        sortTournamentsHandler({target: {value: sortSelected}});
+    }, [paginationPage])
 
     // reset display tournament state when component unmounts
     useEffect(() => {
@@ -30,14 +39,15 @@ const TournamentList = () => {
 
     // Sort tournaments handler
     const sortTournamentsHandler = e => {
-        const originalTournaments = tournaments.slice();
+        const paginationPageCopy = [...paginationPage];
 
         if(e.target.value === "Default") {
-            setDisplayTournaments(originalTournaments);   
+            setDisplayTournaments(paginationPageCopy);   
+            setSortSelected("Default");
         }
         
         if(e.target.value === "Name >") {
-            originalTournaments.sort((a, b) => {
+            paginationPageCopy.sort((a, b) => {
                 if(a.name.toLowerCase() > b.name.toLowerCase()) {
                     return 1;
                 }
@@ -48,11 +58,12 @@ const TournamentList = () => {
                 return 0;
             })
 
-            setDisplayTournaments(originalTournaments); 
+            setDisplayTournaments(paginationPageCopy); 
+            setSortSelected("Name >");
         }
 
         if(e.target.value === "Name <") {
-            originalTournaments.sort((a, b) => {
+            paginationPageCopy.sort((a, b) => {
                 if(a.name.toLowerCase() > b.name.toLowerCase()) {
                     return -1;
                 }
@@ -63,11 +74,12 @@ const TournamentList = () => {
                 return 0;
             })
 
-            setDisplayTournaments(originalTournaments); 
+            setDisplayTournaments(paginationPageCopy); 
+            setSortSelected("Name <");
         }
 
         if(e.target.value === "Series >") {
-            originalTournaments.sort((a, b) => {
+            paginationPageCopy.sort((a, b) => {
                 let seriesA = parseInt(a.series);
                 let seriesB = parseInt(b.series);
                 if(isNaN(seriesA)) {
@@ -80,11 +92,12 @@ const TournamentList = () => {
                 return seriesA - seriesB;
             })
 
-            setDisplayTournaments(originalTournaments); 
+            setDisplayTournaments(paginationPageCopy); 
+            setSortSelected("Series >");
         }
 
         if(e.target.value === "Series <") {
-            originalTournaments.sort((a, b) => {
+            paginationPageCopy.sort((a, b) => {
                 let seriesA = parseInt(a.series);
                 let seriesB = parseInt(b.series);
                 if(isNaN(seriesA)) {
@@ -97,7 +110,8 @@ const TournamentList = () => {
                 return seriesB - seriesA;
             })
 
-            setDisplayTournaments(originalTournaments); 
+            setDisplayTournaments(paginationPageCopy); 
+            setSortSelected("Series <");
         }
     }
 
@@ -108,7 +122,7 @@ const TournamentList = () => {
             }
             {tournaments.length !== 0 && !displayTournament &&
                 <React.Fragment>
-                    <Sort onChangeSort={sortTournamentsHandler} options={["Default", "Name >", "Name <", "Series >", "Series <"]} />
+                    <Sort onChangeSort={sortTournamentsHandler} options={["Default", "Name >", "Name <", "Series >", "Series <"]} selected={sortSelected} />
                     <div className={styles.tournamentList}>
                         {displayTournaments.map(tournament => {
                                 return ( 
@@ -116,6 +130,7 @@ const TournamentList = () => {
                                 )
                         })}
                     </div>
+                    <PaginationPageLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
                 </React.Fragment>
                 
             }

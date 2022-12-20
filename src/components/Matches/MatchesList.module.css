@@ -44,6 +44,13 @@
     align-items: center;
 }
 
+.paginationContainer {
+    padding: 20px 100px;
+    width: 50%;
+    overflow: auto;
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 768px) {
     .matchesList {
         padding: 15px;

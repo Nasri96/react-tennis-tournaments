@@ -1,7 +1,6 @@
 .playersInfo {
     overflow: auto;
     padding: 25px;
-    font-size: 1.2rem;
     background-color: #303030; 
     color: #F7F7F7;
     min-height: 80vh;

@@ -5,12 +5,17 @@ import AppContext from "./app-context";
 // tournament simulation stuff
 import { Player } from "../simulation/player";
 import { Tournament as TournamentConstructor } from "../simulation/tournament";
+import seedApp from "../simulation/seedApp";
 const { players } = Player;
 
+// Create random num of tournaments
+const { createdTournaments, createdMatches } = seedApp.createRandomTournaments(20);
+
 const AppProvider = props => {
-    const [tournaments, setTournaments] = useState([]); 
-    const [matches, setMatches] = useState([]);
+    const [tournaments, setTournaments] = useState(createdTournaments || []); 
+    const [matches, setMatches] = useState(createdMatches || []);
     const [activeTournament, setActiveTournament] = useState(false);
+
 
     // Save matches played at tournament
     const saveTournamentMatches = tournament => {

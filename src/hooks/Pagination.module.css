@@ -1,0 +1,22 @@
+.paginationContainer {
+    background-color: #F7F7F7;
+    color: #303030;
+    padding: 20px 100px;
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+    margin: 0 auto;
+}
+
+span.paginationLink {
+    color: #303030;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 8px;
+}
+
+span.activePaginationLink {
+    color: rgb(0, 30, 202);
+    text-decoration: underline;
+    text-decoration-color: #303030;
+}

@@ -16,6 +16,13 @@
     color: #F7F7F7;
 }
 
+.paginationContainer {
+    padding: 20px 100px;
+    width: 50%;
+    overflow: auto;
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 768px) {
     .tournamentList {
         padding: 25px;
