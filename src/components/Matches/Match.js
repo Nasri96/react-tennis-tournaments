@@ -31,6 +31,7 @@ const transformText = string => {
 }
 
 const Match = ({ match, badge }) => {
+    
     return (
         <div className={styles.matchContainer}>
             <div className={styles.match}>
@@ -46,6 +47,9 @@ const Match = ({ match, badge }) => {
             </div>
             <div className={styles.tournamentName}>
                 <p>{match.tournamentName}</p>
+            </div>
+            <div className={styles.tournamentSeries}>
+                <p>Series: {match.tournamentSeries}</p>
             </div>
         </div>
     )

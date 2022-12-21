@@ -1,5 +1,5 @@
 /* eslint-disable */
-export function Match(p1, p2, rules, tournamentName, round) {
+export function Match(p1, p2, rules, tournamentName, round, tournamentSeries) {
     this.p1 = { 
         name: p1.name,
         points: [],
@@ -24,9 +24,10 @@ export function Match(p1, p2, rules, tournamentName, round) {
     this.rules = rules;
     this.tournamentName = tournamentName;
     this.round = round;
+    this.tournamentSeries = tournamentSeries;
     this.winner = null;
     this.loser = null;
-    this.timer = undefined;
+    this.timer = undefined;    
     this.matchStats = {
         overview: [
             {

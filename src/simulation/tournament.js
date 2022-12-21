@@ -1,8 +1,11 @@
 /* 
-Tournament Draw Rules ===> Total 32 Players, 8 Seed Players. Seed players can't play against each other in early rounds.
-                           Rank 1 and rank 2 players can't play against each other until final round.
+-- Tournament Draw Rules: 
+- Total 32 Players, 8 Seed Players. Seed players can't play against each other in early rounds.
+- Rank 1 and rank 2 players can't play against each other until final round.
 
-Every seed will recieve their own bracket(array) so they can't play against other seeds early. Rank1 will be placed at bracket(array) 0-3, rank2 at 4-7 or vice-versa.
+- Every seed will recieve their own bracket(array) so they can't play against other seeds early. 
+- Rank1 will be placed at bracket(array) 0-3, rank2 at 4-7 or vice-versa.
+
                     SEEDS        REST of players
 const draw = [[1,2,3,4,5,6,7,8], [...rest]]
 const round1 = [ [1,32,31,12], [8, 10, 30, 29], [4, 9, 28, 27], [6, 10, 26, 25], [5, 11, 24, 23], [2, 13, 22, 21], [7, 14, 20, 19], [3, 15, 18, 17] ]
@@ -127,7 +130,7 @@ Tournament.prototype.createInitialMatches = function(matchBrackets) {
     matchBrackets.forEach(bracket => {
         bracket.forEach((player, i) => {
             if(i % 2 === 0) {
-                bracket.push(new Match(player, bracket[i + 1], { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound]));
+                bracket.push(new Match(player, bracket[i + 1], { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series));
             }
         })
     })
@@ -236,7 +239,7 @@ Tournament.prototype.createNextRoundMatches = function(matches) {
             const nextRoundPlayer1 = players.find(player => player.name === winner1);
             const nextRoundPlayer2 = players.find(player => player.name === winner2);
 
-            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound]));
+            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series));
         }
     })
 
