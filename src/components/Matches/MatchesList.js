@@ -1,15 +1,17 @@
 import { useContext, useEffect, useState } from "react";
+import { usePagination } from "../../hooks/usePagination";
+import { useFilter } from "../../hooks/useFilter";
+
+import AppContext from "../../store/app-context";
 
 import styles from "./MatchesList.module.css";
 
-import Card from "../UI/Card";
-import AppContext from "../../store/app-context";
-import Sort from "../UI/Sort";
 import Match from "./Match";
-import { usePagination } from "../../hooks/usePagination";
-import PaginationPageLinks from "../../hooks/usePagination";
+import Card from "../UI/Card";
+import PaginationLinks from "../UI/PaginationLinks";
+import Sort from "../UI/Sort";
 import Filter from "../UI/Filter";
-import { useFilter } from "../../hooks/useFilter";
+
 
 // Prepare rounds sorting
 const roundsStrength = {
@@ -109,7 +111,7 @@ const MatchesList = () => {
                     )
                 })}
             </div>
-            <PaginationPageLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+            <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
         </Card>
     )
 }

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { usePagination } from "../../../hooks/usePagination";
+import { useFilter } from "../../../hooks/useFilter";
 
 import styles from "./PlayerDetails.module.css";
 
 import Match from "../../Matches/Match";
 import Sort from "../../UI/Sort";
-import { usePagination } from "../../../hooks/usePagination";
-import PaginationPageLinks from "../../../hooks/usePagination";
-import { useFilter } from "../../../hooks/useFilter";
+import PaginationLinks from "../../UI/PaginationLinks";
 import Filter from "../../UI/Filter";
 
 // Prepare rounds sorting
@@ -151,7 +151,7 @@ const PlayerDetails = ({ player, isMobile }) => {
                     )
                 })}
             </div>
-            <PaginationPageLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+            <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
         </div>
     );
 }

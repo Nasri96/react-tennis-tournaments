@@ -1,21 +1,23 @@
 import React, { useState, useContext, useEffect } from "react";
+import { usePagination } from "../../../hooks/usePagination";
+import { useFilter } from "../../../hooks/useFilter";
+
+import AppContext from "../../../store/app-context";
+
+import styles from "./TournamentList.module.css";
 
 import TournamentItem from "../TournamentItem/TournamentItem";
 import TournamentCard from "./TournamentCard";
-import AppContext from "../../../store/app-context";
 import Sort from "../../UI/Sort";
-import { usePagination } from "../../../hooks/usePagination";
-import PaginationPageLinks from "../../../hooks/usePagination";
-import { useFilter } from "../../../hooks/useFilter";
 import Filter from "../../UI/Filter";
+import PaginationLinks from "../../UI/PaginationLinks";
 
-import styles from "./TournamentList.module.css";
 
 const TournamentList = () => {
     const { tournaments } = useContext(AppContext);
     const [displayTournament, setDisplayTournament] = useState(false);
     const [sortSelected, setSortSelected] = useState("Default");
-    const { paginationData, paginationPage, setPaginationPage } = usePagination(tournaments, 5);
+    const { paginationData, paginationPage, setPaginationPage } = usePagination(tournaments, 10);
     const [displayTournaments, setDisplayTournaments] = useState([]);
     const { filterValues, getCheckboxValuesHandler, filterHandler } = useFilter();
 
@@ -24,7 +26,7 @@ const TournamentList = () => {
         const filteredMatches = filterHandler([...paginationPage]);
         console.log(filteredMatches);
         sortTournamentsHandler({target: {value: sortSelected}}, filteredMatches);
-    }, [paginationPage, filterValues])
+    }, [paginationPage, sortSelected, filterValues])
 
     // reset display tournament state when component unmounts
     useEffect(() => {
@@ -143,7 +145,7 @@ const TournamentList = () => {
                                 )
                         })}
                     </div>
-                    <PaginationPageLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+                    <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
                 </React.Fragment>
                 
             }

@@ -24,7 +24,7 @@ const PlayersList = ({ players }) => {
         const filteredPlayers = filterHandler([...players]);
         console.log(filteredPlayers);
         sortPlayersHandler({target: {value: sortSelected}}, filteredPlayers);
-    }, [sortSelected, filterValues])
+    }, [sortSelected, filterValues, players]);
 
     const sortPlayersHandler = (e, filteredPlayers=[...players]) => {
         const originalPlayerCopy = filteredPlayers;
