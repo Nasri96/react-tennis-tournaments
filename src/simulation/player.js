@@ -7,6 +7,8 @@ export function Player(name) {
     this.loses = 0;
     this.winrate = 0;
     this.tournamentsWon = 0;
+    this.filterTournamentsWon = this.tournamentsWon > 0 ? "More than" : "0";
+    this.filterWinrate = this.updateFilterWinrate();
     this.oldRankPoints = {
         rank: undefined,
         points: undefined,
@@ -39,8 +41,8 @@ Player.updatePlayerRanks = function() {
 Player.players = [];
 
 // Save match played
-Player.prototype.updateMatches = function(match) {
-    this.matches.unshift(match);
+Player.prototype.updateMatches = function(match, matchEnd) {
+    this.matches.unshift({...match, matchEnd});
 }
 
 // Update Wins
@@ -71,6 +73,23 @@ Player.prototype.updateWinrate = function() {
 // Update tournaments won
 Player.prototype.updateTournamentsWon = function() {
     this.tournamentsWon++;
+}
+
+// Update filter stat
+Player.prototype.updateFilterTournamentsWon = function() {
+    this.filterTournamentsWon = this.tournamentsWon > 0 ? "> 0" : "0";
+}
+
+Player.prototype.updateFilterWinrate = function() {
+    let str = "";
+    if(this.winrate < 50) {
+        str = "< 50%";
+    } 
+    if(this.winrate >= 50) {
+        str = "> 50%";
+    } 
+
+    this.filterWinrate = str;
 }
 
 // Update old ranks and points

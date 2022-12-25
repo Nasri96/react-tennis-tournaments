@@ -8,6 +8,8 @@ import Sort from "../UI/Sort";
 import Match from "./Match";
 import { usePagination } from "../../hooks/usePagination";
 import PaginationPageLinks from "../../hooks/usePagination";
+import Filter from "../UI/Filter";
+import { useFilter } from "../../hooks/useFilter";
 
 // Prepare rounds sorting
 const roundsStrength = {
@@ -21,17 +23,19 @@ const roundsStrength = {
 const MatchesList = () => {
     const { matches } = useContext(AppContext);
     const [sortSelected, setSortSelected] = useState("Default");
-    const { paginationData, paginationPage, setPaginationPage } = usePagination(matches, 10);
+    const { paginationData, paginationPage, setPaginationPage } = usePagination(matches, 100);
     const [displayMatches, setDisplayMatches] = useState([...paginationPage]);
-
-    // Display new paginationPage
+    const { filterValues, getCheckboxValuesHandler, filterHandler } = useFilter();
+    console.log(displayMatches);
+    // Display and filter/sort new pagination page
     useEffect(() => {
-        sortMatchesHandler({target: {value: sortSelected}});
-    }, [paginationPage, sortSelected]);
- 
+        const filteredMatches = filterHandler([...paginationPage]);
+        sortMatchesHandler({target: {value: sortSelected}}, filteredMatches);
+    }, [paginationPage, sortSelected, filterValues]);
+
     // Sorting handler
-    const sortMatchesHandler = e => {
-        const paginationPageCopy = [...paginationPage];
+    const sortMatchesHandler = (e, filteredMatches=[...paginationPage]) => {
+        const paginationPageCopy = filteredMatches;
 
         if(e.target.value === "Default") {
             setDisplayMatches(paginationPageCopy);
@@ -89,6 +93,15 @@ const MatchesList = () => {
         <Card>
             <h3 className={styles.heading}>Matches</h3>
             <Sort onChangeSort={sortMatchesHandler} options={["Default", "Round >", "Round <", "Tournament >", "Tournament <"]} />
+            <Filter 
+                filters={
+                    [
+                        { filterName: "Tournament Round", filterKey: "round", checkboxNames: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
+                        { filterName: "Tournament Series", filterKey: "tournamentSeries", checkboxNames: ["250", "500", "1000", "Super"] } 
+                    ]
+                }
+                onGetCheckboxValues={getCheckboxValuesHandler}
+            />
             <div className={styles.matchesList}>
                 {displayMatches.map(match => {
                     return (

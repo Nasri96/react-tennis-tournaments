@@ -6,6 +6,8 @@ import Match from "../../Matches/Match";
 import Sort from "../../UI/Sort";
 import { usePagination } from "../../../hooks/usePagination";
 import PaginationPageLinks from "../../../hooks/usePagination";
+import { useFilter } from "../../../hooks/useFilter";
+import Filter from "../../UI/Filter";
 
 // Prepare rounds sorting
 const roundsStrength = {
@@ -20,14 +22,16 @@ const PlayerDetails = ({ player, isMobile }) => {
     const [sortSelected, setSortSelected] = useState("Default");
     const { paginationData, paginationPage, setPaginationPage } = usePagination(player.matches, 10);
     const [displayPlayerMatches, setDisplayPlayerMatches] = useState([...paginationPage]);
+    const { filterValues, getCheckboxValuesHandler, filterHandler } = useFilter();
 
     // Sort and display new paginationPage
     useEffect(() => {
-        sortPlayerMatchesHandler({target: {value: sortSelected}});
-    }, [paginationPage])
+        const filteredMatches = filterHandler([...paginationPage]);
+        sortPlayerMatchesHandler({target: {value: sortSelected}}, filteredMatches);
+    }, [paginationPage, sortSelected, filterValues])
 
-    const sortPlayerMatchesHandler = e => {
-        const playerMatchesCopy = [...paginationPage];
+    const sortPlayerMatchesHandler = (e, filteredMatches=[...paginationPage]) => {
+        const playerMatchesCopy = filteredMatches;
 
         if(e.target.value === "Default") {
             setDisplayPlayerMatches(playerMatchesCopy);
@@ -131,6 +135,16 @@ const PlayerDetails = ({ player, isMobile }) => {
             <div className={styles.matchesList}>
                 <h3>{player.name}'s matches</h3>
                 <Sort onChangeSort={sortPlayerMatchesHandler} options={["Default", "Wins", "Loses", "Round >", "Round <", "Tournament >", "Tournament <"]} />
+                <Filter 
+                    filters={
+                        [
+                            { filterName: "Tournament Round", filterKey: "round", checkboxNames: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
+                            { filterName: "Tournament Series", filterKey: "tournamentSeries", checkboxNames: ["250", "500", "1000", "Super"] },
+                            { filterName: "Match Status", filterKey: "matchEnd", checkboxNames: ["win", "lost"] }
+                        ]
+                    }
+                    onGetCheckboxValues={getCheckboxValuesHandler}
+                />
                 {displayPlayerMatches.map(match => {
                     return (
                         <Match match={match} badge={player.name === match.winner ? "Win" : "Lost"} />

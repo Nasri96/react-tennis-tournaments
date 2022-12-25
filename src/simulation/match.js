@@ -205,10 +205,10 @@ Match.prototype.updatePlayersStats = function(players) {
     const playerLoser = players.find(player => player.name === this.loser);
 
     // Update winner
-    playerWinner.updateMatches(this);
+    playerWinner.updateMatches(this, "win");
     playerWinner.updateWins();
 
     // Update loser
-    playerLoser.updateMatches(this);
+    playerLoser.updateMatches(this, "lost");
     playerLoser.updateLoses();
 }

@@ -6,6 +6,8 @@ import AppContext from "../../../store/app-context";
 import Sort from "../../UI/Sort";
 import { usePagination } from "../../../hooks/usePagination";
 import PaginationPageLinks from "../../../hooks/usePagination";
+import { useFilter } from "../../../hooks/useFilter";
+import Filter from "../../UI/Filter";
 
 import styles from "./TournamentList.module.css";
 
@@ -14,12 +16,15 @@ const TournamentList = () => {
     const [displayTournament, setDisplayTournament] = useState(false);
     const [sortSelected, setSortSelected] = useState("Default");
     const { paginationData, paginationPage, setPaginationPage } = usePagination(tournaments, 5);
-    const [displayTournaments, setDisplayTournaments] = useState([...paginationPage]);
+    const [displayTournaments, setDisplayTournaments] = useState([]);
+    const { filterValues, getCheckboxValuesHandler, filterHandler } = useFilter();
 
     // Sort and display new paginationPage
     useEffect(() => {
-        sortTournamentsHandler({target: {value: sortSelected}});
-    }, [paginationPage])
+        const filteredMatches = filterHandler([...paginationPage]);
+        console.log(filteredMatches);
+        sortTournamentsHandler({target: {value: sortSelected}}, filteredMatches);
+    }, [paginationPage, filterValues])
 
     // reset display tournament state when component unmounts
     useEffect(() => {
@@ -38,16 +43,16 @@ const TournamentList = () => {
     }
 
     // Sort tournaments handler
-    const sortTournamentsHandler = e => {
-        const paginationPageCopy = [...paginationPage];
+    const sortTournamentsHandler = (e, filteredPlayers=[...paginationPage]) => {
+        const tournamentsCopy = filteredPlayers;
 
         if(e.target.value === "Default") {
-            setDisplayTournaments(paginationPageCopy);   
+            setDisplayTournaments(tournamentsCopy);   
             setSortSelected("Default");
         }
         
         if(e.target.value === "Name >") {
-            paginationPageCopy.sort((a, b) => {
+            tournamentsCopy.sort((a, b) => {
                 if(a.name.toLowerCase() > b.name.toLowerCase()) {
                     return 1;
                 }
@@ -58,12 +63,12 @@ const TournamentList = () => {
                 return 0;
             })
 
-            setDisplayTournaments(paginationPageCopy); 
+            setDisplayTournaments(tournamentsCopy); 
             setSortSelected("Name >");
         }
 
         if(e.target.value === "Name <") {
-            paginationPageCopy.sort((a, b) => {
+            tournamentsCopy.sort((a, b) => {
                 if(a.name.toLowerCase() > b.name.toLowerCase()) {
                     return -1;
                 }
@@ -74,12 +79,12 @@ const TournamentList = () => {
                 return 0;
             })
 
-            setDisplayTournaments(paginationPageCopy); 
+            setDisplayTournaments(tournamentsCopy); 
             setSortSelected("Name <");
         }
 
         if(e.target.value === "Series >") {
-            paginationPageCopy.sort((a, b) => {
+            tournamentsCopy.sort((a, b) => {
                 let seriesA = parseInt(a.series);
                 let seriesB = parseInt(b.series);
                 if(isNaN(seriesA)) {
@@ -92,12 +97,12 @@ const TournamentList = () => {
                 return seriesA - seriesB;
             })
 
-            setDisplayTournaments(paginationPageCopy); 
+            setDisplayTournaments(tournamentsCopy); 
             setSortSelected("Series >");
         }
 
         if(e.target.value === "Series <") {
-            paginationPageCopy.sort((a, b) => {
+            tournamentsCopy.sort((a, b) => {
                 let seriesA = parseInt(a.series);
                 let seriesB = parseInt(b.series);
                 if(isNaN(seriesA)) {
@@ -110,7 +115,7 @@ const TournamentList = () => {
                 return seriesB - seriesA;
             })
 
-            setDisplayTournaments(paginationPageCopy); 
+            setDisplayTournaments(tournamentsCopy); 
             setSortSelected("Series <");
         }
     }
@@ -123,6 +128,14 @@ const TournamentList = () => {
             {tournaments.length !== 0 && !displayTournament &&
                 <React.Fragment>
                     <Sort onChangeSort={sortTournamentsHandler} options={["Default", "Name >", "Name <", "Series >", "Series <"]} selected={sortSelected} />
+                    <Filter
+                        filters={
+                            [
+                                { filterName: "Tournament Series", filterKey: "series", checkboxNames: ["250", "500", "1000", "Super"] }
+                            ]
+                        }
+                        onGetCheckboxValues={getCheckboxValuesHandler}
+                    />
                     <div className={styles.tournamentList}>
                         {displayTournaments.map(tournament => {
                                 return ( 

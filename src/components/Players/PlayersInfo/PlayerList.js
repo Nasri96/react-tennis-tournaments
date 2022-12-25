@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 
 import styles from "./PlayerList.module.css";
@@ -6,22 +6,35 @@ import styles from "./PlayerList.module.css";
 import PlayerItem from "./PlayerItem";
 import PlayerDetails from "./PlayerDetails";
 import Sort from "../../UI/Sort";
+import Filter from "../../UI/Filter";
+import { useFilter } from "../../../hooks/useFilter";
 
 const PlayersList = ({ players }) => {
+    const [sortSelected, setSortSelected] = useState("Default");
     const [playerDetails, setPlayerDetails] = useState(false);
     const [displayPlayers, setDisplayPlayers] = useState(players);
+    const { filterValues, getCheckboxValuesHandler, filterHandler } = useFilter();
+
     const isMobile = useMediaQuery({
         query: "(max-width: 768px)"
     });
 
-    const sortPlayersHandler = e => {
-        const originalPlayers = players.slice();
+    // Sort and display new paginationPage
+    useEffect(() => {
+        const filteredPlayers = filterHandler([...players]);
+        console.log(filteredPlayers);
+        sortPlayersHandler({target: {value: sortSelected}}, filteredPlayers);
+    }, [sortSelected, filterValues])
+
+    const sortPlayersHandler = (e, filteredPlayers=[...players]) => {
+        const originalPlayerCopy = filteredPlayers;
 
         if(e.target.value === "Default") {
-            setDisplayPlayers(players);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Default");
         }
         if(e.target.value === "Name >") {
-            originalPlayers.sort((a, b) => {
+            originalPlayerCopy.sort((a, b) => {
                 if(a.name.toLowerCase() > b.name.toLowerCase()) {
                     return -1;
                 }
@@ -30,11 +43,12 @@ const PlayersList = ({ players }) => {
                 }
                 return 0;
             });
-            setDisplayPlayers(originalPlayers);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Name >");
         }
 
         if(e.target.value === "Name <") {
-            originalPlayers.sort((a, b) => {
+            originalPlayerCopy.sort((a, b) => {
                 if(a.name.toLowerCase() > b.name.toLowerCase()) {
                     return 1;
                 }
@@ -43,57 +57,68 @@ const PlayersList = ({ players }) => {
                 }
                 return 0;
             });
-            setDisplayPlayers(originalPlayers);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Name <");
         }
 
         if(e.target.value === "Rank >") { 
-            originalPlayers.sort((a, b) => a.rank - b.rank);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => a.rank - b.rank);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Rank >");
         }
 
         if(e.target.value === "Rank <") {
-            originalPlayers.sort((a, b) => b.rank - a.rank);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => b.rank - a.rank);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Rank <");
         }
 
         if(e.target.value === "Wins >") {
-            originalPlayers.sort((a, b) => a.wins - b.wins);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => a.wins - b.wins);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Wins >");
         }
 
         if(e.target.value === "Wins <") {
-            originalPlayers.sort((a, b) => b.wins - a.wins);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => b.wins - a.wins);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Wins <");
         }
 
         if(e.target.value === "Loses >") {
-            originalPlayers.sort((a, b) => a.loses - b.loses);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => a.loses - b.loses);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Loses >");
         }
         
         if(e.target.value === "Loses <") {
-            originalPlayers.sort((a, b) => b.loses - a.loses);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => b.loses - a.loses);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Loses <");
         }
 
         if(e.target.value === "Winrate >") {
-            originalPlayers.sort((a, b) => a.winrate - b.winrate);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => a.winrate - b.winrate);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Winrate >");
         }
 
         if(e.target.value === "Winrate <") {
-            originalPlayers.sort((a, b) => b.winrate - a.winrate);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => b.winrate - a.winrate);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Winrate <");
         }
 
         if(e.target.value === "Tournaments Won >") {
-            originalPlayers.sort((a, b) => a.tournamentsWon - b.tournamentsWon);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => a.tournamentsWon - b.tournamentsWon);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Tournaments Won >");
         }
 
         if(e.target.value === "Tournaments Won <") {
-            originalPlayers.sort((a, b) => b.tournamentsWon - a.tournamentsWon);
-            setDisplayPlayers(originalPlayers);
+            originalPlayerCopy.sort((a, b) => b.tournamentsWon - a.tournamentsWon);
+            setDisplayPlayers(originalPlayerCopy);
+            setSortSelected("Tournaments Won <");
         }
     }
 
@@ -119,11 +144,23 @@ const PlayersList = ({ players }) => {
     return (
         <React.Fragment>
             {!playerDetails &&  
+            <React.Fragment>
                 <Sort onChangeSort={sortPlayersHandler} options={["Default", "Name >", "Name <", "Rank >", "Rank <", 
                                                                 "Wins >", "Wins <", "Loses >", "Loses <", "Winrate >", 
                                                                 "Winrate <", "Tournaments Won >", "Tournaments Won <"
                                                                 ]} 
                 />
+                <Filter 
+                    filters={
+                        [
+                            { filterName: "Tournaments Won", filterKey: "filterTournamentsWon", checkboxNames: ["> 0", "0"] },
+                            { filterName: "Winrate", filterKey: "filterWinrate", checkboxNames: ["< 50%", "> 50%"] }
+                        ]
+                    }
+                    onGetCheckboxValues={getCheckboxValuesHandler}
+                />
+            </React.Fragment>
+
             }
             <table className={styles.playersTable}>
                 <thead>

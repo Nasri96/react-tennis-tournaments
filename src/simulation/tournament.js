@@ -271,6 +271,8 @@ Tournament.prototype.updatePlayerStats = function(players) {
     // update winrate
     players.forEach(player => {
         player.updateWinrate();
+        player.updateFilterTournamentsWon();
+        player.updateFilterWinrate();
         player.updateOldRankPoints(oldRankPoints => {
             oldRankPoints.rankDiff = oldRankPoints.rank  - player.rank;
             oldRankPoints.pointsDiff = player.points - oldRankPoints.points;

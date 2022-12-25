@@ -1,0 +1,36 @@
+.filterForm {
+    width: 35%;
+    background-color: #303030;
+    color: #F7F7F7;
+    text-align: center;
+    margin: 5px auto;
+    padding: 14px;
+}
+
+.filterForm select {
+    width: 125px;
+}
+
+.filtersContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.filterName {
+    padding: 15px;
+}
+
+@media screen and (max-width: 768px) {
+    .filterForm {
+        width: 60%;
+        margin: 15px auto;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .filterForm {
+        width: 50%;
+        margin: 15px auto;
+    }
+}
