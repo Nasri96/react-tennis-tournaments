@@ -1,10 +1,13 @@
 import { createContext } from "react";
 
 export const AppContext = createContext({
+    players : [],
     tournaments: [],
+    matches: [],
     setTournaments: () => {},
     activeTournament: Boolean, 
-    setActiveTournament: () => {}
+    setActiveTournament: () => {},
+    TournamentConstructor: () => {},
 })
 
 export default AppContext;

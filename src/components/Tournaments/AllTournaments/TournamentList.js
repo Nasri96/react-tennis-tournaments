@@ -19,14 +19,14 @@ const TournamentList = () => {
     const [sortSelected, setSortSelected] = useState("Default");
     const { paginationData, paginationPage, setPaginationPage } = usePagination(tournaments, 10);
     const [displayTournaments, setDisplayTournaments] = useState([]);
-    const { filterValues, getCheckboxValuesHandler, filterHandler } = useFilter();
+    const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
 
     // Sort and display new paginationPage
     useEffect(() => {
         const filteredMatches = filterHandler([...paginationPage]);
-        console.log(filteredMatches);
+        // console.log(filteredMatches);
         sortTournamentsHandler({target: {value: sortSelected}}, filteredMatches);
-    }, [paginationPage, sortSelected, filterValues])
+    }, [paginationPage, sortSelected, filters])
 
     // reset display tournament state when component unmounts
     useEffect(() => {
@@ -131,12 +131,13 @@ const TournamentList = () => {
                 <React.Fragment>
                     <Sort onChangeSort={sortTournamentsHandler} options={["Default", "Name >", "Name <", "Series >", "Series <"]} selected={sortSelected} />
                     <Filter
-                        filters={
+                        config={
                             [
-                                { filterName: "Tournament Series", filterKey: "series", checkboxNames: ["250", "500", "1000", "Super"] }
+                                { groupName: "Tournament Series", propertyToFilter: "series", valuesToFilter: ["250", "500", "1000", "Super"] }
                             ]
                         }
-                        onGetCheckboxValues={getCheckboxValuesHandler}
+                        onAddFilter={addFilterHandler}
+                        onRemoveFilter={removeFilterHandler}
                     />
                     <div className={styles.tournamentList}>
                         {displayTournaments.map(tournament => {

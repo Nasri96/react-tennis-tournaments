@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useFilter } from "../../../hooks/useFilter";
 
 import styles from "./PlayerList.module.css";
 
@@ -7,13 +8,12 @@ import PlayerItem from "./PlayerItem";
 import PlayerDetails from "./PlayerDetails";
 import Sort from "../../UI/Sort";
 import Filter from "../../UI/Filter";
-import { useFilter } from "../../../hooks/useFilter";
 
 const PlayersList = ({ players }) => {
     const [sortSelected, setSortSelected] = useState("Default");
     const [playerDetails, setPlayerDetails] = useState(false);
     const [displayPlayers, setDisplayPlayers] = useState(players);
-    const { filterValues, getCheckboxValuesHandler, filterHandler } = useFilter();
+    const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
 
     const isMobile = useMediaQuery({
         query: "(max-width: 768px)"
@@ -24,7 +24,7 @@ const PlayersList = ({ players }) => {
         const filteredPlayers = filterHandler([...players]);
         console.log(filteredPlayers);
         sortPlayersHandler({target: {value: sortSelected}}, filteredPlayers);
-    }, [sortSelected, filterValues, players]);
+    }, [sortSelected, filters, players]);
 
     const sortPlayersHandler = (e, filteredPlayers=[...players]) => {
         const originalPlayerCopy = filteredPlayers;
@@ -151,13 +151,14 @@ const PlayersList = ({ players }) => {
                                                                 ]} 
                 />
                 <Filter 
-                    filters={
+                    config={
                         [
-                            { filterName: "Tournaments Won", filterKey: "filterTournamentsWon", checkboxNames: ["> 0", "0"] },
-                            { filterName: "Winrate", filterKey: "filterWinrate", checkboxNames: ["< 50%", "> 50%"] }
+                            { groupName: "Tournaments Won", propertyToFilter: "filterTournamentsWon", valuesToFilter: ["> 0", "0"] },
+                            { groupName: "Winrate", propertyToFilter: "filterWinrate", valuesToFilter: ["< 50%", "> 50%"] }
                         ]
                     }
-                    onGetCheckboxValues={getCheckboxValuesHandler}
+                    onAddFilter={addFilterHandler}
+                    onRemoveFilter={removeFilterHandler}
                 />
             </React.Fragment>
 

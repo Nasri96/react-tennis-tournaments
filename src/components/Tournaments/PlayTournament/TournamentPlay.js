@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 
+import AppContext from "../../../store/app-context";
+
 import styles from "./TournamentPlay.module.css";
 
 import TournamentItem from "../TournamentItem/TournamentItem";
-import AppContext from "../../../store/app-context";
 
 const TournamentPlay = () => {
     const { activeTournament } = useContext(AppContext);
@@ -14,16 +15,6 @@ const TournamentPlay = () => {
     const firstLiveMatchRef = useRef();
 
     const displayTournament = false;
-
-    // Make tournament disappear after it is finished, after 10 seconds
-    // useEffect(() => {
-    //     return () => {
-    //         if(tournamentIsFinished) {
-    //             console.log("UNMOUNTED!");
-    //             setActiveTournament(false);
-    //         }
-    //     }
-    // }, [tournamentIsFinished, setActiveTournament])
 
     // Live Matches Update
     useEffect(() => {

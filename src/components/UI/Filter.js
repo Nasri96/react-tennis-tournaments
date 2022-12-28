@@ -1,45 +1,32 @@
-import React, { useEffect, useState } from "react";
-
 import styles from "./Filter.module.css";
 
 import Checkbox from "./Checkbox";
 
 /* 
-filters: Array[ Object{ filterName: String, checkboxNames: Array[ String ] }, Object2... ]
+-- Props --
+
+| config | required | Array[ Object{ groupName: String, propertyToFilter: String, valuesToFilter: Array[ String ] }, Object2... ]
+- config array -
+| groupName | String | -name of checkbox group
+| propertyToFilter | String | -property of item that is being filtered
+| valuesToFilter | Array | -eventual values of items's property
+
+| onAddFilter | Function | This function is received from useFilter hook. Function is further passed to Checkbox component.
+| onRemoveFilter | Function | This function is received from useFilter hook. Function is further passed to Checkbox component.
 */
-const Filter = ({ filters, onGetCheckboxValues }) => {
-    const [checkboxValues, setCheckboxValues] = useState([]);
-
-    const addCheckboxValue = (value) => {
-        setCheckboxValues(values => {
-            return [...values, value];
-        })
-    }
-
-    const removeCheckboxValue = checkbox => {
-        setCheckboxValues(checkboxes => {
-            return checkboxes.filter(checkboxValue => {
-                return checkboxValue.value !== checkbox.value;
-            })
-        })
-    }
-
-    // Get latest values for filters
-    useEffect(() => {
-        onGetCheckboxValues(checkboxValues);
-    }, [checkboxValues]);
+const Filter = ({ config, onAddFilter, onRemoveFilter }) => {
 
     return (
         <form className={styles.filterForm}>
             <label>Filters:</label>
             <div className={styles.filtersContainer}>
-                {filters.map(filter => {
+                {config.map(configFilter => {
                     return (
                         <div>
-                            <p className={styles.filterName}>{filter.filterName}</p>
-                            {filter.checkboxNames.map(checkboxName => {
+                            <p className={styles.groupName}>{configFilter.groupName}</p>
+                            {configFilter.valuesToFilter.map(checkboxName => {
                                 return (
-                                    <Checkbox filterKey={filter.filterKey} checkboxName={checkboxName} onAddCheckboxValue={addCheckboxValue} onRemoveCheckboxValue={removeCheckboxValue} />
+                                    <Checkbox propertyToFilter={configFilter.propertyToFilter} checkboxName={checkboxName} onAddFilter={onAddFilter} onRemoveFilter={onRemoveFilter} />
                                 )
                             })}
                         </div>

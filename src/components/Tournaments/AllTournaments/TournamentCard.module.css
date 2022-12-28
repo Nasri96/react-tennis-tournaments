@@ -1,5 +1,6 @@
 .tournamentCard {
     flex-basis: 200px;
+    flex-grow: 1;
     height: 300px;
     cursor: pointer;
     display: flex;

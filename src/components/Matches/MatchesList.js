@@ -27,13 +27,13 @@ const MatchesList = () => {
     const [sortSelected, setSortSelected] = useState("Default");
     const { paginationData, paginationPage, setPaginationPage } = usePagination(matches, 100);
     const [displayMatches, setDisplayMatches] = useState([...paginationPage]);
-    const { filterValues, getCheckboxValuesHandler, filterHandler } = useFilter();
-    console.log(displayMatches);
+    const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
+
     // Display and filter/sort new pagination page
     useEffect(() => {
         const filteredMatches = filterHandler([...paginationPage]);
         sortMatchesHandler({target: {value: sortSelected}}, filteredMatches);
-    }, [paginationPage, sortSelected, filterValues]);
+    }, [paginationPage, sortSelected, filters]);
 
     // Sorting handler
     const sortMatchesHandler = (e, filteredMatches=[...paginationPage]) => {
@@ -96,13 +96,14 @@ const MatchesList = () => {
             <h3 className={styles.heading}>Matches</h3>
             <Sort onChangeSort={sortMatchesHandler} options={["Default", "Round >", "Round <", "Tournament >", "Tournament <"]} />
             <Filter 
-                filters={
+                config={
                     [
-                        { filterName: "Tournament Round", filterKey: "round", checkboxNames: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
-                        { filterName: "Tournament Series", filterKey: "tournamentSeries", checkboxNames: ["250", "500", "1000", "Super"] } 
+                        { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
+                        { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] } 
                     ]
                 }
-                onGetCheckboxValues={getCheckboxValuesHandler}
+                onAddFilter={addFilterHandler}
+                onRemoveFilter={removeFilterHandler}
             />
             <div className={styles.matchesList}>
                 {displayMatches.map(match => {

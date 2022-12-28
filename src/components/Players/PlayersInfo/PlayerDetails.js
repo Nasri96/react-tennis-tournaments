@@ -22,13 +22,13 @@ const PlayerDetails = ({ player, isMobile }) => {
     const [sortSelected, setSortSelected] = useState("Default");
     const { paginationData, paginationPage, setPaginationPage } = usePagination(player.matches, 10);
     const [displayPlayerMatches, setDisplayPlayerMatches] = useState([...paginationPage]);
-    const { filterValues, getCheckboxValuesHandler, filterHandler } = useFilter();
+    const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
 
     // Sort and display new paginationPage
     useEffect(() => {
         const filteredMatches = filterHandler([...paginationPage]);
         sortPlayerMatchesHandler({target: {value: sortSelected}}, filteredMatches);
-    }, [paginationPage, sortSelected, filterValues])
+    }, [paginationPage, sortSelected, filters])
 
     const sortPlayerMatchesHandler = (e, filteredMatches=[...paginationPage]) => {
         const playerMatchesCopy = filteredMatches;
@@ -136,14 +136,15 @@ const PlayerDetails = ({ player, isMobile }) => {
                 <h3>{player.name}'s matches</h3>
                 <Sort onChangeSort={sortPlayerMatchesHandler} options={["Default", "Wins", "Loses", "Round >", "Round <", "Tournament >", "Tournament <"]} />
                 <Filter 
-                    filters={
+                    config={
                         [
-                            { filterName: "Tournament Round", filterKey: "round", checkboxNames: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
-                            { filterName: "Tournament Series", filterKey: "tournamentSeries", checkboxNames: ["250", "500", "1000", "Super"] },
-                            { filterName: "Match Status", filterKey: "matchEnd", checkboxNames: ["win", "lost"] }
+                            { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
+                            { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] },
+                            { groupName: "Match Outcome", propertyToFilter: "matchOutcome", valuesToFilter: ["Win", "Lost"] }
                         ]
                     }
-                    onGetCheckboxValues={getCheckboxValuesHandler}
+                    onAddFilter={addFilterHandler}
+                    onRemoveFilter={removeFilterHandler}
                 />
                 {displayPlayerMatches.map(match => {
                     return (

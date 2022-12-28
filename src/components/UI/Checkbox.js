@@ -1,20 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
 import styles from "./Checkbox.module.css";
 
-const Checkbox = ({ filterKey, checkboxName, onAddCheckboxValue, onRemoveCheckboxValue }) => {
+const Checkbox = ({ propertyToFilter, checkboxName, onAddFilter, onRemoveFilter }) => {
     const [checkbox, setCheckbox] = useState({value: checkboxName, isChecked: false});
-
-    useEffect(() => {
-        if(!checkbox.isChecked) {
-            onRemoveCheckboxValue({value: checkbox.value});
-        }
-    }, [checkbox.isChecked, checkbox.value])
 
     const checkboxChangeHandler = e => {
         setCheckbox(checkbox => {
             return { value: checkbox.value, isChecked: !checkbox.isChecked };
         });
-        onAddCheckboxValue({value: checkbox.value, filterKey: filterKey});
+        if(checkbox.isChecked) {
+            onRemoveFilter({valueToFilter: checkbox.value});
+        } else {
+            onAddFilter({valueToFilter: checkbox.value, propertyToFilter: propertyToFilter});
+        }
     }
 
     return (

@@ -21,8 +21,8 @@ What is returned from hook is passed to PaginationLinks component.
 paginationPage contains paginated data for current page.
 
 -- Function Arguments --
-| Input data | Array | -Array of all items.
-| itemsPerPage | Number | -Number of items per paginationPage.
+| Input data | Array | required | -Array of all items.
+| itemsPerPage | Number | optional | -Number of items per paginationPage.
 */
 export const usePagination = (inputData, itemsPerPage = 10) => {
     const [paginationData, setPaginationData] = useState(createPaginationData(inputData, itemsPerPage));

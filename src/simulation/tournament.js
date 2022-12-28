@@ -6,13 +6,21 @@
 - Every seed will recieve their own bracket(array) so they can't play against other seeds early. 
 - Rank1 will be placed at bracket(array) 0-3, rank2 at 4-7 or vice-versa.
 
-                    SEEDS        REST of players
-const draw = [[1,2,3,4,5,6,7,8], [...rest]]
-const round1 = [ [1,32,31,12], [8, 10, 30, 29], [4, 9, 28, 27], [6, 10, 26, 25], [5, 11, 24, 23], [2, 13, 22, 21], [7, 14, 20, 19], [3, 15, 18, 17] ]
-const round2 = [ [1, 12, 8, 30], [4, 28, 10, 26], [5, 24, 2, 21], [7, 20, 3, 17] ];
-const round3 = [ [1,8, 4, 10], [5, 2, 7, 3] ]
-const round4 = [ [1,4, 2,3] ];
-const finalRound = [1, 2]; 
+- Example of how should seeded and unseeded players be placed according to rules above
+       SEEDS       REST of players
+[[1,2,3,4,5,6,7,8], [...rest]] => this is achived by Tournament.seededUnseededParticipants()
+[ [1,32,31,12], [8, 10, 30, 29], [4, 9, 28, 27], [6, 10, 26, 25], [5, 11, 24, 23], [2, 13, 22, 21], [7, 14, 20, 19], [3, 15, 18, 17] ] 
+=> this is achieved by Tournament.createBrackets()
+
+- Next step is to create matches based on these brackets.
+round1 [ Match(1, 32), Match(31,12), Match(8, 10), Match(30, 29), Match(4, 9), Match(28, 27), Match(6, 10), Match(26, 25),
+Match(5, 11), Match(24, 23), Match(2, 13), Match(22, 21), Match(7, 14), Match(20, 19), Match(3, 15), Match(18, 17) ]
+=> this is achieved by Tournament.createInitialMatches()
+- Next steps keep doing the same thing. Tournament.createNextRoundMatches() is called every time Tournament.simulateRound() is called, until Tournament is over.
+round2 [ Match(1, 12), Match(8, 30), Match(4, 28), Match(10, 26), Match(5, 24), Match(2, 21), Match(7, 20), Match(3, 17) ]
+quarterFinals [ Match(1, 8), Match(4, 10), Match(5, 2), Match(7, 3) ]
+semiFinals [ Match(1, 4), Match(2, 3) ]
+finals [ Match(1, 2) ]
 */
 
 import { Player } from "./player";
@@ -40,7 +48,7 @@ export function Tournament(name, participants, series) {
     };
     this.rewardPoints = this.createRewardPoints();
     this.seededUnseededParticipants = this.getSeededUnseededParticipants();
-    this.nextRoundMatches = this.createBrackets(this.seededUnseededParticipants[0].length);
+    this.nextRoundMatches = this.createInitialMatches(this.createBrackets(this.seededUnseededParticipants[0].length));
 }
 
 Tournament.prototype.getSeededUnseededParticipants = function() {
@@ -122,7 +130,7 @@ Tournament.prototype.createBrackets = function(numSeeded) {
         bracket.sort(() => 0.5 - Math.random());
     })
 
-    return this.createInitialMatches(brackets);
+    return brackets;
 }
 
 Tournament.prototype.createInitialMatches = function(matchBrackets) {
@@ -148,6 +156,29 @@ Tournament.prototype.createInitialMatches = function(matchBrackets) {
     })
 
     return matches;
+}
+
+Tournament.prototype.createNextRoundMatches = function(matches) {
+    // Get match winners
+    const matchWinners = matches.map(match => {
+        return match.winner;
+    })
+    
+    const newMatches = [];
+    // Find players based on match winners, create new matches based on founded winners
+    matchWinners.forEach((winner, i) => {
+        if(i % 2 === 0) {
+            const winner1 = winner;
+            const winner2 = matchWinners[i + 1];
+
+            const nextRoundPlayer1 = players.find(player => player.name === winner1);
+            const nextRoundPlayer2 = players.find(player => player.name === winner2);
+
+            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series));
+        }
+    })
+
+    return newMatches;
 }
 
 Tournament.prototype.simulateMatches = function(round, simulation) {
@@ -221,29 +252,6 @@ Tournament.prototype.simulateMatches = function(round, simulation) {
     else {
         return "Tournament is finished.";
     }
-}
-
-Tournament.prototype.createNextRoundMatches = function(matches) {
-    // Get match winners
-    const matchWinners = matches.map(match => {
-        return match.winner;
-    })
-    
-    const newMatches = [];
-    // Find players based on match winners, create new matches based on founded winners
-    matchWinners.forEach((winner, i) => {
-        if(i % 2 === 0) {
-            const winner1 = winner;
-            const winner2 = matchWinners[i + 1];
-
-            const nextRoundPlayer1 = players.find(player => player.name === winner1);
-            const nextRoundPlayer2 = players.find(player => player.name === winner2);
-
-            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series));
-        }
-    })
-
-    return newMatches;
 }
 
 Tournament.prototype.givePlayerPoints = function() {
@@ -325,3 +333,6 @@ Tournament.prototype.createRewardPoints = function() {
 function getRandomBetween(min, max) {
     return Math.random() * (max - min) + min;
 }
+
+const newT = new Tournament("Turnir", players, "500");
+console.log(newT);

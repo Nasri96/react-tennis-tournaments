@@ -1,13 +1,14 @@
 import { useContext } from "react";
+import { useActiveTab } from "../../hooks/useActiveTab";
+
+import AppContext from "../../store/app-context";
 
 import styles from "./Players.module.css";
 
 import Card from "../UI/Card";
 import PlayersRanks from "./PlayersRanks/PlayersRanks";
 import PlayersInfo from "./PlayersInfo/PlayersInfo";
-import useActiveTab from "../../hooks/useActiveTab";
 import Tab from "../UI/Tab";
-import AppContext from "../../store/app-context";
 
 const Players = () => {
     const { activeTab, switchTabHandler, isActiveTab } = useActiveTab("playersranks");

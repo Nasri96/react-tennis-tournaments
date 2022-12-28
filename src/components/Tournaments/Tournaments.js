@@ -1,6 +1,7 @@
+import { useActiveTab } from "../../hooks/useActiveTab";
+
 import styles from "./Tournament.module.css";
 
-import useActiveTab from "../../hooks/useActiveTab";
 import Card from "../UI/Card";
 import Tab from "../UI/Tab";
 import TournamentList from "./AllTournaments/TournamentList";

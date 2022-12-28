@@ -1,10 +1,14 @@
 import { useState } from "react";
 
-const useActiveTab = tab => {
-    const [activeTab, setActiveTab] = useState(tab);
+/* 
+useActiveTab hook is used to switch between tabs.
+*/
+
+export const useActiveTab = tabName => {
+    const [activeTab, setActiveTab] = useState(tabName);
 
     const switchTabHandler = (e, tabName) => {
-        console.log(tabName);
+        // console.log(tabName);
         if(tabName) {
             setActiveTab(tabName);
         } else {
@@ -13,8 +17,8 @@ const useActiveTab = tab => {
         }
     }
 
-    const isActiveTab = tab => {
-        if(activeTab === tab) {
+    const isActiveTab = tabName => {
+        if(activeTab === tabName) {
             return true;
         }
         return false;
@@ -27,5 +31,3 @@ const useActiveTab = tab => {
         isActiveTab
     }
 }
-
-export default useActiveTab;

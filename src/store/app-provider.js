@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 
 import AppContext from "./app-context";
 
-// tournament simulation stuff
+// tournament simulation imports
 import { Player } from "../simulation/player";
 import { Tournament as TournamentConstructor } from "../simulation/tournament";
 import seedApp from "../simulation/seedApp";
 const { players } = Player;
+
 
 // Create random num of tournaments
 const { createdTournaments, createdMatches } = seedApp.createRandomTournaments(20);
@@ -28,7 +29,7 @@ const AppProvider = props => {
         }
     }
 
-    // Tournament finished stuff
+    // Tournament finish handler
     useEffect(() => {
         let timer;
         if(activeTournament) {
@@ -51,13 +52,13 @@ const AppProvider = props => {
     }, [activeTournament.winner, activeTournament, setActiveTournament, setTournaments])
 
     const context = {
+        players,
+        matches,
         tournaments,
         setTournaments,
         activeTournament,
         setActiveTournament,
-        players,
         TournamentConstructor,
-        matches
     }
 
     return (

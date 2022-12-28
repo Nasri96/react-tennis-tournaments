@@ -2,7 +2,8 @@ import styles from "./PaginationLinks.module.css";
 
 /* 
 PaginationLinks works together with usePagination hook. 
-paginationData, paginationPage, setPaginationPage are expected to be passed from usePagination hook
+paginationData, paginationPage, setPaginationPage are expected to be passed from usePagination hook.
+PaginationLinks component is needed to change paginationPage.
 */
 const PaginationLinks = ({paginationData, paginationPage, setPaginationPage}) => {
     // Index of paginationPage

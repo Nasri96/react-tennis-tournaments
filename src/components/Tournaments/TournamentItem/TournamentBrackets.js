@@ -1,8 +1,8 @@
 import React, { forwardRef } from "react";
 
-import TournamentMatch from "./TournamentMatch";
-
 import styles from "./TournamentBrackets.module.css";
+
+import TournamentMatch from "./TournamentMatch";
 
 const TournamentBrackets = forwardRef(({ activeTournament, tournamentIsFinished, matchesLiveUpdates, transformText }, ref) => {
     const getPlayedRounds = () => {
@@ -51,6 +51,16 @@ const TournamentBrackets = forwardRef(({ activeTournament, tournamentIsFinished,
                                 )
                             })}
                         </div>
+                    }
+                </div>
+                <div className={styles.roundContainer}>
+                    {getPlayedRounds().map(round => {
+                        return (
+                                <h4 className={`${styles.round} ${styles.roundHeading}`}>{transformText(round)}</h4>
+                        )
+                    })}
+                    {!tournamentIsFinished &&
+                        <h4 className={`${styles.round} ${styles.roundHeading}`}>{transformText(activeTournament.rounds[activeTournament.currentRound])}</h4>
                     }
                 </div>
             </div>

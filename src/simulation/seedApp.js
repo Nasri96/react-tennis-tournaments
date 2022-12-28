@@ -16,7 +16,6 @@ const createRandomTournaments = (numTournaments = 10) => {
     // Create 10 default random tournaments for app
     for(let i = 0; i < numTournaments; i++) {
         const tournamentName = `Tournament: ${Math.floor(Math.random() * 1000)}`;
-        console.log(tournamentName);
         const randomTournamentSeries = tournamentSeries[Math.floor(Math.random() * tournamentSeries.length)];
         const newTournament = new TournamentConstructor(tournamentName, players, randomTournamentSeries);
         newTournament.simulateMatches("round1", "instant");

@@ -1,4 +1,5 @@
 import styles from "./Match.module.css";
+
 import TournamentMatch from "../Tournaments/TournamentItem/TournamentMatch";
 
 // transform text rounds => round1 to Round 1, quarterFinals to Quarter Finals

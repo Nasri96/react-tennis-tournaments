@@ -40,9 +40,9 @@ Player.updatePlayerRanks = function() {
 // All players
 Player.players = [];
 
-// Save match played
-Player.prototype.updateMatches = function(match, matchEnd) {
-    this.matches.unshift({...match, matchEnd});
+// Save match played and save matchOutcome property which is used for filtering
+Player.prototype.updateMatches = function(match, matchOutcome) {
+    this.matches.unshift({...match, matchOutcome});
 }
 
 // Update Wins
@@ -75,11 +75,12 @@ Player.prototype.updateTournamentsWon = function() {
     this.tournamentsWon++;
 }
 
-// Update filter stat
+// Update filter strings
 Player.prototype.updateFilterTournamentsWon = function() {
     this.filterTournamentsWon = this.tournamentsWon > 0 ? "> 0" : "0";
 }
 
+// Update filter strings
 Player.prototype.updateFilterWinrate = function() {
     let str = "";
     if(this.winrate < 50) {
@@ -136,10 +137,10 @@ Player.players = [
         playerAD, playerAE, playerAF, playerAG
     ]
 
-// add starting ranks of 0 to all players 
+// Add starting ranks of 0 to all players 
 Player.updatePlayerRanks();
 
-// add starting old ranks and points
+// Add starting old ranks and points
 Player.players.forEach(player => {
     player.updateOldRankPoints(oldRankPoints => {
         oldRankPoints.rank = player.rank;
