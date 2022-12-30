@@ -1,10 +1,33 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useRef } from "react";
 
 import styles from "./TournamentBrackets.module.css";
 
 import TournamentMatch from "./TournamentMatch";
 
 const TournamentBrackets = forwardRef(({ activeTournament, tournamentIsFinished, matchesLiveUpdates, transformText }, ref) => {
+    const scrollContainer = useRef("");
+    /* SCROLL EFFECT */
+    let isDraggingLeftClick = false;
+    let startX, scrollLeft;
+
+    const mousedownHandler = e => {
+        isDraggingLeftClick = true;
+        startX = e.pageX - scrollContainer.current.offsetLeft;
+        scrollLeft = scrollContainer.current.scrollLeft;
+    }
+
+    const mouseupHandler = e => {
+        isDraggingLeftClick = false;
+    }
+
+    const mousemoveHandler = e => {
+        if(isDraggingLeftClick) {
+            const x = e.pageX - scrollContainer.current.offsetLeft;
+            const scroll = x - startX;
+            scrollContainer.current.scrollLeft = scrollLeft - scroll;
+        }
+    }
+
     const getPlayedRounds = () => {
         const playedRounds = Object.keys(activeTournament.matches).filter(round => {
             return activeTournament.matches[round].length > 0;
@@ -16,7 +39,7 @@ const TournamentBrackets = forwardRef(({ activeTournament, tournamentIsFinished,
     return (
         <React.Fragment>
             <p className={styles.text}>BRACKETS</p>
-            <div className={styles.brackets}>
+            <div className={styles.brackets} onMouseMove={mousemoveHandler} onMouseDown={mousedownHandler} onMouseUp={mouseupHandler} ref={scrollContainer}>
                 <div className={styles.roundContainer}>
                     {getPlayedRounds().map(round => {
                         return (

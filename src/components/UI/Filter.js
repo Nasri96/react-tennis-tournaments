@@ -18,11 +18,11 @@ const Filter = ({ config, onAddFilter, onRemoveFilter }) => {
 
     return (
         <form className={styles.filterForm}>
-            <label>Filters:</label>
+            <p>Filters:</p>
             <div className={styles.filtersContainer}>
                 {config.map(configFilter => {
                     return (
-                        <div>
+                        <div className={styles.groups}>
                             <p className={styles.groupName}>{configFilter.groupName}</p>
                             {configFilter.valuesToFilter.map(checkboxName => {
                                 return (

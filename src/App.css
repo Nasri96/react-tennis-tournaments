@@ -9,8 +9,7 @@
 body {
   font-size: 1.1rem;
   font-family: 'Quicksand', sans-serif;
-  background-color: #0062FF;
-  color: #303030;
+  background-color: var(--color-darker);
 }
 
 input, textarea, button {
@@ -28,4 +27,17 @@ input, textarea, button {
   body {
     font-size: 1rem;
   }
+}
+
+
+
+/* 
+COLORS VARIABLES
+*/
+
+:root {
+  --color-dark: #303030;
+  --color-darker: #202020;
+  --color-light: #F7F7F7;
+  --tab-selected-color-bg: #cecece;
 }

@@ -150,7 +150,6 @@ Match.prototype.checkGame = function(player1, player2) {
     }
 }
 
-
 Match.prototype.setPointsToGem = function(players, newPointsToWinGem) {
     players.forEach(player => {
         player.matchHandlerVariables.pointsToWinGem = newPointsToWinGem;

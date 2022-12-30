@@ -4,7 +4,7 @@ const Sort = ({ onChangeSort, options }) => {
 
     return (
         <form className={styles.sortForm}>
-            <label >Sort:</label>
+            <p>Sort:</p>
             <select onChange={onChangeSort}>
                 {options.map(option => <option value={option}>{option}</option>)};
             </select>

@@ -1,10 +1,9 @@
 .tab {
-    flex-grow: 1;
     transition: background-color 0.3s;
-    background-color: #428bff;
-    color: #F7F7F7;
-    padding: 15px;
-    margin: 0 0.5px;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: 12px;
+    margin: 6px 2px;
     border: none;
     outline: none;
     cursor: pointer;
@@ -12,7 +11,7 @@
 }
 
 .selectedTab {
-    background-color:#0051d3;
+    background-color:var(--tab-selected-color-bg);
 }
 
 @media screen and (max-width: 768px) {

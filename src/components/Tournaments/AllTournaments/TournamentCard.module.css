@@ -1,20 +1,19 @@
 .tournamentCard {
-    flex-basis: 200px;
-    flex-grow: 1;
-    height: 300px;
+    flex-basis: 160px;
+    height: 220px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: #F7F7F7;
-    color: #303030;
+    background-color: var(--color-light);
+    color: var(--color-dark);
     margin: 6px;
 }
 
 .tournamentName {
     font-size: 1.1rem;
-    border-bottom: 2px solid #303030;
+    border-bottom: 2px solid var(--color-dark);
     width: 99%;
     padding: 12px;
     text-align: center;
@@ -34,27 +33,38 @@
 }
 
 @media screen and (max-width: 768px) {
+    .tournamentCard {
+        flex-basis: 130px;
+    }
+
     .tournamentName {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .tournamentSeries {
-        font-size: 0.98rem;
+        font-size: 0.9rem;
     }
 
     .tournamentWinner {
-        font-size: 0.98rem;
-    }
-
-    .tournamentCard {
-        flex-basis: 150px;
-        height: 250px;
+        font-size: 0.9rem;
     }
 }
   
 @media screen and (min-width: 768px) and (max-width: 1200px) {
     .tournamentCard {
-        flex-basis: 175px;
-        height: 275px;
+        flex-basis: 140px;
+        height: 190px;
+    }
+
+    .tournamentName {
+        font-size: 1rem;
+    }
+
+    .tournamentSeries {
+        font-size: 0.95rem;
+    }
+
+    .tournamentWinner {
+        font-size: 0.95rem;
     }
 }

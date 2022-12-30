@@ -30,7 +30,7 @@ function App() {
   return (
     <AppProvider>
       <Header onSwitchPage={switchPageHandler} active={activePage} />
-      <Container>
+      <Container type="container-100" >
         {content}
       </Container>
     </AppProvider>

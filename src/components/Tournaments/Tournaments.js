@@ -1,8 +1,9 @@
 import { useActiveTab } from "../../hooks/useActiveTab";
 
 import styles from "./Tournament.module.css";
+import containerStyles from "./../UI/Container.module.css";
 
-import Card from "../UI/Card";
+import Container from "../UI/Container";
 import Tab from "../UI/Tab";
 import TournamentList from "./AllTournaments/TournamentList";
 import TournamentForm from "./CreateTournament/TournamentForm";
@@ -23,14 +24,14 @@ const Tournaments = () => {
     }
 
     return (
-        <Card>
-            <div className={styles.tabs}>
+        <Container type="sidebarContainer">
+            <div className={containerStyles.sidebarTabs}>
                 <Tab name="All Tournaments" onClickHandler={switchTabHandler} isSelected={isActiveTab("alltournaments") ? true : false} type="menuTab" />
                 <Tab name="Create Tournament" onClickHandler={switchTabHandler} isSelected={isActiveTab("createtournament") ? true : false} type="menuTab" />
                 <Tab name="Play Tournament" onClickHandler={switchTabHandler} isSelected={isActiveTab("playtournament") ? true : false} type="menuTab" />
             </div>
             {content}
-        </Card>
+        </Container>
     )
 }
 

@@ -5,6 +5,7 @@ import { useFilter } from "../../../hooks/useFilter";
 import AppContext from "../../../store/app-context";
 
 import styles from "./TournamentList.module.css";
+import containerStyles from "./../../UI/Container.module.css";
 
 import TournamentItem from "../TournamentItem/TournamentItem";
 import TournamentCard from "./TournamentCard";
@@ -123,30 +124,36 @@ const TournamentList = () => {
     }
 
     return (
-        <div>
+        <div className={containerStyles.sidebarContent}>
             {tournaments.length === 0 &&
                 <p>Looks like you didn't create any tournament yet. Go to Create New Tournament tab and start creating tournaments.</p>
             }
             {tournaments.length !== 0 && !displayTournament &&
                 <React.Fragment>
-                    <Sort onChangeSort={sortTournamentsHandler} options={["Default", "Name >", "Name <", "Series >", "Series <"]} selected={sortSelected} />
-                    <Filter
-                        config={
-                            [
-                                { groupName: "Tournament Series", propertyToFilter: "series", valuesToFilter: ["250", "500", "1000", "Super"] }
-                            ]
-                        }
-                        onAddFilter={addFilterHandler}
-                        onRemoveFilter={removeFilterHandler}
-                    />
-                    <div className={styles.tournamentList}>
-                        {displayTournaments.map(tournament => {
-                                return ( 
-                                    <TournamentCard tournament={tournament} onSetDisplayTournament={setDisplayTournamentHandler} />
-                                )
-                        })}
+                    <div className={styles.sortFilterContainer}>
+                        <Sort onChangeSort={sortTournamentsHandler} options={["Default", "Name >", "Name <", "Series >", "Series <"]} selected={sortSelected} />
+                        <Filter
+                            config={
+                                [
+                                    { groupName: "Tournament Series", propertyToFilter: "series", valuesToFilter: ["250", "500", "1000", "Super"] }
+                                ]
+                            }
+                            onAddFilter={addFilterHandler}
+                            onRemoveFilter={removeFilterHandler}
+                        />
                     </div>
-                    <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+                    <div className={styles.tournamentListContainer}>
+                        <h3 className={styles.heading}>Tournaments</h3>
+                        <div className={styles.tournamentList}>
+                            {displayTournaments.map(tournament => {
+                                    return ( 
+                                        <TournamentCard tournament={tournament} onSetDisplayTournament={setDisplayTournamentHandler} />
+                                    )
+                            })}
+                        </div>
+
+                        <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+                    </div>
                 </React.Fragment>
                 
             }

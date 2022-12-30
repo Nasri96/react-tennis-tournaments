@@ -1,26 +1,29 @@
 .tournamentInfo {
     display: flex;
-    font-size: 1.4rem;
-    margin-bottom: 70px;
+    justify-content: space-around;
+    font-size: 1.3rem;
+    margin-bottom: 50px;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    border: 2px solid var(--color-darker);
+    border-radius: 3px;
 }
 
 .tournamentInfo .tournamentName {
     text-align: center;
     font-weight: normal;
     padding: 25px 12px;
-    border-left: 1px solid #F7F7F7;
 }
 
 .tournamentInfo .tournamentSeries {
     text-align: center;
     font-weight: normal;
     padding: 25px 12px;
-    border-left: 1px solid #F7F7F7;
 }
 
 @media screen and (max-width: 768px) {
     .tournamentInfo {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
 }
   

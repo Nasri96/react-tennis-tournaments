@@ -16,7 +16,7 @@ const Header = props => {
 
     return (
         <header>
-            <Container>
+            <Container type="container-75">
                 <nav className={styles.nav}>
                     <div className={styles.navMenu}>
                         <h1>Tennis Tournaments</h1>

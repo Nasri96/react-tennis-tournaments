@@ -1,26 +1,40 @@
 .sortForm {
-    width: 35%;
-    background-color: #303030;
-    color: #F7F7F7;
+    width: 75%;
+    background-color: var(--color-dark);
+    color: var(--color-light);
     text-align: center;
     margin: 5px auto;
-    padding: 14px;
+    padding: 12px;
+    border-bottom: 2px solid var(--color-light);
+}
+
+.sortForm p {
+    padding: 12px;
+    margin: 5px;
 }
 
 .sortForm select {
-    width: 125px;
+    width: 100px;
+    padding: 6px;
+    font-size: 1rem;
 }
 
 @media screen and (max-width: 768px) {
-    .sortForm {
-        width: 60%;
-        margin: 15px auto;
+    .sortForm p {
+        padding: 8px;
+    }
+
+    .sortForm select {
+        font-size: 0.9rem;
     }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
-    .sortForm {
-        width: 50%;
-        margin: 15px auto;
+    .sortForm p {
+        padding: 10px;
+    }
+
+    .sortForm select {
+        font-size: 0.95rem;
     }
 }

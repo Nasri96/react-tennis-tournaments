@@ -5,6 +5,7 @@ import styles from "./TournamentItem.module.css";
 import TournamentInfo from "./TournamentInfo";
 import TournamentNextRound from "./TournamentNextRound";
 import TournamentBrackets from "./TournamentBrackets";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 const TournamentItem = forwardRef(({ 
     activeTournament, displayTournament, onSetDisplayTournament, currentRound,
@@ -41,11 +42,13 @@ const TournamentItem = forwardRef(({
         
     }
 
+    const iconStyles = { marginRight: "10px" };
+
     return (
         <React.Fragment>
                 {displayTournament &&
-                    <div className={styles.center}>
-                        <button onClick={onSetDisplayTournament}>Back to All Tournaments</button>
+                    <div className={styles.backContainer}>
+                        <button onClick={onSetDisplayTournament}><BsFillArrowLeftCircleFill style={iconStyles} /> Back to All Tournaments</button>
                     </div>
                 }
                 <TournamentInfo activeTournament={activeTournament} tournamentIsFinished={tournamentIsFinished} />

@@ -1,11 +1,49 @@
-.container {
-    width: 85%;
+.container-100 {
+    width: 100%;
     margin: 0 auto;
 }
 
-@media screen and (max-width: 1200px) {
-    .container {
-        width: 100%;
-        margin: 0 auto;
+.container-75 {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.sidebarContainer {
+    display: flex;
+    min-height: 84vh;
+    border-radius: 3px;
+}
+
+.sidebarTabs {
+    display: flex;
+    flex-basis: 16%;
+    flex-direction: column;
+    background-color: var(--color-light);
+    border: 1px solid var(--color-darker);
+    padding-top: 25px;
+    border-radius: 3px;
+}
+
+.sidebarContent {
+    display: flex;
+    flex-basis: 84%;
+    background-color: var(--color-light);
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .sidebarContainer {
+        flex-direction: column;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .sidebarContainer {
+        flex-direction: column;
+    }
+
+    .sidebarContent {
+        flex-direction: column;
     }
 }
