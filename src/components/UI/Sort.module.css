@@ -20,6 +20,10 @@
 }
 
 @media screen and (max-width: 768px) {
+    .sortForm {
+        padding: 4px;
+    }
+    
     .sortForm p {
         padding: 8px;
     }

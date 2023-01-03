@@ -30,14 +30,19 @@
     font-size: 1.15rem;
     padding: 15px;
     font-weight: normal;
-    border-bottom: 1px solid #F7F7F7;
+    border-bottom: 2px solid var(--color-darker);
 }
 
 .text {
     padding: 15px;
+    border-left: 3px solid var(--color-darker);
 }
 
 @media screen and (max-width: 768px) {
+    .round {
+        flex-basis: 280px;
+    }
+
     .round.roundHeading {
         font-size: 1.05rem;
     }

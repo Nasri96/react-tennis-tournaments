@@ -1,18 +1,29 @@
+.textNoTournament {
+    text-align: center;
+    color: var(--color-light);
+}
+
 .formContainer {
+    flex-basis: 100%;
+    flex-grow: 1;
+    background-color: var(--color-dark);
+    padding: 50px;
+    border: 1px solid var(--color-light);
+    border-radius: 3px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .createTournamentForm {
-    width: 55%;
+    flex-basis: 50%;
     padding: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #303030;
-    color: #F7F7F7;
-    border: 2px solid #303030;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    border: 2px solid var(--color-dark);
     border-radius: 2px;
 }
 
@@ -44,6 +55,7 @@
     outline: none;
     padding: 12px;
     margin-bottom: 15px;
+    font-size: inherit;
 }
 
 .buttonContainer {
@@ -55,6 +67,8 @@
     width: 120px;
     padding: 12px;
     cursor: pointer;
+    color: var(--color-dark);
+    background-color: var(--tab-selected-color-bg);
     border: 2px solid transparent;
     border-radius: 2px;
 }
@@ -66,13 +80,17 @@
 }
 
 @media screen and (max-width: 768px) {
+    .formContainer {
+        padding: 25px;
+    }
+
     .createTournamentForm {
-        width: 90%;
+        flex-basis: 100%;
     }
 }
   
 @media screen and (min-width: 768px) and (max-width: 1200px) {
     .createTournamentForm {
-        width: 65%;
+        flex-basis: 60%;
     }
 }

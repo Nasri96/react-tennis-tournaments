@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import AppContext from "../../../store/app-context";
 
 import styles from "./TournamentPlay.module.css";
+import containerStyles from "../../UI/Container.module.css";
 
 import TournamentItem from "../TournamentItem/TournamentItem";
 
@@ -62,28 +63,31 @@ const TournamentPlay = () => {
     }
 
     return (
-            <div className={styles.playContainer}>
-                {activeTournament && !displayTournament &&
-                    <TournamentItem 
-                        activeTournament={activeTournament}
-                        displayTournament={displayTournament}
-                        onSetDisplayTournament={null}
-                        currentRound={currentRound}
-                        tournamentIsFinished={tournamentIsFinished}
-                        matchesLiveUpdates={matchesLiveUpdates}
-                        onTournamentSimulateRound={simulateRoundHandler}
-                        tournamentSimulationSpeed={tournamentSimulationSpeed}
-                        onTournamentSimulationSpeed={tournamentSimulationSpeedHandler}
-                        ref={firstLiveMatchRef}
-                    />
-                }
-                {!activeTournament &&
-                    <p>You need to create tournament in order to play tournament. Go to Create Tournament tab and create tournament.</p>
-                }
-                {activeTournament && displayTournament &&
-                    <p>You need to create tournament in order to play tournament. Go to Create Tournament tab and create tournament.</p>
-                }
-            </div> 
+            <div className={containerStyles.sidebarContent}>
+                <div className={styles.playContainer}>
+                    {activeTournament && !displayTournament &&
+                        <TournamentItem 
+                            activeTournament={activeTournament}
+                            displayTournament={displayTournament}
+                            onSetDisplayTournament={null}
+                            currentRound={currentRound}
+                            tournamentIsFinished={tournamentIsFinished}
+                            matchesLiveUpdates={matchesLiveUpdates}
+                            onTournamentSimulateRound={simulateRoundHandler}
+                            tournamentSimulationSpeed={tournamentSimulationSpeed}
+                            onTournamentSimulationSpeed={tournamentSimulationSpeedHandler}
+                            ref={firstLiveMatchRef}
+                        />
+                    }
+                    {!activeTournament &&
+                        <p className={styles.textNoTournament}>You need to create tournament in order to play tournament. Go to Create Tournament tab and create tournament.</p>
+                    }
+                    {activeTournament && displayTournament &&
+                        <p className={styles.textNoTournament}>You need to create tournament in order to play tournament. Go to Create Tournament tab and create tournament.</p>
+                    }
+                </div> 
+            </div>
+            
     );
 }
 

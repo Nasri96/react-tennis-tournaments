@@ -3,6 +3,7 @@ import React, { useState, useContext } from "react";
 import AppContext from "../../../store/app-context";
 
 import styles from "./TournamentForm.module.css";
+import containerStyles from "./../../UI/Container.module.css";
 
 const TournamentForm = ({ onSwitchTab }) => {
     const { activeTournament, setActiveTournament, players, TournamentConstructor } = useContext(AppContext);
@@ -81,7 +82,7 @@ const TournamentForm = ({ onSwitchTab }) => {
     let formJSX;
     if(activeTournament && !activeTournament.winner) {
         formJSX =   <div className={styles.formContainer}>
-                        <div>You already created tournament. Finish tournament before creating new one.</div>
+                        <p className={styles.textNoTournament}>You already created tournament. Finish tournament before creating new one.</p>
                     </div>
     } else if(!activeTournament || activeTournament.winner) {
         formJSX = <div className={styles.formContainer}>
@@ -106,9 +107,9 @@ const TournamentForm = ({ onSwitchTab }) => {
     }
 
     return (
-        <React.Fragment>
+        <div className={containerStyles.sidebarContent}>
             {formJSX}
-        </React.Fragment>
+        </div>
     )
 }
 

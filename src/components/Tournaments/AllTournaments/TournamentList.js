@@ -126,7 +126,9 @@ const TournamentList = () => {
     return (
         <div className={containerStyles.sidebarContent}>
             {tournaments.length === 0 &&
-                <p>Looks like you didn't create any tournament yet. Go to Create New Tournament tab and start creating tournaments.</p>
+                <div className={styles.tournamentContainer}>
+                    <p className={styles.textNoTournament}>Looks like you didn't create any tournament yet. Go to Create New Tournament tab and start creating tournaments.</p>
+                </div>
             }
             {tournaments.length !== 0 && !displayTournament &&
                 <React.Fragment>

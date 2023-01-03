@@ -46,34 +46,50 @@ const TournamentItem = forwardRef(({
 
     return (
         <React.Fragment>
-                {displayTournament &&
-                    <div className={styles.backContainer}>
-                        <button onClick={onSetDisplayTournament}><BsFillArrowLeftCircleFill style={iconStyles} /> Back to All Tournaments</button>
-                    </div>
-                }
                 <TournamentInfo activeTournament={activeTournament} tournamentIsFinished={tournamentIsFinished} />
-                {!matchesLiveUpdates && !tournamentIsFinished &&
-                    <div className={styles.controls}>
-                        <p>Simulation Speed</p>
-                        <select onChange={onTournamentSimulationSpeed} value={tournamentSimulationSpeed}>
-                            <option value="slow">Slow</option>
-                            <option value="instant">Instant</option>
-                        </select>
-                        <button onClick={onTournamentSimulateRound}>Play Next Round</button>
+                <React.Fragment>
+                    {!displayTournament &&
+                    <React.Fragment>
+                            {!matchesLiveUpdates && !tournamentIsFinished &&
+                                <div className={styles.controls}>
+                                    <p>Simulation Speed</p>
+                                    <select onChange={onTournamentSimulationSpeed} value={tournamentSimulationSpeed}>
+                                        <option value="slow">Slow</option>
+                                        <option value="instant">Instant</option>
+                                    </select>
+                                    <button onClick={onTournamentSimulateRound}>Play Next Round</button>
+                                </div>
+                            }
+                    </React.Fragment>
+                    }
+                </React.Fragment>
+                <div className={styles.tournamentItemContainer}>
+                    <div className={styles.tournamentItemCenterContent}>
+                    {displayTournament &&
+                        <div className={styles.backContainer}>
+                            <button onClick={onSetDisplayTournament}><BsFillArrowLeftCircleFill style={iconStyles} /> Back to All Tournaments</button>
+                        </div>
+                    }
+                    <TournamentBrackets 
+                        activeTournament={activeTournament}
+                        tournamentIsFinished={tournamentIsFinished}
+                        matchesLiveUpdates={matchesLiveUpdates}
+                        ref={ref} 
+                        transformText={transformText} 
+                    />
                     </div>
-                }
-                <TournamentNextRound 
-                    activeTournament={activeTournament}
-                    tournamentIsFinished={tournamentIsFinished}
-                    currentRound={currentRound}
-                    transformText={transformText} 
-                />
-                <TournamentBrackets 
-                    activeTournament={activeTournament}
-                    tournamentIsFinished={tournamentIsFinished}
-                    matchesLiveUpdates={matchesLiveUpdates}
-                    ref={ref} 
-                    transformText={transformText} />
+                    {!displayTournament &&
+                        <div className={styles.tournamentRightSidebarContent}>
+                        <TournamentNextRound 
+                            activeTournament={activeTournament}
+                            tournamentIsFinished={tournamentIsFinished}
+                            currentRound={currentRound}
+                            transformText={transformText} 
+                        />
+                    </div>
+                    }
+                    
+                </div>
         </React.Fragment>
     )
 })

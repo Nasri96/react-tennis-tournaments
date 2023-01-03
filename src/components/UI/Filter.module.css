@@ -31,6 +31,7 @@ p.groupName {
 @media screen and (max-width: 768px) {
     .filterForm {
         border-bottom: none;
+        padding: 4px;
     }
 
     .filterForm p {

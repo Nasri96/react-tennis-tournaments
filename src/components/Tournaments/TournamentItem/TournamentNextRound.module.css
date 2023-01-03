@@ -1,22 +1,29 @@
 .nextRoundContainer {
     text-align: center;
-    max-height: 50vh;
+    max-height: 60vh;
     overflow: auto;
-    margin-bottom: 70px;
 }
 
 .nextRoundContainer .textHeadings {
     font-size: 1.25rem;
     padding: 20px;
+    text-align: left;
+    border-left: 3px solid var(--color-darker);
 }
 
 .nextRoundContainer .nextRoundHeading {
     font-size: 1.15rem;
+    margin: 15px 0;
     padding: 15px;
     font-weight: normal;
+    border-bottom: 1px solid var(--color-darker);
 }
 
 @media screen and (max-width: 768px) {
+    .nextRoundContainer {
+        max-height: 50vh;
+    }
+
     .nextRoundContainer .textHeadings {
       font-size: 1.05rem;
     }

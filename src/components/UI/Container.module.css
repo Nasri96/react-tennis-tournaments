@@ -26,8 +26,9 @@
 
 .sidebarContent {
     display: flex;
+    flex-grow: 1;
     flex-basis: 84%;
-    background-color: var(--color-light);
+    background-color: var(--color-dark);
 }
 
 
