@@ -3,6 +3,7 @@ import { useMediaQuery } from "react-responsive";
 import { useFilter } from "../../../hooks/useFilter";
 
 import styles from "./PlayerList.module.css";
+import containerStyles from "../../UI/Container.module.css";
 
 import PlayerItem from "./PlayerItem";
 import PlayerDetails from "./PlayerDetails";
@@ -142,9 +143,10 @@ const PlayersList = ({ players }) => {
     })
 
     return (
-        <React.Fragment>
+        <div className={containerStyles.sidebarContent}>
             {!playerDetails &&  
             <React.Fragment>
+            <div className={styles.sortFilterContainer}>
                 <Sort onChangeSort={sortPlayersHandler} options={["Default", "Name >", "Name <", "Rank >", "Rank <", 
                                                                 "Wins >", "Wins <", "Loses >", "Loses <", "Winrate >", 
                                                                 "Winrate <", "Tournaments Won >", "Tournaments Won <"
@@ -160,41 +162,39 @@ const PlayersList = ({ players }) => {
                     onAddFilter={addFilterHandler}
                     onRemoveFilter={removeFilterHandler}
                 />
+            </div>
+            <div className={styles.playersTableContainer}>
+                <table className={styles.playersTable}>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Rank</th>
+                            <th>Points</th>
+                            <th>Wins</th>
+                            <th>Loses</th>
+                            <th>Winrate</th>
+                            <th title="Tournaments Won">T Won</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {playersJSX}
+                    </tbody>
+                </table>
+            </div>       
             </React.Fragment>
 
             }
-            <table className={styles.playersTable}>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Rank</th>
-                        <th>Points</th>
-                        <th>Wins</th>
-                        <th>Loses</th>
-                        <th>Winrate</th>
-                        <th title="Tournaments Won">T Won</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {!playerDetails &&
-                        <React.Fragment>
-                            {playersJSX}
-                        </React.Fragment>
-                    }
-                    {playerDetails &&
-                        <PlayerItem 
-                            player={playerDetails}
-                            onShowPlayerMatches={showPlayerMatchesHandler}
-                            matchesAreShown={true}
-                            isMobile={isMobile}
-                        />
-                    }
-                </tbody>
-            </table>
             {playerDetails &&
-                <PlayerDetails player={playerDetails} isMobile={isMobile} />
+                <React.Fragment>
+                    <PlayerDetails 
+                        player={playerDetails} 
+                        isMobile={isMobile} 
+                        onShowPlayerMatches={showPlayerMatchesHandler}
+                        matchesAreShown={true}
+                    />
+                </React.Fragment>
             }
-        </React.Fragment>
+        </div>
     )
 }
 

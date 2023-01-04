@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import styles from  "./PlayersRanks.module.css";
+import containerStyles from "./../../UI/Container.module.css";
 
 import { useMediaQuery } from "react-responsive";
 import { BsFillArrowDownCircleFill } from "react-icons/bs";
@@ -70,20 +71,23 @@ const PlayersRanks = ({ players }) => {
     })
     
     return (
-        <div className={styles.playersRanks}>
-            <div className={styles.rankHeaders}>
-                <span>Player</span>
-                <span>Rank</span>
-                {!isMobile &&
-                    <span title="Ranks gained or lost from previous tournament">Rank Diff</span>
-                }
-                <span>Points</span>
-                {!isMobile &&
-                    <span title="Points gained or lost from previous tournament">Points Diff</span>
-                }
+        <div className={containerStyles.sidebarContent}>
+            <div className={styles.playersRanks}>
+                <div className={styles.rankHeaders}>
+                    <span>Player</span>
+                    <span>Rank</span>
+                    {!isMobile &&
+                        <span title="Ranks gained or lost from previous tournament">Rank Diff</span>
+                    }
+                    <span>Points</span>
+                    {!isMobile &&
+                        <span title="Points gained or lost from previous tournament">Points Diff</span>
+                    }
+                </div>
+                    {playersJSX}
             </div>
-                {playersJSX}
         </div>
+        
     )
 }
 

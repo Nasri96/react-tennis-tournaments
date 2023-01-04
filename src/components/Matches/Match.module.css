@@ -1,22 +1,23 @@
 .matchContainer {
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
-    margin: 20px;
+    border-left: 2px solid var(--color-light);
+    padding-left: 20px;
+    margin: 50px 10px;
 }
 
 .match {
-    flex-basis: 40%;
+    flex-basis: 100%;
 }
 
 .badge {
-    flex-basis: 15%;
+    flex-basis: 49%;
     flex-grow: 1;
     padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #303030;
+    margin: 1px;
     color: #303030;
     background-color: #F7F7F7;
+    border-radius: 3px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,94 +34,45 @@
 }
 
 .round {
-    flex-basis: 15%;
+    flex-basis: 49%;
     flex-grow: 1;
     padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #303030;
+    margin: 1px;
     color: #303030;
     background-color: #F7F7F7;
+    border-radius: 3px;
     display: flex;
     align-items: center;
 }
 
 .tournamentName {
-    flex-basis: 15%;
+    flex-basis: 49%;
     flex-grow: 1;
     padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #303030;
+    margin: 1px;
     color: #303030;
     background-color: #F7F7F7;
+    border-radius: 3px;
     display: flex;
     align-items: center;
 }
 
 .tournamentSeries {
-    flex-basis: 15%;
+    flex-basis: 49%;
     flex-grow: 1;
     padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #303030;
+    margin: 1px;
     color: #303030;
     background-color: #F7F7F7;
+    border-radius: 3px;
     display: flex;
     align-items: center;
 }
 
 @media screen and (max-width: 768px) {
-    .matchContainer {
-        margin: 15px;
-        border: 1px solid #303030;
-    }
 
-    .match {
-        flex-basis: 100%;
-    }
-
-    .match :first-child {
-        margin: 0;
-    }
-
-    .badge {
-        flex-basis: 50%;
-        margin: 0;
-    }
-
-    .round {
-        flex-basis: 50%;
-        margin: 0;
-    }
-
-    .tournamentName {
-        flex-basis: 50%;
-        margin: 0;
-    }
-
-    .tournamentSeries {
-        flex-basis: 50%;
-        margin: 0;
-    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1600px) {
-    .match :first-child {
-        margin: 0;
-    }
-
-    .badge {
-        margin: 0;
-    }
-
-    .round {
-        margin: 0;
-    }
-
-    .tournamentName {
-        margin: 0;
-    }
-
-    .tournamentSeries {
-        margin: 0;
-    }
+    
 }

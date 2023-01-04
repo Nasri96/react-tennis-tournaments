@@ -18,6 +18,15 @@
     border-radius: 3px;
 }
 
+.tournamentContainer {
+    flex-basis: 100%;
+    padding: 50px;
+    border: 1px solid var(--color-light);
+    border-radius: 3px;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+}
+
 .textNoTournament {
     text-align: center;
 }
@@ -37,15 +46,6 @@
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
-}
-
-.tournamentContainer {
-    flex-basis: 100%;
-    padding: 50px;
-    border: 1px solid var(--color-light);
-    border-radius: 3px;
-    background-color: var(--color-dark);
-    color: var(--color-light);
 }
 
 @media screen and (max-width: 768px) {

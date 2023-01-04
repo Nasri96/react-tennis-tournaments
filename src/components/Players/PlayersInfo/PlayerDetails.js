@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { usePagination } from "../../../hooks/usePagination";
 import { useFilter } from "../../../hooks/useFilter";
@@ -18,11 +19,19 @@ const roundsStrength = {
     finals: 5
 }
 
-const PlayerDetails = ({ player, isMobile }) => {
+const PlayerDetails = ({ player, isMobile, onShowPlayerMatches, matchesAreShown }) => {
     const [sortSelected, setSortSelected] = useState("Default");
     const { paginationData, paginationPage, setPaginationPage } = usePagination(player.matches, 10);
     const [displayPlayerMatches, setDisplayPlayerMatches] = useState([...paginationPage]);
     const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
+    const [matchesIcon, setMatchesIcon] = useState(false);
+    const showMatchesIconHandler = e => {
+        setMatchesIcon(true);
+    }
+
+    const hideMatchesIconHandler = e => {
+        setMatchesIcon(false);
+    }
 
     // Sort and display new paginationPage
     useEffect(() => {
@@ -113,46 +122,68 @@ const PlayerDetails = ({ player, isMobile }) => {
 
     return (
         <div className={styles.playerDetails}>
-            {isMobile &&
                 <div className={styles.playerStats}>
+                    <button 
+                        className={styles.matchesButton} 
+                        onClick={onShowPlayerMatches.bind(null, player)} 
+                        onMouseEnter={showMatchesIconHandler} 
+                        onMouseLeave={hideMatchesIconHandler}>
+                        {matchesIcon ? <span className={styles.icon}>{"<"}</span> :  <span className={styles.icon}>{""}</span>}
+                        {" Back"}
+                    </button>
                     <h3>{player.name}'s stats</h3>
                     <div className={styles.playerStatsTable}>
+                        <div className={styles.playerStatsTableRow}>
+                            <div>Rank</div>
+                            <div>Points</div>
+                            <div title="Tournaments Won">T Won</div>
+                        </div>
+                        <div className={styles.playerStatsTableRow}>
+                            <div>{player.rank}</div>
+                            <div>{player.points}</div>
+                            <div>{player.tournamentsWon}</div>
+                        </div>
                         <div className={styles.playerStatsTableRow}>
                             <div>Wins</div>
                             <div>Loses</div>
                             <div>Winrate</div>
-                            <div title="Tournaments Won">T Won</div>
                         </div>
                         <div className={styles.playerStatsTableRow}>
                             <div>{player.wins}</div>
                             <div>{player.loses}</div>
                             <div>{player.winrate}%</div>
-                            <div>{player.tournamentsWon}</div>
                         </div>
                     </div>
                 </div>
-            }
-            <div className={styles.matchesList}>
-                <h3>{player.name}'s matches</h3>
-                <Sort onChangeSort={sortPlayerMatchesHandler} options={["Default", "Wins", "Loses", "Round >", "Round <", "Tournament >", "Tournament <"]} />
-                <Filter 
-                    config={
-                        [
-                            { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
-                            { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] },
-                            { groupName: "Match Outcome", propertyToFilter: "matchOutcome", valuesToFilter: ["Win", "Lost"] }
-                        ]
-                    }
-                    onAddFilter={addFilterHandler}
-                    onRemoveFilter={removeFilterHandler}
-                />
-                {displayPlayerMatches.map(match => {
-                    return (
-                        <Match match={match} badge={player.name === match.winner ? "Win" : "Lost"} />
-                    )
-                })}
-            </div>
-            <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+                <div className={styles.sortFilterMatchesContainer}>
+                    <div className={styles.sortFilterContainer}>
+                        <h3>Sort and Filter {player.name}'s matches</h3>
+                        <Sort onChangeSort={sortPlayerMatchesHandler} options={["Default", "Wins", "Loses", "Round >", "Round <", "Tournament >", "Tournament <"]} />
+                        <Filter 
+                            config={
+                                [
+                                    { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
+                                    { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] },
+                                    { groupName: "Match Outcome", propertyToFilter: "matchOutcome", valuesToFilter: ["Win", "Lost"] }
+                                ]
+                            }
+                            onAddFilter={addFilterHandler}
+                            onRemoveFilter={removeFilterHandler}
+                        />
+                    </div>
+                    <div className={styles.matchesContainer}>
+                        <div className={styles.matchesList}>
+                            <h3>{player.name}'s matches</h3>
+                            
+                            {displayPlayerMatches.map(match => {
+                                return (
+                                    <Match match={match} badge={player.name === match.winner ? "Win" : "Lost"} />
+                                )
+                            })}
+                        </div> 
+                        <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+                    </div>
+                </div>  
         </div>
     );
 }

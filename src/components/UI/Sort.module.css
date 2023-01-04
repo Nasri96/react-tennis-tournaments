@@ -1,11 +1,12 @@
 .sortForm {
-    width: 75%;
+    width: 90%;
     background-color: var(--color-dark);
     color: var(--color-light);
     text-align: center;
-    margin: 5px auto;
+    margin: 15px auto;
     padding: 12px;
     border-bottom: 2px solid var(--color-light);
+    border-radius: 3px;
 }
 
 .sortForm p {

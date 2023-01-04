@@ -6,12 +6,9 @@ import PlayerList from "./PlayerList";
 
 const PlayersInfo = ({ players }) => {
     return (
-        <React.Fragment>
-            <div className={styles.playersInfo}>
+            <React.Fragment>
                 <PlayerList players={players} />
-            </div>
-        </React.Fragment>
-        
+            </React.Fragment>
     )
 }
 
