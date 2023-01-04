@@ -11,9 +11,9 @@
     width: 25%;
     padding: 6px;
     height: 50px;
-    background-color: #303030;
-    color: #F7F7F7;
-    border: 1px solid #F7F7F7;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    border: 1px solid var(--color-light);
     border-radius: 2px;
 }
 
@@ -32,8 +32,8 @@
 
 .playerStats {
     margin: 12px 0;
-    background-color: #464646;
-    color: #F7F7F7;
+    background-color: var(--color-dark-lighter);
+    color: var(--color-light);
     padding: 25px;
     border-radius: 3px;
     margin: 15px;
@@ -61,17 +61,23 @@
 
 .sortFilterContainer {
     flex-basis: 30%;
-    background-color: #464646;
-    color: #F7F7F7;
+    background-color: var(--color-dark-lighter);
+    color: var(--color-light);
     padding: 25px;
     border-radius: 3px;
     margin: 15px;
 }
 
+.positionSticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
 .matchesContainer {
     flex-basis: 70%;
-    background-color: #464646;
-    color: #F7F7F7;
+    background-color: var(--color-dark-lighter);
+    color: var(--color-light);
     border-radius: 3px;
     margin: 15px;
 }

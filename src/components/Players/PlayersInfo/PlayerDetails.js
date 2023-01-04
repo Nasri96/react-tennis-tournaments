@@ -157,19 +157,21 @@ const PlayerDetails = ({ player, isMobile, onShowPlayerMatches, matchesAreShown 
                 </div>
                 <div className={styles.sortFilterMatchesContainer}>
                     <div className={styles.sortFilterContainer}>
-                        <h3>Sort and Filter {player.name}'s matches</h3>
-                        <Sort onChangeSort={sortPlayerMatchesHandler} options={["Default", "Wins", "Loses", "Round >", "Round <", "Tournament >", "Tournament <"]} />
-                        <Filter 
-                            config={
-                                [
-                                    { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
-                                    { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] },
-                                    { groupName: "Match Outcome", propertyToFilter: "matchOutcome", valuesToFilter: ["Win", "Lost"] }
-                                ]
-                            }
-                            onAddFilter={addFilterHandler}
-                            onRemoveFilter={removeFilterHandler}
-                        />
+                        <div className={styles.positionSticky}>
+                            <h3>Sort and Filter {player.name}'s matches</h3>
+                            <Sort onChangeSort={sortPlayerMatchesHandler} options={["Default", "Wins", "Loses", "Round >", "Round <", "Tournament >", "Tournament <"]} />
+                            <Filter 
+                                config={
+                                    [
+                                        { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
+                                        { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] },
+                                        { groupName: "Match Outcome", propertyToFilter: "matchOutcome", valuesToFilter: ["Win", "Lost"] }
+                                    ]
+                                }
+                                onAddFilter={addFilterHandler}
+                                onRemoveFilter={removeFilterHandler}
+                            />
+                        </div>
                     </div>
                     <div className={styles.matchesContainer}>
                         <div className={styles.matchesList}>

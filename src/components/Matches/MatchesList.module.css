@@ -1,8 +1,29 @@
+.sortFilterContainer {
+    flex-basis: 30%;
+    background-color: var(--color-dark-lighter);
+    color: var(--color-light);
+    padding: 25px;
+    border-radius: 3px;
+    margin: 15px;
+}
+
+.positionSticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+.matchesContainer {
+    flex-basis: 70%;
+    background-color: var(--color-dark-lighter);
+    color: var(--color-light);
+    border-radius: 3px;
+    margin: 15px;
+}
+
 .matchesList {
-    background-color: #303030;
-    color: #F7F7F7;
-    min-height: 90vh;
-    padding: 80px 100px;
+    padding: 25px;
+    min-height: 50vh;
 }
 
 .heading {
@@ -14,41 +35,6 @@
     display: flex;
     align-items: stretch;
     flex-wrap: wrap;
-}
-
-.match {
-    flex-basis: 66%;
-    flex-grow: 1;
-}
-
-.round {
-    flex-basis: 16%;
-    padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #303030;
-    color: #303030;
-    background-color: #F7F7F7;
-    display: flex;
-    align-items: center;
-}
-
-.tournamentName {
-    flex-basis: 16%;
-    padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #303030;
-    color: #303030;
-    background-color: #F7F7F7;
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-}
-
-.paginationContainer {
-    padding: 20px 100px;
-    width: 50%;
-    overflow: auto;
-    margin: 0 auto;
 }
 
 @media screen and (max-width: 768px) {

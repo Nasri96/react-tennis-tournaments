@@ -6,9 +6,7 @@ import PlayerList from "./PlayerList";
 
 const PlayersInfo = ({ players }) => {
     return (
-            <React.Fragment>
-                <PlayerList players={players} />
-            </React.Fragment>
+            <PlayerList players={players} />
     )
 }
 

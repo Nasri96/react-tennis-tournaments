@@ -5,9 +5,10 @@ import { useFilter } from "../../hooks/useFilter";
 import AppContext from "../../store/app-context";
 
 import styles from "./MatchesList.module.css";
+import containerStyles from "../UI/Container.module.css";
 
 import Match from "./Match";
-import Card from "../UI/Card";
+import Container from "../UI/Container";
 import PaginationLinks from "../UI/PaginationLinks";
 import Sort from "../UI/Sort";
 import Filter from "../UI/Filter";
@@ -92,28 +93,41 @@ const MatchesList = () => {
     }
 
     return (
-        <Card>
-            <h3 className={styles.heading}>Matches</h3>
-            <Sort onChangeSort={sortMatchesHandler} options={["Default", "Round >", "Round <", "Tournament >", "Tournament <"]} />
-            <Filter 
-                config={
-                    [
-                        { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
-                        { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] } 
-                    ]
-                }
-                onAddFilter={addFilterHandler}
-                onRemoveFilter={removeFilterHandler}
-            />
-            <div className={styles.matchesList}>
-                {displayMatches.map(match => {
-                    return (
-                        <Match match={match} />
-                    )
-                })}
+        <Container type="sidebarContainer">
+            <div className={containerStyles.sidebarContent}>
+            <div className={styles.sortFilterContainer}>
+                <div className={styles.positionSticky}>
+                    <h3 className={styles.heading}>Sort and Filter Matches</h3>
+                        <Sort onChangeSort={sortMatchesHandler} options={["Default", "Round >", "Round <", "Tournament >", "Tournament <"]} />
+                        <Filter 
+                            config={
+                                [
+                                    { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
+                                    { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] } 
+                                ]
+                            }
+                            onAddFilter={addFilterHandler}
+                            onRemoveFilter={removeFilterHandler}
+                        />
+                </div>
+                
             </div>
-            <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
-        </Card>
+            <div className={styles.matchesContainer}>
+                <h3 className={styles.heading}>Matches</h3>
+                <div className={styles.matchesList}>
+                    {displayMatches.map(match => {
+                        return (
+                            <Match match={match} />
+                        )
+                    })}
+                </div>
+                <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+            </div>
+            
+                
+            </div>
+        </Container>
+        
     )
 }
 
