@@ -84,7 +84,6 @@
 
 .matchesList {
     padding: 25px;
-    min-height: 50vh;
 }
 
 @media screen and (max-width: 768px) {

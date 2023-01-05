@@ -19,7 +19,7 @@ const roundsStrength = {
     finals: 5
 }
 
-const PlayerDetails = ({ player, isMobile, onShowPlayerMatches, matchesAreShown }) => {
+const PlayerDetails = ({ player, onShowPlayerMatches }) => {
     const [sortSelected, setSortSelected] = useState("Default");
     const { paginationData, paginationPage, setPaginationPage } = usePagination(player.matches, 10);
     const [displayPlayerMatches, setDisplayPlayerMatches] = useState([...paginationPage]);
@@ -185,6 +185,7 @@ const PlayerDetails = ({ player, isMobile, onShowPlayerMatches, matchesAreShown 
                         </div> 
                         <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
                     </div>
+                    
                 </div>  
         </div>
     );

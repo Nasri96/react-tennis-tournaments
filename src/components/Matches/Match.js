@@ -35,22 +35,31 @@ const Match = ({ match, badge }) => {
     
     return (
         <div className={styles.matchContainer}>
-            <div className={styles.match}>
-                <TournamentMatch match={match} matchesLiveUpdates={false} ref={null} />
+            <div className={styles.leftSide}>
+                <div className={styles.match}>
+                    <TournamentMatch match={match} matchesLiveUpdates={false} ref={null} />
+                </div>
             </div>
-            {badge && 
-            <div className={`${styles.badge} ${styles[badge]}`}>
-                <p>{badge}</p>
-            </div>
-            }
-            <div className={styles.round}>
-                <p>{transformText(match.round)}</p>
-            </div>
-            <div className={styles.tournamentName}>
-                <p>{match.tournamentName}</p>
-            </div>
-            <div className={styles.tournamentSeries}>
-                <p>Series: {match.tournamentSeries}</p>
+            <div className={styles.rightSide}>
+                <div className={styles.rightSideLeftSide}>
+                    {badge && 
+                    <div className={`${styles.badge} ${styles[badge]}`}>
+                        <p>{badge}</p>
+                    </div>
+                    }
+                    <div className={styles.round}>
+                        <p>{transformText(match.round)}</p>
+                    </div>
+                </div>
+                <div className={styles.rightSideRightSide}>
+                    <div className={styles.tournamentName}>
+                        <p>{match.tournamentName}</p>
+                    </div>
+                    <div className={styles.tournamentSeries}>
+                        <p>Series: {match.tournamentSeries}</p>
+                    </div>
+                </div>
+                
             </div>
         </div>
     )
