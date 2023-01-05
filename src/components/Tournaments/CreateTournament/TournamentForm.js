@@ -11,6 +11,7 @@ const TournamentForm = ({ onSwitchTab }) => {
     const [tournamentNameError, setTournamentNameError] = useState(true);
     const [tournamentNameIsTouched, setTournamentNameIsTouched] = useState(false);
     const [tournamentSeries, setTournamentSeries] = useState("250");
+    const [tournamentSurface, setTournamentSurface] = useState("Clay");
 
     const tournamentNameIsInvalid = tournamentNameIsTouched && tournamentNameError;
     let formIsValid = false;
@@ -20,6 +21,7 @@ const TournamentForm = ({ onSwitchTab }) => {
         setTournamentNameError(true);
         setTournamentNameIsTouched(false);
         setTournamentSeries("250");
+        setTournamentSurface("Clay");
     }
 
     // tournament name validation
@@ -44,7 +46,7 @@ const TournamentForm = ({ onSwitchTab }) => {
         }
 
         // Setup new tournament
-        const newTournament = new TournamentConstructor(tournamentName, players, tournamentSeries);
+        const newTournament = new TournamentConstructor(tournamentName, players, tournamentSeries, tournamentSurface);
         setActiveTournament(newTournament);
         // Switch to playtournament Tab
         onSwitchTab(e, "playtournament");
@@ -62,6 +64,10 @@ const TournamentForm = ({ onSwitchTab }) => {
 
     const tournamentSeriesChangeHandler = e => {
         setTournamentSeries(e.target.value);
+    }
+
+    const tournamentSurfaceChangeHandler = e => {
+        setTournamentSurface(e.target.value);
     }
 
     let inputNameClass;
@@ -98,6 +104,12 @@ const TournamentForm = ({ onSwitchTab }) => {
                             <option>500</option>
                             <option>1000</option>
                             <option>Super</option>
+                        </select>
+                        <label>Tournament Surface:</label>
+                        <select onChange={tournamentSurfaceChangeHandler} value={tournamentSurface}>
+                            <option>Clay</option>
+                            <option>Grass</option>
+                            <option>Hard</option>
                         </select>
                         <div className={styles.buttonContainer}>
                             <button type="submit">Create</button>

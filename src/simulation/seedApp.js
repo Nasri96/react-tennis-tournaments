@@ -13,11 +13,18 @@ const createRandomTournaments = (numTournaments = 10) => {
         "Super"
     ]
 
+    const tournamentSurfaces = [
+        "Hard",
+        "Clay",
+        "Grass"
+    ]
+
     // Create 10 default random tournaments for app
     for(let i = 0; i < numTournaments; i++) {
         const tournamentName = `Tournament: ${Math.floor(Math.random() * 1000)}`;
         const randomTournamentSeries = tournamentSeries[Math.floor(Math.random() * tournamentSeries.length)];
-        const newTournament = new TournamentConstructor(tournamentName, players, randomTournamentSeries);
+        const randomTournamentSurface = tournamentSurfaces[Math.floor(Math.random() * tournamentSurfaces.length)];
+        const newTournament = new TournamentConstructor(tournamentName, players, randomTournamentSeries, randomTournamentSurface);
         newTournament.simulateMatches("round1", "instant");
         newTournament.simulateMatches("round2", "instant");
         newTournament.simulateMatches("quarterFinals", "instant");

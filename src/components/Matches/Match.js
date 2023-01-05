@@ -58,6 +58,9 @@ const Match = ({ match, badge }) => {
                     <div className={styles.tournamentSeries}>
                         <p>Series: {match.tournamentSeries}</p>
                     </div>
+                    <div className={styles.tournamentSurface}>
+                        <p>Surface: {match.tournamentSurface}</p>
+                    </div>
                 </div>
                 
             </div>

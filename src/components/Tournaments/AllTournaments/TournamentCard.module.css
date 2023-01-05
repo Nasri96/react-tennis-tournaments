@@ -22,7 +22,7 @@
 .tournamentSeries {
     font-size: 1.08rem;
     padding: 12px;
-    align-self: flex-start;
+    align-self: center;
 }
 
 .tournamentWinner {

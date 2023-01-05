@@ -20,7 +20,7 @@ const TournamentList = () => {
     const { tournaments } = useContext(AppContext);
     const [displayTournament, setDisplayTournament] = useState(false);
     const [sortSelected, setSortSelected] = useState("Latest");
-    const { paginationData, paginationPage, setPaginationPage } = usePagination(tournaments, 10);
+    const { paginationData, paginationPage, setPaginationPage } = usePagination(tournaments, 12);
     const [displayTournaments, setDisplayTournaments] = useState([]);
     const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
     const tournamentsRef = useRef();
@@ -152,7 +152,8 @@ const TournamentList = () => {
                         <Filter
                             config={
                                 [
-                                    { groupName: "Tournament Series", propertyToFilter: "series", valuesToFilter: ["250", "500", "1000", "Super"] }
+                                    { groupName: "Tournament Series", propertyToFilter: "series", valuesToFilter: ["250", "500", "1000", "Super"] },
+                                    { groupName: "Tournament Surface", propertyToFilter: "surface", valuesToFilter: ["Clay", "Grass", "Hard"] }
                                 ]
                             }
                             onAddFilter={addFilterHandler}

@@ -28,10 +28,11 @@ import { Match } from "./match";
 
 const { players } = Player;
 
-export function Tournament(name, participants, series) {
+export function Tournament(name, participants, series, surface) {
     this.name = name;
     this.participants = participants;
     this.series = series;
+    this.surface = surface;
     this.numSeeds = 8;
     this.winner = null;
     this.rounds = ["round1", "round2", "quarterFinals", "semiFinals", "finals"];
@@ -138,7 +139,7 @@ Tournament.prototype.createInitialMatches = function(matchBrackets) {
     matchBrackets.forEach(bracket => {
         bracket.forEach((player, i) => {
             if(i % 2 === 0) {
-                bracket.push(new Match(player, bracket[i + 1], { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series));
+                bracket.push(new Match(player, bracket[i + 1], { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series, this.surface));
             }
         })
     })
@@ -174,7 +175,7 @@ Tournament.prototype.createNextRoundMatches = function(matches) {
             const nextRoundPlayer1 = players.find(player => player.name === winner1);
             const nextRoundPlayer2 = players.find(player => player.name === winner2);
 
-            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series));
+            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series, this.surface));
         }
     })
 

@@ -21,6 +21,12 @@
     padding: 25px 12px;
 }
 
+.tournamentInfo .tournamentSurface {
+    text-align: center;
+    font-weight: normal;
+    padding: 25px 12px;
+}
+
 @media screen and (max-width: 768px) {
     .tournamentInfo {
       font-size: 1rem;
@@ -35,6 +41,10 @@
     
     .tournamentInfo .tournamentSeries {
         
+        padding: 5px;
+    }
+
+    .tournamentInfo .tournamentSurface {
         padding: 5px;
     }
 }

@@ -26,8 +26,7 @@
 
 .sidebarContent {
     display: flex;
-    max-width: 100%;
-    contain: paint;
+    width: 84%;
     flex-grow: 1;
     background-color: var(--color-dark);
 }
@@ -36,6 +35,10 @@
 @media screen and (min-width: 768px) and (max-width: 1200px) {
     .sidebarContainer {
         flex-direction: column;
+    }
+
+    .sidebarContent {
+        width: 100%;
     }
     
 }
@@ -47,6 +50,10 @@
 
     .sidebarContent {
         flex-direction: column;
+    }
+
+    .sidebarContent {
+        width: 100%;
     }
 }
 

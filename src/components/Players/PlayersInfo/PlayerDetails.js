@@ -179,6 +179,7 @@ const PlayerDetails = ({ player, onShowPlayerMatches }) => {
                                     [
                                         { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
                                         { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] },
+                                        { groupName: "Tournament Surface", propertyToFilter: "tournamentSurface", valuesToFilter: ["Clay", "Grass", "Hard"] },
                                         { groupName: "Match Outcome", propertyToFilter: "matchOutcome", valuesToFilter: ["Win", "Lost"] }
                                     ]
                                 }

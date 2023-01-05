@@ -1,5 +1,5 @@
 /* eslint-disable */
-export function Match(p1, p2, rules, tournamentName, round, tournamentSeries) {
+export function Match(p1, p2, rules, tournamentName, round, tournamentSeries, tournamentSurface) {
     this.p1 = { 
         name: p1.name,
         matchHandlerVariables: {
@@ -46,6 +46,8 @@ export function Match(p1, p2, rules, tournamentName, round, tournamentSeries) {
     this.round = round;
     // String => ["250", "500", "1000", "Super"]
     this.tournamentSeries = tournamentSeries;
+    // String => ["Hard", "Clay", "Grass"]
+    this.tournamentSurface = tournamentSurface;
     this.winner = null;
     this.loser = null;
     this.timer = undefined;

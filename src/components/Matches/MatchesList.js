@@ -26,7 +26,7 @@ const roundsStrength = {
 const MatchesList = () => {
     const { matches } = useContext(AppContext);
     const [sortSelected, setSortSelected] = useState("Latest");
-    const { paginationData, paginationPage, setPaginationPage } = usePagination(matches, 20);
+    const { paginationData, paginationPage, setPaginationPage } = usePagination(matches, 200);
     const [displayMatches, setDisplayMatches] = useState([...paginationPage]);
     const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
     const matchesRef = useRef();
@@ -116,7 +116,8 @@ const MatchesList = () => {
                             config={
                                 [
                                     { groupName: "Tournament Round", propertyToFilter: "round", valuesToFilter: ["round1", "round2", "quarterFinals", "semiFinals", "finals"] },
-                                    { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] } 
+                                    { groupName: "Tournament Series", propertyToFilter: "tournamentSeries", valuesToFilter: ["250", "500", "1000", "Super"] },
+                                    { groupName: "Tournament Surface", propertyToFilter: "tournamentSurface", valuesToFilter: ["Clay", "Grass", "Hard"] }
                                 ]
                             }
                             onAddFilter={addFilterHandler}
