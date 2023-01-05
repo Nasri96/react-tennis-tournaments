@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { usePagination } from "../../hooks/usePagination";
 import { useFilter } from "../../hooks/useFilter";
 
@@ -26,9 +26,17 @@ const roundsStrength = {
 const MatchesList = () => {
     const { matches } = useContext(AppContext);
     const [sortSelected, setSortSelected] = useState("Latest");
-    const { paginationData, paginationPage, setPaginationPage } = usePagination(matches, 50);
+    const { paginationData, paginationPage, setPaginationPage } = usePagination(matches, 20);
     const [displayMatches, setDisplayMatches] = useState([...paginationPage]);
     const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
+    const matchesRef = useRef();
+
+    // Scroll after pagination page is clicked
+    const scrollToContainerHandler = e => {
+        matchesRef.current.scrollIntoView({
+            behavior: "smooth"
+        })
+    }
 
     // Display and filter/sort new pagination page
     useEffect(() => {
@@ -117,7 +125,7 @@ const MatchesList = () => {
                 </div>
                 
             </div>
-            <div className={styles.matchesContainer}>
+            <div ref={matchesRef} className={styles.matchesContainer}>
                 <h3 className={styles.heading}>Matches</h3>
                 <div className={styles.matchesList}>
                     {displayMatches.map(match => {
@@ -126,7 +134,7 @@ const MatchesList = () => {
                         )
                     })}
                 </div>
-                <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+                <PaginationLinks onScroll={scrollToContainerHandler} paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
             </div>
             
                 

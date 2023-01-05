@@ -1,8 +1,7 @@
 header {
     background-color: #F7F7F7;
     color: #303030;
-    height: 16vh;
-    min-height: 15vh;
+    min-height: 150px;
     display: flex;
     border-bottom: 2px solid #303030;
 }

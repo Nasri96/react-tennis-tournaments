@@ -27,7 +27,7 @@
 .sidebarContent {
     display: flex;
     max-width: 100%;
-    overflow: hidden;
+    contain: paint;
     flex-grow: 1;
     background-color: var(--color-dark);
 }

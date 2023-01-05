@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePagination } from "../../../hooks/usePagination";
 import { useFilter } from "../../../hooks/useFilter";
 
@@ -25,6 +25,14 @@ const PlayerDetails = ({ player, onShowPlayerMatches }) => {
     const [displayPlayerMatches, setDisplayPlayerMatches] = useState([...paginationPage]);
     const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
     const [matchesIcon, setMatchesIcon] = useState(false);
+    const matchesRef = useRef();
+
+    // Scroll after pagination page is clicked
+    const scrollToContainerHandler = e => {
+        matchesRef.current.scrollIntoView({
+            behavior: "smooth"
+        })
+    }
     
     const showMatchesIconHandler = e => {
         setMatchesIcon(true);
@@ -179,7 +187,7 @@ const PlayerDetails = ({ player, onShowPlayerMatches }) => {
                             />
                         </div>
                     </div>
-                    <div className={styles.matchesContainer}>
+                    <div ref={matchesRef} className={styles.matchesContainer}>
                         <div className={styles.matchesList}>
                             <h3>{player.name}'s matches</h3>
                             
@@ -189,7 +197,7 @@ const PlayerDetails = ({ player, onShowPlayerMatches }) => {
                                 )
                             })}
                         </div> 
-                        <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+                        <PaginationLinks onScroll={scrollToContainerHandler} paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
                     </div>
                     
                 </div>  

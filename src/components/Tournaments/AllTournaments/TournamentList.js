@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { usePagination } from "../../../hooks/usePagination";
 import { useFilter } from "../../../hooks/useFilter";
 
+import { useRef } from "react";
+
 import AppContext from "../../../store/app-context";
 
 import styles from "./TournamentList.module.css";
@@ -21,6 +23,14 @@ const TournamentList = () => {
     const { paginationData, paginationPage, setPaginationPage } = usePagination(tournaments, 10);
     const [displayTournaments, setDisplayTournaments] = useState([]);
     const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
+    const tournamentsRef = useRef();
+
+    // Scroll after pagination page is clicked
+    const scrollToContainerHandler = e => {
+        tournamentsRef.current.scrollIntoView({
+            behavior: "smooth"
+        })
+    }
 
     // Sort and display new paginationPage
     useEffect(() => {
@@ -149,7 +159,7 @@ const TournamentList = () => {
                             onRemoveFilter={removeFilterHandler}
                         />
                     </div>
-                    <div className={styles.tournamentListContainer}>
+                    <div ref={tournamentsRef} className={styles.tournamentListContainer}>
                         <h3 className={styles.heading}>Tournaments</h3>
                         <div className={styles.tournamentList}>
                             {displayTournaments.map(tournament => {
@@ -159,7 +169,7 @@ const TournamentList = () => {
                             })}
                         </div>
 
-                        <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
+                        <PaginationLinks onScroll={scrollToContainerHandler} paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
                     </div>
                 </React.Fragment>
             }
