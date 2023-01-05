@@ -3,7 +3,9 @@
 }
 
 .tournamentItemCenterContent {
-    width: 65%;
+    flex-grow: 1;
+    max-width: 100%;
+    overflow: auto;
     background: var(--color-light);
     color: var(--color-dark);
     padding: 25px;
@@ -13,7 +15,7 @@
 }
 
 .tournamentRightSidebarContent {
-    flex-grow: 1;
+    min-width: 35%;
     display: flex;
     flex-direction: column;
     background: var(--color-light);

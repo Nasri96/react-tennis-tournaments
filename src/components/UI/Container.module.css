@@ -16,7 +16,7 @@
 
 .sidebarTabs {
     display: flex;
-    flex-basis: 16%;
+    min-width: 16%;
     flex-direction: column;
     background-color: var(--color-light);
     border: 1px solid var(--color-darker);
@@ -26,8 +26,9 @@
 
 .sidebarContent {
     display: flex;
+    max-width: 100%;
+    overflow: hidden;
     flex-grow: 1;
-    flex-basis: 84%;
     background-color: var(--color-dark);
 }
 
@@ -36,7 +37,7 @@
     .sidebarContainer {
         flex-direction: column;
     }
-
+    
 }
 
 @media screen and (max-width: 768px) {
@@ -47,4 +48,8 @@
     .sidebarContent {
         flex-direction: column;
     }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1360px) {
 }
