@@ -26,14 +26,14 @@ const createRandomTournaments = (numTournaments = 10) => {
         createdTournaments.unshift(newTournament);
     }
 
-    // save tournament matches
-    createdTournaments.forEach(tournament => {
-        for(let tournamentRound in tournament.matches) {
-            tournament.matches[tournamentRound].forEach(match => {
-                createdMatches.unshift(match);
-            })
+    // save latest tournament matches
+    for(let i = createdTournaments.length - 1; i >= 0; i--) {
+        for(let tournamentRound in createdTournaments[i].matches) {
+            for(let j = 0; j < createdTournaments[i].matches[tournamentRound].length; j++) {
+                createdMatches.unshift(createdTournaments[i].matches[tournamentRound][j]);
+            }
         }
-    })
+    }
 
     return {
         createdTournaments,

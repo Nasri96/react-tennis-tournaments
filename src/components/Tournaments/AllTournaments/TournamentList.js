@@ -157,10 +157,8 @@ const TournamentList = () => {
                         <PaginationLinks paginationData={paginationData} paginationPage={paginationPage} setPaginationPage={setPaginationPage} />
                     </div>
                 </React.Fragment>
-                
             }
             {tournaments.length !== 0 && displayTournament &&
-            <React.Fragment>
                 <div className={styles.tournamentContainer}>
                     <TournamentItem 
                         activeTournament={displayTournament}
@@ -175,7 +173,6 @@ const TournamentList = () => {
                         ref={null}
                     />
                 </div>
-            </React.Fragment> 
             }
         </div>
     );
