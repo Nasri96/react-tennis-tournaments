@@ -25,8 +25,8 @@ const roundsStrength = {
 
 const MatchesList = () => {
     const { matches } = useContext(AppContext);
-    const [sortSelected, setSortSelected] = useState("Default");
-    const { paginationData, paginationPage, setPaginationPage } = usePagination(matches, 100);
+    const [sortSelected, setSortSelected] = useState("Latest");
+    const { paginationData, paginationPage, setPaginationPage } = usePagination(matches, 50);
     const [displayMatches, setDisplayMatches] = useState([...paginationPage]);
     const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
 
@@ -40,9 +40,14 @@ const MatchesList = () => {
     const sortMatchesHandler = (e, filteredMatches=[...paginationPage]) => {
         const paginationPageCopy = filteredMatches;
 
-        if(e.target.value === "Default") {
+        if(e.target.value === "Latest") {
             setDisplayMatches(paginationPageCopy);
-            setSortSelected("Default");
+            setSortSelected("Latest");
+        }
+
+        if(e.target.value === "Oldest") {
+            setDisplayMatches(paginationPageCopy.reverse());
+            setSortSelected("Oldest");
         }
 
         if(e.target.value === "Tournament >") {
@@ -98,7 +103,7 @@ const MatchesList = () => {
             <div className={styles.sortFilterContainer}>
                 <div className={styles.positionSticky}>
                     <h3 className={styles.heading}>Sort and Filter Matches</h3>
-                        <Sort onChangeSort={sortMatchesHandler} options={["Default", "Round >", "Round <", "Tournament >", "Tournament <"]} />
+                        <Sort onChangeSort={sortMatchesHandler} options={["Latest", "Oldest", "Round >", "Round <", "Tournament >", "Tournament <"]} />
                         <Filter 
                             config={
                                 [

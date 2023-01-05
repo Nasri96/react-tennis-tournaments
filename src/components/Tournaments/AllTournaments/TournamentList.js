@@ -17,7 +17,7 @@ import PaginationLinks from "../../UI/PaginationLinks";
 const TournamentList = () => {
     const { tournaments } = useContext(AppContext);
     const [displayTournament, setDisplayTournament] = useState(false);
-    const [sortSelected, setSortSelected] = useState("Default");
+    const [sortSelected, setSortSelected] = useState("Latest");
     const { paginationData, paginationPage, setPaginationPage } = usePagination(tournaments, 10);
     const [displayTournaments, setDisplayTournaments] = useState([]);
     const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
@@ -49,9 +49,14 @@ const TournamentList = () => {
     const sortTournamentsHandler = (e, filteredPlayers=[...paginationPage]) => {
         const tournamentsCopy = filteredPlayers;
 
-        if(e.target.value === "Default") {
+        if(e.target.value === "Latest") {
             setDisplayTournaments(tournamentsCopy);   
-            setSortSelected("Default");
+            setSortSelected("Latest");
+        }
+
+        if(e.target.value === "Oldest") {
+            setDisplayTournaments(tournamentsCopy.reverse());   
+            setSortSelected("Oldest");
         }
         
         if(e.target.value === "Name >") {
@@ -133,7 +138,7 @@ const TournamentList = () => {
             {tournaments.length !== 0 && !displayTournament &&
                 <React.Fragment>
                     <div className={styles.sortFilterContainer}>
-                        <Sort onChangeSort={sortTournamentsHandler} options={["Default", "Name >", "Name <", "Series >", "Series <"]} selected={sortSelected} />
+                        <Sort onChangeSort={sortTournamentsHandler} options={["Latest", "Oldest", "Name >", "Name <", "Series >", "Series <"]} selected={sortSelected} />
                         <Filter
                             config={
                                 [

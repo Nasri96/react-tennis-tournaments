@@ -23,7 +23,6 @@ const PlayersList = ({ players }) => {
     // Sort and display new paginationPage
     useEffect(() => {
         const filteredPlayers = filterHandler([...players]);
-        console.log(filteredPlayers);
         sortPlayersHandler({target: {value: sortSelected}}, filteredPlayers);
     }, [sortSelected, filters, players]);
 

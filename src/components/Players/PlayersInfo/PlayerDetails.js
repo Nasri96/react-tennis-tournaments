@@ -20,11 +20,12 @@ const roundsStrength = {
 }
 
 const PlayerDetails = ({ player, onShowPlayerMatches }) => {
-    const [sortSelected, setSortSelected] = useState("Default");
+    const [sortSelected, setSortSelected] = useState("Latest");
     const { paginationData, paginationPage, setPaginationPage } = usePagination(player.matches, 10);
     const [displayPlayerMatches, setDisplayPlayerMatches] = useState([...paginationPage]);
     const { filters, addFilterHandler, removeFilterHandler, filterHandler } = useFilter();
     const [matchesIcon, setMatchesIcon] = useState(false);
+    
     const showMatchesIconHandler = e => {
         setMatchesIcon(true);
     }
@@ -42,9 +43,14 @@ const PlayerDetails = ({ player, onShowPlayerMatches }) => {
     const sortPlayerMatchesHandler = (e, filteredMatches=[...paginationPage]) => {
         const playerMatchesCopy = filteredMatches;
 
-        if(e.target.value === "Default") {
+        if(e.target.value === "Latest") {
             setDisplayPlayerMatches(playerMatchesCopy);
-            setSortSelected("Default");
+            setSortSelected("Latest");
+        }
+
+        if(e.target.value === "Oldest") {
+            setDisplayPlayerMatches(playerMatchesCopy.reverse());
+            setSortSelected("Oldest");
         }
 
         if(e.target.value === "Wins") {
@@ -159,7 +165,7 @@ const PlayerDetails = ({ player, onShowPlayerMatches }) => {
                     <div className={styles.sortFilterContainer}>
                         <div className={styles.positionSticky}>
                             <h3>Sort and Filter {player.name}'s matches</h3>
-                            <Sort onChangeSort={sortPlayerMatchesHandler} options={["Default", "Wins", "Loses", "Round >", "Round <", "Tournament >", "Tournament <"]} />
+                            <Sort onChangeSort={sortPlayerMatchesHandler} options={["Latest", "Oldest", "Wins", "Loses", "Round >", "Round <", "Tournament >", "Tournament <"]} />
                             <Filter 
                                 config={
                                     [
