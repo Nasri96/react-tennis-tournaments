@@ -139,7 +139,7 @@ Tournament.prototype.createInitialMatches = function(matchBrackets) {
     matchBrackets.forEach(bracket => {
         bracket.forEach((player, i) => {
             if(i % 2 === 0) {
-                bracket.push(new Match(player, bracket[i + 1], { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series, this.surface));
+                bracket.push(new Match(player, bracket[i + 1], { setsWin: this.series === "Super" ? 3 : 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series, this.surface));
             }
         })
     })
@@ -175,7 +175,7 @@ Tournament.prototype.createNextRoundMatches = function(matches) {
             const nextRoundPlayer1 = players.find(player => player.name === winner1);
             const nextRoundPlayer2 = players.find(player => player.name === winner2);
 
-            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series, this.surface));
+            newMatches.push(new Match(nextRoundPlayer1, nextRoundPlayer2, { setsWin: this.series === "Super" ? 3 : 2, gemsWin: 6, tiebreak: null}, this.name, this.rounds[this.currentRound], this.series, this.surface));
         }
     })
 
