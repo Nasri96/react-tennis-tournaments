@@ -28,7 +28,9 @@
     display: flex;
     width: 84%;
     flex-grow: 1;
-    background-color: var(--color-dark);
+    border: 1px solid var(--color-darker);
+    border-radius: 3px;
+    background-color: var(--color-light);
 }
 
 

@@ -67,8 +67,8 @@
     width: 120px;
     padding: 12px;
     cursor: pointer;
-    color: var(--color-dark);
-    background-color: var(--tab-selected-color-bg);
+    color: var(--color-light);
+    background-color: var(--color-orange);
     border: 2px solid transparent;
     border-radius: 2px;
 }

@@ -57,5 +57,5 @@ header {
 }
 
 .navMenu .active {
-    border-bottom: 2px solid #303030;
+    border-bottom: 2px solid var(--color-orange);
 }

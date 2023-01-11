@@ -1,11 +1,12 @@
 .playersRanks {
     flex-basis: 100%;
-    padding: 25px;
+    margin: 25px;
     font-size: 1.2rem;
     text-align: center;
-    color: var(--color-light);
-    border: 1px solid var(--color-light);
-    border-radius: 3px;
+    color: var(--color-darker);
+    border: 2px solid var(--color-dark);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .rankHeaders {
@@ -33,20 +34,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: rgb(21, 255, 21);
+    color: #009e00;
 }
 
 .loseRank, .losePoints {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: rgb(255, 43, 43);
+    color: #a91515;
+}
+
+.playersRanks > :nth-child(odd) {
+    background-color:var(--color-gray);
+    border-radius: 2px;
 }
 
 .playersRanks > :nth-child(even) {
-    background-color:#0062FF;
-    color: var(--color-light);
+    background-color:var(--color-light);
     border-radius: 2px;
+}
+
+.playersRanks > :first-child {
+    background-color:var(--color-darker);
+    color: var(--color-light);
 }
 
 @media screen and (max-width: 768px) {

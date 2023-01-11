@@ -11,7 +11,8 @@
 }
 
 .selectedTab {
-    background-color:var(--tab-selected-color-bg);
+    background-color: var(--color-orange);
+    color: var(--color-light);
 }
 
 @media screen and (max-width: 768px) {

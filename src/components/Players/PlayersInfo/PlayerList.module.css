@@ -42,13 +42,13 @@
 }
 
 .playersTable tbody > :nth-child(even) {
-    background-color:#F7F7F7;
-    color: #303030;
+    background-color:var(--color-light);
+    color: var(--color-dark);
 }
 
 .playersTable tbody > :nth-child(odd) {
-    background-color:#f7f7f7c0;
-    color: #303030;
+    background-color:var(--color-gray);
+    color: var(--color-dark);
 }
 
 @media screen and (max-width: 768px) {
