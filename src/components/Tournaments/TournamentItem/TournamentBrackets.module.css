@@ -20,7 +20,6 @@
 .round {
     flex-basis: 350px;
     flex-shrink: 0;
-    margin: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -40,7 +39,7 @@
 
 @media screen and (max-width: 768px) {
     .round {
-        flex-basis: 280px;
+        flex-basis: 300px;
     }
 
     .round.roundHeading {
