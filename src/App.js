@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Players from "./components/Players/Players";
 import Tournaments from "./components/Tournaments/Tournaments";
 import MatchesList from "./components/Matches/MatchesList";
+import Footer from "./components/UI/Footer";
 
 import AppProvider from "./store/app-provider";
 
@@ -33,6 +34,7 @@ function App() {
       <Container type="container-100" >
         {content}
       </Container>
+      <Footer />
     </AppProvider>
   );
 }

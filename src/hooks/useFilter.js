@@ -48,7 +48,7 @@ export const useFilter = () => {
                 let uniquePropertyArr = [];
                 // console.log("Filters:");
                 filters.forEach(filter => {
-                    console.log("Filter:", filter);
+                    // console.log("Filter:", filter);
                     if(property === filter.propertyToFilter) {
                         uniquePropertyArr.push(filter);
                     }
@@ -58,7 +58,7 @@ export const useFilter = () => {
             })
             // Filter input Array and save results based on separatedByProperty arrays.
             separatedByProperty.forEach(uniquePropertyArr => {
-                console.log("Unique property arr:", uniquePropertyArr);
+                // console.log("Unique property arr:", uniquePropertyArr);
                 uniquePropertyArr.forEach(filter => {
                     // console.log("Filter:", filter);
                     // console.log("Searching arrToFilter where item[filter.propertyToFilter] matches filter.valueToFilter");

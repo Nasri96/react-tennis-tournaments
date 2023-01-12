@@ -22,13 +22,13 @@ const Filter = ({ config, onAddFilter, onRemoveFilter }) => {
         <form className={styles.filterForm}>
             <p>Filters:</p>
             <div className={styles.filtersContainer}>
-                {config.map(configFilter => {
+                {config.map((configFilter, i) => {
                     return (
-                        <div key={nanoid()} className={styles.groups}>
+                        <div key={i} className={styles.groups}>
                             <p className={styles.groupName}>{configFilter.groupName}</p>
                             {configFilter.valuesToFilter.map(checkboxName => {
                                 return (
-                                    <Checkbox key={nanoid()} propertyToFilter={configFilter.propertyToFilter} checkboxName={checkboxName} onAddFilter={onAddFilter} onRemoveFilter={onRemoveFilter} />
+                                    <Checkbox key={checkboxName} propertyToFilter={configFilter.propertyToFilter} checkboxName={checkboxName} onAddFilter={onAddFilter} onRemoveFilter={onRemoveFilter} />
                                 )
                             })}
                         </div>
