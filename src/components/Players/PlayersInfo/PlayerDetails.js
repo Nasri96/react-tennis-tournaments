@@ -194,7 +194,7 @@ const PlayerDetails = ({ player, onShowPlayerMatches }) => {
                             
                             {displayPlayerMatches.map(match => {
                                 return (
-                                    <Match match={match} badge={player.name === match.winner ? "Win" : "Lost"} />
+                                    <Match key={match.id} match={match} badge={player.name === match.winner ? "Win" : "Lost"} />
                                 )
                             })}
                         </div> 

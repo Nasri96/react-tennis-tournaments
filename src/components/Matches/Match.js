@@ -32,7 +32,7 @@ const transformText = string => {
 }
 
 const Match = ({ match, badge }) => {
-    
+
     return (
         <div className={styles.matchContainer}>
             <div className={styles.leftSide}>

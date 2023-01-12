@@ -2,6 +2,8 @@ import styles from "./Filter.module.css";
 
 import Checkbox from "./Checkbox";
 
+import { nanoid } from "nanoid";
+
 /* 
 -- Props --
 
@@ -22,11 +24,11 @@ const Filter = ({ config, onAddFilter, onRemoveFilter }) => {
             <div className={styles.filtersContainer}>
                 {config.map(configFilter => {
                     return (
-                        <div className={styles.groups}>
+                        <div key={nanoid()} className={styles.groups}>
                             <p className={styles.groupName}>{configFilter.groupName}</p>
                             {configFilter.valuesToFilter.map(checkboxName => {
                                 return (
-                                    <Checkbox propertyToFilter={configFilter.propertyToFilter} checkboxName={checkboxName} onAddFilter={onAddFilter} onRemoveFilter={onRemoveFilter} />
+                                    <Checkbox key={nanoid()} propertyToFilter={configFilter.propertyToFilter} checkboxName={checkboxName} onAddFilter={onAddFilter} onRemoveFilter={onRemoveFilter} />
                                 )
                             })}
                         </div>

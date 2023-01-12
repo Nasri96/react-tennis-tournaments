@@ -47,7 +47,7 @@ const PlayersRanks = ({ players }) => {
         }
 
         return (
-            <div className={styles.rankRanks}>
+            <div key={player.id} className={styles.rankRanks}>
                 <span>{player.name}</span>
                 <div className={styles.playerRank}>
                     <span>{player.rank}</span>

@@ -131,7 +131,7 @@ const MatchesList = () => {
                 <div className={styles.matchesList}>
                     {displayMatches.map(match => {
                         return (
-                            <Match match={match} />
+                            <Match key={match.id} match={match} />
                         )
                     })}
                 </div>

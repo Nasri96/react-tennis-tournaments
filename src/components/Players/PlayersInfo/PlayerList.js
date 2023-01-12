@@ -134,6 +134,7 @@ const PlayersList = ({ players }) => {
     const playersJSX = displayPlayers.map(player => {
         return (
             <PlayerItem 
+                key={player.id}
                 player={player}
                 onShowPlayerMatches={showPlayerMatchesHandler}
                 isMobile={isMobile}

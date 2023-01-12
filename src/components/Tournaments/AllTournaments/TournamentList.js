@@ -165,7 +165,7 @@ const TournamentList = () => {
                         <div className={styles.tournamentList}>
                             {displayTournaments.map(tournament => {
                                     return ( 
-                                        <TournamentCard tournament={tournament} onSetDisplayTournament={setDisplayTournamentHandler} />
+                                        <TournamentCard key={tournament.id} tournament={tournament} onSetDisplayTournament={setDisplayTournamentHandler} />
                                     )
                             })}
                         </div>

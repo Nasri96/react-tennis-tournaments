@@ -1,5 +1,9 @@
 /* eslint-disable */
+
+import { nanoid } from "nanoid";
+
 export function Match(p1, p2, rules, tournamentName, round, tournamentSeries, tournamentSurface) {
+    this.id = nanoid();
     this.p1 = { 
         name: p1.name,
         matchHandlerVariables: {
@@ -18,7 +22,7 @@ export function Match(p1, p2, rules, tournamentName, round, tournamentSeries, to
             gemsInIndividualSetsWon: [],
             setsWon: 0
         }
-    },
+    };
     this.p2 = {
         name: p2.name,
         matchHandlerVariables: {
@@ -37,7 +41,7 @@ export function Match(p1, p2, rules, tournamentName, round, tournamentSeries, to
             gemsInIndividualSetsWon: [],
             setsWon: 0
         }
-    },
+    };
     // Object => { setsWin: num, gemsWin: num, tiebreak: null }
     this.rules = rules;
     // String => Any

@@ -25,10 +25,12 @@ finals [ Match(1, 2) ]
 
 import { Player } from "./player";
 import { Match } from "./match";
+import { nanoid } from "nanoid";
 
 const { players } = Player;
 
 export function Tournament(name, participants, series, surface) {
+    this.id = nanoid();
     this.name = name;
     this.participants = participants;
     this.series = series;

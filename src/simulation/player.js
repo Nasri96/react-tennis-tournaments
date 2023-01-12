@@ -1,4 +1,7 @@
+import { nanoid } from "nanoid";
+
 export function Player(name) {
+    this.id = nanoid();
     this.name = name;
     this.rank = undefined;
     this.matches = [];

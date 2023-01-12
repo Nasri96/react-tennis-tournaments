@@ -2,6 +2,8 @@ import React, { forwardRef } from "react";
 
 import styles from "./TournamentMatch.module.css";
 
+import { nanoid } from "nanoid";
+
 const TournamentMatch = forwardRef(({ match, matchesLiveUpdates }, ref) => {
     const players = [match.p1, match.p2];
     
@@ -9,7 +11,7 @@ const TournamentMatch = forwardRef(({ match, matchesLiveUpdates }, ref) => {
         <div className={styles.match} ref={ref}>
             {players.map(player => {
                 return (
-                    <div className={match.loser === player.name ? `${styles.matchPlayer} ${styles.loser}` : styles.matchPlayer} >
+                    <div key={nanoid()} className={match.loser === player.name ? `${styles.matchPlayer} ${styles.loser}` : styles.matchPlayer} >
                         {matchesLiveUpdates &&  
                             <React.Fragment>
                             {match.winner &&
@@ -17,7 +19,7 @@ const TournamentMatch = forwardRef(({ match, matchesLiveUpdates }, ref) => {
                                     <span className={styles.playerName}>{player.name}</span> 
                                     <span className={styles.playerSetsWon}>{player.matchStats.setsWon}</span>
                                     <span className={styles.playerGemsWon}>
-                                        {player.matchStats.gemsInIndividualSetsWon.map(gems => <span>{gems}</span>)}
+                                        {player.matchStats.gemsInIndividualSetsWon.map(gems => <span key={nanoid()}>{gems}</span>)}
                                     </span>
                                 </React.Fragment>
                             }
@@ -32,7 +34,7 @@ const TournamentMatch = forwardRef(({ match, matchesLiveUpdates }, ref) => {
                                     }
                                     <span className={styles.playerCurrentGems}>{player.matchStats.gemsInCurrentSetWon}</span>
                                     <span className={styles.playerGemsWon}>
-                                        {player.matchStats.gemsInIndividualSetsWon.map(gems => <span>{gems}</span>)}
+                                        {player.matchStats.gemsInIndividualSetsWon.map(gems => <span key={nanoid()}>{gems}</span>)}
                                     </span>
                                 </React.Fragment>
                             }
@@ -43,7 +45,7 @@ const TournamentMatch = forwardRef(({ match, matchesLiveUpdates }, ref) => {
                                 <span className={styles.playerName}>{player.name}</span> 
                                 <span className={styles.playerSetsWon}>{player.matchStats.setsWon}</span>
                                 <span className={styles.playerGemsWon}>
-                                    {player.matchStats.gemsInIndividualSetsWon.map(gems => <span>{gems}</span>)}
+                                    {player.matchStats.gemsInIndividualSetsWon.map(gems => <span key={nanoid()}>{gems}</span>)}
                                 </span>
                             </React.Fragment>
                         }

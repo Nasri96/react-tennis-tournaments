@@ -1,5 +1,7 @@
 import styles from "./PaginationLinks.module.css";
 
+import { nanoid } from "nanoid";
+
 /* 
 PaginationLinks works together with usePagination hook. 
 paginationData, paginationPage, setPaginationPage are expected to be passed from usePagination hook.
@@ -21,7 +23,7 @@ const PaginationLinks = ({onScroll, paginationData, paginationPage, setPaginatio
             <div className={styles.pagination}>
                 {paginationData.map((page, i) => {
                     return (
-                        <span className={paginationDataPageIndex === i ? `${styles.activePaginationLink} ${styles.paginationLink}` : styles.paginationLink} onClick={paginationPageChangeHandler}>{i + 1}</span>
+                        <span key={nanoid()} className={paginationDataPageIndex === i ? `${styles.activePaginationLink} ${styles.paginationLink}` : styles.paginationLink} onClick={paginationPageChangeHandler}>{i + 1}</span>
                     )
                 })}
             </div>
